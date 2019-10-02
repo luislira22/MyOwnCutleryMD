@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project.Models.Domain.MasterDataFactory.Operation
+namespace Project.Models.Domain.MasterDataFactory.Operations
 {
-    public class OperationId
+    public class Operation
     {
     }
 }

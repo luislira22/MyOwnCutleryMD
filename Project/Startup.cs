@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Project.Models.PersistenceContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project
 {
@@ -31,7 +33,18 @@ namespace Project
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //Database Context das classes a persistir
+            services.AddDbContext<MachineContext>(opt =>
+                opt.UseInMemoryDatabase("Machine"));
+            services.AddDbContext<MachineContext>(opt =>
+                opt.UseInMemoryDatabase("ProductionLine"));
+            services.AddDbContext<MachineTypeContext>(opt =>
+                opt.UseInMemoryDatabase("MachineType"));
+            services.AddDbContext<ProductContext>(opt =>
+                opt.UseInMemoryDatabase("Product"));
+            services.AddDbContext<OperationContext>(opt =>
+                opt.UseInMemoryDatabase("Operation"));
+                //add PlanoProducção
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
