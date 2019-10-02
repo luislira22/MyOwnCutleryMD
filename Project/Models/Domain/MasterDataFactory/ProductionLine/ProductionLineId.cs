@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project.Models.Domain.MasterDataProduct.ProductionLine
+namespace Project.Models.Domain.MasterDataFactory.ProductionLine
 {
     public class ProductionLineId
     {
