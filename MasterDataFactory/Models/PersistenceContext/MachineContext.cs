@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.Domain.Machines;
 
-namespace Project.Models.PersistenceContext
+namespace MasterDataFactory.Models.PersistenceContext
 {
     public class MachineContext : DbContext
     {
