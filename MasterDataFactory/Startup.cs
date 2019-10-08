@@ -25,6 +25,10 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MachineContext>(opt => opt.UseInMemoryDatabase("Machine"));
+            services.AddDbContext<MachineContext>(opt => opt.UseInMemoryDatabase("ProductionLine"));
+            services.AddDbContext<MachineTypeContext>(opt => opt.UseInMemoryDatabase("MachineType"));
+            services.AddDbContext<OperationContext>(opt => opt.UseInMemoryDatabase("Operation"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
