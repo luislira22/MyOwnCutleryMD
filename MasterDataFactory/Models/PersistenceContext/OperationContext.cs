@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.Domain.Operations;
 
-namespace Project.Models.PersistenceContext
+namespace MasterDataFactory.Models.PersistenceContext
 {
     public class OperationContext : DbContext
     {

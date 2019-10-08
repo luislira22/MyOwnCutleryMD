@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+
+using MasterDataFactory.Models.PersistenceContext;
 
 namespace MasterDataFactory
 {
@@ -26,7 +29,7 @@ namespace MasterDataFactory
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MachineContext>(opt => opt.UseInMemoryDatabase("Machine"));
-            services.AddDbContext<MachineContext>(opt => opt.UseInMemoryDatabase("ProductionLine"));
+            services.AddDbContext<ProductionLineContext>(opt => opt.UseInMemoryDatabase("ProductionLine"));
             services.AddDbContext<MachineTypeContext>(opt => opt.UseInMemoryDatabase("MachineType"));
             services.AddDbContext<OperationContext>(opt => opt.UseInMemoryDatabase("Operation"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
