@@ -7,5 +7,10 @@ namespace MasterDataFactory.Models.Domain.MachinesTypes
 {
     public class MachineType
     {
+        public long Id{get;set;}
+
+        public MachineType(){
+
+        }
     }
 }

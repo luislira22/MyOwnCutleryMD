@@ -8,14 +8,14 @@ namespace MasterDataFactory.Models.PersistenceContext
 {
     public class Context : DbContext
     {       
-         public Context(DbContextOptions<MachineContext> options): base(options)
+         public Context(DbContextOptions<Context> options): base(options)
         {
 
         }
 
         public DbSet<Machine> Machines { get; set; }
         public DbSet<MachineType> MachineTypes { get; set; }
-        public DbSet<Operation> operationDBSet { get; set; }
+        public DbSet<Operation> Operations { get; set; }
         public DbSet<ProductionLine> ProductionLines { get; set; }
     }
 

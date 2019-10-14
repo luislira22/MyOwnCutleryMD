@@ -8,6 +8,11 @@ namespace MasterDataFactory.Models.Domain.Machines
 
     public class Machine
     {
-        private MachineId machineId { get; set; }
+
+        public long Id { get; set; }
+
+        public Machine(){
+
+        }
     }
 }

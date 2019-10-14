@@ -7,6 +7,11 @@ namespace MasterDataFactory.Models.Domain.ProductionLines
 {
     public class ProductionLine
     {
-        private ProductionLineId productionLineId { get; set; }
+        public long Id { get; set; }
+
+        public ProductionLine(){
+
+        }
+
     }
 }
