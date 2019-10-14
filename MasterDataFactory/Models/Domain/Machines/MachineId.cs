@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MasterDataFactory.Models.Domain.Machines
 {
     public class MachineId
     {
-        public long Id { get; set; }
+        public string Reference { get; }
+
+        public MachineId(string referencia)
+        {
+            this.Reference = referencia;
+        }
     }
+
+    public class MachineIdValueVConverter : ValueConverter<MachineId, string>
+    {
+        public MachineIdValueVConverter(ConverterMappingHints mappingHints = null) 
+            : base (
+                id => id.Reference,
+                reference => new MachineId(reference),
+                mappingHints
+                ){}
+    }
+    
+
 }

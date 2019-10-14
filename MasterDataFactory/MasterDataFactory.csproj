@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Domain\Machines\MachineIdValueConverter.cs" />
+    <Compile Remove="Models\PersistenceContext\MachineContext.cs" />
+  </ItemGroup>
+
 </Project>

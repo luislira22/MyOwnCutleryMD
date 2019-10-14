@@ -28,6 +28,9 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Exemplo da ligação à BD
+            /*var connection = "Server=lapr2019.database.windows.net;Port=5432;User Id=lapr;Password=YoHwGciYDXaUcjmt75J6;";
+            services.AddDbContext<MachineContext>(opt => opt.UseSqlServer(connection));*/
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

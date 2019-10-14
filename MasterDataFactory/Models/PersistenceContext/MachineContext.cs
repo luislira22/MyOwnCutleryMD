@@ -1,26 +1,17 @@
-using Microsoft.EntityFrameworkCore;
-using MasterDataFactory.Models.Domain.Operations;
+using System.Reflection.Emit;
 using MasterDataFactory.Models.Domain.Machines;
-using MasterDataFactory.Models.Domain.MachinesTypes;
-using MasterDataFactory.Models.Domain.ProductionLines;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Models.PersistenceContext
 {
-    public class Context : DbContext
+    public class MachineContext : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base(options)
-        {
-        }
-
         public DbSet<Machine> Machines { get; set; }
-        public DbSet<MachineType> MachineTypes { get; set; }
-        public DbSet<Operation> Operations { get; set; }
-        public DbSet<ProductionLine> ProductionLines { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
              modelBuilder.Entity<Machine>()
                 .OwnsOne(p => p.MachineId);*/
@@ -28,5 +19,11 @@ namespace MasterDataFactory.Models.PersistenceContext
                 .Property(o => o.MachineId)
                 .HasConversion(new MachineIdValueVConverter());
         }
+
+        public MachineContext(DbContextOptions<MachineContext> options) : base(options) { }
+
+
+
+
     }
 }
