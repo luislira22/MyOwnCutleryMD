@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.AspNetCore.Mvc;
 

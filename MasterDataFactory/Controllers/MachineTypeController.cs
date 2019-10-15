@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.AspNetCore.Mvc;
