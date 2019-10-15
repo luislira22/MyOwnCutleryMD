@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MasterDataProduct.Models;
+using MasterDataProduct.Models.PersistenceContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-
-using MasterDataProduct.Models.Domain.PersistenceContext;
-
 namespace MasterDataProduct
 {
     public class Startup
@@ -28,7 +20,7 @@ namespace MasterDataProduct
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("Product"));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("Product"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
     

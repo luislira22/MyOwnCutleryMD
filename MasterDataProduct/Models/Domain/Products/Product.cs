@@ -1,12 +1,12 @@
 namespace MasterDataProduct.Models.Domain.Products
 {
-
     public class Product
     {
-        private ProductId id { get; set; }
+        public ProductId Id { get; set; }
+
+        public string Name { get; set; }
 
         //Confirmar se é mesmo assim quando saírem os casos de uso    
-        private ManufacturingPlan plan { get; set; }
+        public ManufacturingPlan Plan { get; set; }
     }
 }
-
