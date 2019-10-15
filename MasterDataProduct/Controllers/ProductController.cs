@@ -9,24 +9,38 @@ namespace MasterDataProduct.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ProductService _service;
+        private readonly Context _context;
 
         public ProductController(Context context)
         {
-            _service = new ProductService(context);
-            //context.AddAsync(new Product());
+            _context = context;
         }
 
-        // POST: api/product
-        [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct(Product product)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetProduct(long id)
         {
-            await _service.CreateProduct(product);
-            /*_context.TodoItems.Add(item);
-            await _context.SaveChangesAsync();
-            */
-            return CreatedAtAction("CreateProduct", null);
+            var productService = new ProductService(_context);
+            ProductDTO productDto = await productService.GetProductById(id);
+            if (productService == null)
+            {
+                return NotFound();
+            }
+
+            return productDto;
         }
-        
+
+        [HttpPost]
+        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] Product product,
+            [FromBody] ManufacturingPlan plan)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var productService = new ProductService(_context);
+            productService.CreateProduct(product, plan);
+            return CreatedAtAction(nameof(GetProduct), new {id = product.Id}, product);
+        }
     }
 }

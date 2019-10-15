@@ -13,16 +13,17 @@ namespace MasterDataProduct.Models.Domain.Products
             _context = context;
         }
 
-
-        public async Task<ActionResult<Product>> CreateProduct(Product product)
+        public async Task<ProductDTO> GetProductById(long id)
         {
-            /*MachineId machineId = new MachineId(1);
-            _context.MachineIds.Add(machineId);
-            machine.MachineId = machineId;*/
+            var product = await _context.Products.FindAsync(id);
+            return product.toDTO();
+        }
+
+        public async void CreateProduct(Product product, ManufacturingPlan plan)
+        {
+            product.Plan = plan;
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
-            //return CreatedAtAction(nameof(machine), new { id = machine.Id,  }, machine);
-            return null;
         }
     }
 }
