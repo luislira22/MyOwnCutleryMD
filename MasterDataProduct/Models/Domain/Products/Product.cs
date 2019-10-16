@@ -20,7 +20,7 @@ namespace MasterDataProduct.Models.Domain.Products
 
         public ProductDTO toDTO()
         {
-            return new ProductDTO(Ref.id, Plan.ToString());
+            return new ProductDTO(Ref.id, Plan.Name);
         }
     }
 }
