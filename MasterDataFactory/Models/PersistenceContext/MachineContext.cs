@@ -15,9 +15,11 @@ namespace MasterDataFactory.Models.PersistenceContext
             /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
              modelBuilder.Entity<Machine>()
                 .OwnsOne(p => p.MachineId);*/
+            
             modelBuilder.Entity<Machine>()
                 .Property(o => o.MachineId)
                 .HasConversion(new MachineIdValueVConverter());
+            
         }
 
         public MachineContext(DbContextOptions<MachineContext> options) : base(options) { }
