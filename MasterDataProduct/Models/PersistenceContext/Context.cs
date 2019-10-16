@@ -21,7 +21,7 @@ namespace MasterDataProduct.Models.PersistenceContext
                 config.HasIndex(t => new {t.id, t.Ref})
                     .IsUnique(true);
                 config.Property(t => t.Ref)
-                    .HasConversion(new MachineTypeIdValueVConverter());
+                    .HasConversion(new ProductIdValueVConverter());
             });
         }
     }

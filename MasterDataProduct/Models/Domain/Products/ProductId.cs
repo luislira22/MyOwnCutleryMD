@@ -15,9 +15,9 @@ namespace MasterDataProduct.Models.Domain.Products
     }
 
 
-    public class MachineTypeIdValueVConverter : ValueConverter<ProductId, string>
+    public class ProductIdValueVConverter : ValueConverter<ProductId, string>
     {
-        public MachineTypeIdValueVConverter(ConverterMappingHints mappingHints = null)
+        public ProductIdValueVConverter(ConverterMappingHints mappingHints = null)
             : base(
                 id => id.id,
                 reference => new ProductId(reference),
