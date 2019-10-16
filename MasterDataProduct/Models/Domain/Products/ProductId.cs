@@ -6,23 +6,25 @@ namespace MasterDataProduct.Models.Domain.Products
 {
     public class ProductId
     {
-        public long Id { get; set; }
+        public string id { get; set; }
 
-        public ProductId(long id)
+        public ProductId(string id)
         {
-            Id = id;
+            this.id = id;
         }
     }
-    
-    public class ProductIdValueVConverter : ValueConverter<ProductId, long>
+
+
+    public class MachineTypeIdValueVConverter : ValueConverter<ProductId, string>
     {
-        public ProductIdValueVConverter(ConverterMappingHints mappingHints = null)
+        public MachineTypeIdValueVConverter(ConverterMappingHints mappingHints = null)
             : base(
-                id => id.Id,
-                id => new ProductId(id),
+                id => id.id,
+                reference => new ProductId(reference),
                 mappingHints
             )
         {
         }
     }
 }
+

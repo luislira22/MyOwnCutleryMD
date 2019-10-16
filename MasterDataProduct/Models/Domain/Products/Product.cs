@@ -2,22 +2,25 @@ namespace MasterDataProduct.Models.Domain.Products
 {
     public class Product
     {
-        public ProductId Id { get; set; }
+        public long id { get; set; } //id da base de dados
 
-        public string Name { get; set; }
-
-        //Confirmar se é mesmo assim quando saírem os casos de uso    
+        public ProductId Ref { get; set; } //identificacao no dominio (value object) ex: PCX010
         public ManufacturingPlan Plan { get; set; }
 
-        public Product(string name, ManufacturingPlan plan)
+        public Product()
         {
-            Name = name;
-            Plan = plan;
+
+        }
+
+        public Product(string Ref, ManufacturingPlan Plan)
+        {
+            this.Ref = new ProductId(Ref);
+            this.Plan = Plan;
         }
 
         public ProductDTO toDTO()
         {
-            return new ProductDTO(Id.ToString(), Name, Plan.ToString());
+            return new ProductDTO(Ref.id, Plan.ToString());
         }
     }
 }

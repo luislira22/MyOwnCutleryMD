@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using MasterDataProduct.Models.PersistenceContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataProduct.Models.Domain.Products
 {
@@ -13,15 +16,13 @@ namespace MasterDataProduct.Models.Domain.Products
             _context = context;
         }
 
-        public async Task<ProductDTO> GetProductById(long id)
+        public async Task<ProductDTO> getProduct(long id)
         {
             var product = await _context.Products.FindAsync(id);
             return product.toDTO();
         }
-
-        public async void CreateProduct(Product product, ManufacturingPlan plan)
+        public async void postProduct(Product product)
         {
-            product.Plan = plan;
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
