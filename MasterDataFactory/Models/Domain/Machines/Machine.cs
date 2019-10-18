@@ -7,8 +7,9 @@ using MasterDataFactory.Models.Domain.MachinesTypes;
 
 namespace MasterDataFactory.Models.Domain.Machines
 {
-    public class Machine : IEntity
+    public class Machine
     {
-        public Guid Id { get; set; }
+        public MachineId Id { get; private set; }
+
     }
 }
