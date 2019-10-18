@@ -22,7 +22,7 @@ namespace MasterDataFactory.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.MachineTypes.Add(new MachineType(123,"maquina1"));
+                _context.MachineTypes.Add(new MachineType("maquina1"));
                 _context.SaveChanges();
             }
         }
@@ -49,8 +49,7 @@ namespace MasterDataFactory.Controllers
 
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             machineTypeService.postMachineType(item);
-            return CreatedAtAction(nameof(GetMachineType),item);
-            //return CreatedAtAction(nameof(GetMachineType), new { Ref = item.Ref.id }, item);
+            return CreatedAtAction(nameof(GetMachineType), new { Ref = item.id }, item);
         }
 
         /*

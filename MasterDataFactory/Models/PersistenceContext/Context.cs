@@ -22,11 +22,11 @@ namespace MasterDataFactory.Models.PersistenceContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
+            
             /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
                                                           modelBuilder.Entity<Machine>()
                                                                .OwnsOne(p => p.MachineId);*/
@@ -34,10 +34,8 @@ namespace MasterDataFactory.Models.PersistenceContext
                 .Property(o => o.MachineId)
                 .HasConversion(new MachineIdValueVConverter());
 
-            modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
             //modelBuilder.ApplyConfiguration(new MachineTypeConfig());
-            //modelBuilder.ApplyConfiguration(new OrderItemConfig());
-                
+            //modelBuilder.ApplyConfiguration(new OrderItemConfig());*/    
         }
     }
 }
