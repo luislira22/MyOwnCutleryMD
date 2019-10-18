@@ -6,7 +6,7 @@ using MasterDataFactory.Models.Domain.MachinesTypes;
 
 namespace MasterDataFactory.Models.Domain.MachineTypes
 {
-    public class MachineType : IEntity
+    public class MachineType
     {
         //internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
 

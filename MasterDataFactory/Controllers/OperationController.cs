@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Controllers
 {
@@ -13,31 +14,30 @@ namespace MasterDataFactory.Controllers
     public class OperationController : ControllerBase
     {
         private readonly Context _context;
-
+        private readonly OperationService _service;
         
         public OperationController(Context _context){
             this._context = _context;
-
+            this._service = new OperationService(_context);
         }
-    
+        
+        
         [HttpGet("{id}")]
-        public async Task<ActionResult<OperationDTO>> GetOperation(long id)
+        public async Task<ActionResult<OperationDTO>> GetOperation(Guid id)
         {
-            OperationService operationService = new OperationService(_context);
-            OperationDTO operationDTO = await operationService.getOperation(id); 
-            if (operationService == null)
-            {
+            OperationDTO operationDto = await _service.getOperation(id); 
+            if (operationDto == null)
                 return NotFound();
-            }
-            return operationDTO;
+            return operationDto;
         }
 
         [HttpPost]
         public async Task<ActionResult<OperationDTO>> PostOperation(Operation Operation)
         {
-            OperationService operationService = new OperationService(_context);
-            operationService.postOperation(Operation);
-            return CreatedAtAction(nameof(GetOperation), new { id = Operation.Id }, Operation);
+            if (_service.postOperation(Operation))
+                return CreatedAtAction(nameof(GetOperation), new {id = Operation.Id}, Operation);
+            else
+                return BadRequest();
         }
 }
 }

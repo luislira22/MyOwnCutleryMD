@@ -1,17 +1,17 @@
+using System;
+
 namespace MasterDataFactory.Models.Domain.Operations
 {
     public class OperationDTO
     {
-        public long id {get;set;} 
+        public Guid Id {get;set;} 
         
-        public string cod{get;set;}
-        
-        public string name{get;set;}
+        public string Description{get;set;}
 
-        public OperationDTO(long id,string cod,string name){
-            this.id = id;
-            this.cod = cod;
-            this.name = name;
+        public OperationDTO(Guid id,string description)
+        {
+            this.Id = id;
+            this.Description = description;
         }
     }
 }

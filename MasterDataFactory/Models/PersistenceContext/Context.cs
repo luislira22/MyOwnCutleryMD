@@ -25,23 +25,8 @@ namespace MasterDataFactory.Models.PersistenceContext
 
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationConfiguration());
             base.OnModelCreating(modelBuilder);
-
-            /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
-                                                          modelBuilder.Entity<Machine>()
-                                                               .OwnsOne(p => p.MachineId);*/
-            /*modelBuilder.Entity<Machine>()
-                .Property(o => o.MachineId)
-                .HasConversion(new MachineIdValueVConverter());*/
-
-            /*modelBuilder.Entity<Machine>(
-                config =>
-                {
-                    config.ToTable("machine");
-                    config.HasKey(o => o.MachineId);
-                    //config.OwnsOne(o => o.MachineId);
-                });*/
-
         }
     }
 }

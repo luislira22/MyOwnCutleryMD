@@ -1,19 +1,26 @@
 ﻿
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MasterDataFactory.Models.Domain.Operations
 {
     public class Operation
     {
-
-        public long Id {get;set;} 
-        public string Cod{get;set;}
-        public string Name{get;set;}
+        
+        //public OperationId Id{ get; set; }
+        public Guid Id{ get; set; }
+        
+        public OperationDescription Description{ get;set;}
 
         public Operation(){
-
+            
         }
-        public Operation(string Cod, string Name){
-            this.Cod = Cod;
-            this.Name = Name;
+
+        public Operation(Guid id, string description)
+        {
+            this.Id = id;
+            this.Description = new OperationDescription(description);
         }
     }
 }
