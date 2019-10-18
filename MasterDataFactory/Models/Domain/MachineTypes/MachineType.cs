@@ -9,8 +9,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
     public class MachineType
     {
         public long id { get; set; } //id da base de dados
-
-        public MachineTypeID Ref { get; set; } //identificacao no dominio (value object) ex: PCX010
+        internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
         public string Type { get; set; }
 
         public MachineType()
@@ -18,7 +17,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 
         }
 
-        public MachineType(string Ref, string Type)
+        public MachineType(int Ref, string Type)
         {
             this.Ref = new MachineTypeID(Ref);
             this.Type = Type;

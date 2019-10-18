@@ -14,6 +14,7 @@ namespace MasterDataFactory.Models.PersistenceContext
         {
         }
 
+        public static string DEFAULT_SCHEMA { get; internal set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<MachineType> MachineTypes { get; set; }
         public DbSet<Operation> Operations { get; set; }
@@ -31,16 +32,12 @@ namespace MasterDataFactory.Models.PersistenceContext
                                                                .OwnsOne(p => p.MachineId);*/
             /*modelBuilder.Entity<Machine>()
                 .Property(o => o.MachineId)
-                .HasConversion(new MachineIdValueVConverter());*/
+                .HasConversion(new MachineIdValueVConverter());
 
-            /*modelBuilder.Entity<Machine>(
-                config =>
-                {
-                    config.ToTable("machine");
-                    config.HasKey(o => o.MachineId);
-                    //config.OwnsOne(o => o.MachineId);
-                });*/
-
+            modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new MachineTypeConfig());
+            //modelBuilder.ApplyConfiguration(new OrderItemConfig());
+                
         }
     }
 }

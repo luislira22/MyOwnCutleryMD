@@ -4,10 +4,10 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 {
     public class MachineTypeDTO
     {
-        public string Ref {get;set;}
+        public int Ref {get;set;}
         public string Type {get;set;}
 
-        public MachineTypeDTO(string Ref, string Type){
+        public MachineTypeDTO(int Ref, string Type){
             this.Ref = Ref;
             this.Type = Type;
         }
