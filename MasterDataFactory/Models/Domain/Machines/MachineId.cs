@@ -1,26 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MasterDataFactory.Models.Domain.Machines
 {
-    public class MachineId
+    public class MachineId : ValueObject
     {
-        public string Reference { get; }
-
-        public MachineId(string referencia)
+        public long Id { get; private set; }
+        
+        protected override IEnumerable<object> GetAtomicValues()
         {
-            this.Reference = referencia;
+            yield return Id;
+            //throw new System.NotImplementedException();
         }
     }
-
-    public class MachineIdValueVConverter : ValueConverter<MachineId, string>
-    {
-        public MachineIdValueVConverter(ConverterMappingHints mappingHints = null) 
-            : base (
-                id => id.Reference,
-                reference => new MachineId(reference),
-                mappingHints
-                ){}
-    }
-    
-
 }

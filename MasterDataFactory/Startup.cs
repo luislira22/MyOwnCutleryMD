@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 
 using MasterDataFactory.Models.PersistenceContext;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace MasterDataFactory
 {
@@ -29,10 +30,11 @@ namespace MasterDataFactory
         public void ConfigureServices(IServiceCollection services)
         {
             // Exemplo da ligação à BD
-            //var connection = "Server=lapr2019.database.windows.net;Port=5432;User Id=lapr;Password=YoHwGciYDXaUcjmt75J6;";
+            //var connection = "Server=lapr2019.database.windows.net,1433;User ID=lapr;Password=YoHwGciYDXaUcjmt75J6;";
             //services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.BuildServiceProvider().GetService<Context>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

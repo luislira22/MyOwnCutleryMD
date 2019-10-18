@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.Domain.Machines;
@@ -20,37 +21,26 @@ namespace MasterDataFactory.Models.PersistenceContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
+            modelBuilder.ApplyConfiguration(new MachineConfiguration());
             base.OnModelCreating(modelBuilder);
 
             /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
-             modelBuilder.Entity<Machine>()
-                .OwnsOne(p => p.MachineId);*/
-            modelBuilder.Entity<Machine>()
+                                                          modelBuilder.Entity<Machine>()
+                                                               .OwnsOne(p => p.MachineId);*/
+            /*modelBuilder.Entity<Machine>()
                 .Property(o => o.MachineId)
-                .HasConversion(new MachineIdValueVConverter());
-/*/
-            modelBuilder.Entity<MachineType>()
-            .HasIndex(b => new {b.Ref.id})
-            .IsUnique();
+                .HasConversion(new MachineIdValueVConverter());*/
 
-            
-                modelBuilder.Entity<MachineType>()
-                .Property(o => o.Ref)
-                .HasConversion(new MachineTypeIdValueVConverter());
-            */
-            modelBuilder.Entity<MachineType>(config =>
-            {
-            config.HasIndex(t => new { t.id, t.Ref })
-            .IsUnique(true);
+            /*modelBuilder.Entity<Machine>(
+                config =>
+                {
+                    config.ToTable("machine");
+                    config.HasKey(o => o.MachineId);
+                    //config.OwnsOne(o => o.MachineId);
+                });*/
 
-            config.Property(t => t.Ref)
-            .HasConversion(new MachineTypeIdValueVConverter());
-            
-            });
-
-            //modelBuilder.ApplyConfiguration(new MachineTypeConfig());
-            //modelBuilder.ApplyConfiguration(new OrderItemConfig());
-                
         }
     }
 }
