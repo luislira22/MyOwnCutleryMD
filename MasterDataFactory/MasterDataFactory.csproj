@@ -14,6 +14,7 @@
   <ItemGroup>
     <Compile Remove="Models\Domain\Machines\MachineIdValueConverter.cs" />
     <Compile Remove="Models\PersistenceContext\MachineContext.cs" />
+    <Compile Remove="Models\Domain\Machines\MachineId.cs" />
   </ItemGroup>
 
 </Project>

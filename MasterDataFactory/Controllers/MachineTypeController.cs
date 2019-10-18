@@ -28,7 +28,7 @@ namespace MasterDataFactory.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MachineTypeDTO>> GetMachineType(long id)
+        public async Task<ActionResult<MachineTypeDTO>> GetMachineType(Guid id)
         {
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             MachineTypeDTO machinetypeDTO = await machineTypeService.getMachineType(id); 
@@ -39,9 +39,16 @@ namespace MasterDataFactory.Controllers
             return machinetypeDTO;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MachineType>>> GetMachineTypes()
+        {
+            return await new MachineTypeService(_context).GetMachineTypes();
+        }
+
         [HttpPost]
         public async Task<ActionResult<MachineTypeDTO>> PostTodoItem([FromBody]MachineType item)       
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -49,7 +56,7 @@ namespace MasterDataFactory.Controllers
 
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             machineTypeService.postMachineType(item);
-            return CreatedAtAction(nameof(GetMachineType), new { Ref = item.id }, item);
+            return CreatedAtAction(nameof(GetMachineType), new { Id = item.Id}, item);
         }
 
         /*

@@ -8,8 +8,10 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 {
     public class MachineType : IEntity
     {
-        public Guid id { get; set; } //id da base de dados
         //internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
+
+        public Guid Id {get;set;}
+
         public string Type { get; set; }
 
         public MachineType()

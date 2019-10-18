@@ -31,9 +31,9 @@ namespace MasterDataFactory
         {
             // Exemplo da ligação à BD
             //var connection = "Server=lapr2019.database.windows.net;Port=5432;User Id=lapr;Password=YoHwGciYDXaUcjmt75J6;";
-            //services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MDFContext")));
+            services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
 
-            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase(Configuration.GetConnectionString("MDFContext")));
+            //services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDFContext"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.BuildServiceProvider().GetService<Context>().Database.Migrate();
         }
