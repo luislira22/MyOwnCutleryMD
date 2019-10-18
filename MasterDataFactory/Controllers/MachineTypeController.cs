@@ -22,13 +22,13 @@ namespace MasterDataFactory.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.MachineTypes.Add(new MachineType("PCX010","maquina1"));
+                _context.MachineTypes.Add(new MachineType("maquina1"));
                 _context.SaveChanges();
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MachineTypeDTO>> GetMachineType(long id)
+        public async Task<ActionResult<MachineTypeDTO>> GetMachineType(Guid id)
         {
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             MachineTypeDTO machinetypeDTO = await machineTypeService.getMachineType(id); 
@@ -39,9 +39,16 @@ namespace MasterDataFactory.Controllers
             return machinetypeDTO;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MachineType>>> GetMachineTypes()
+        {
+            return await new MachineTypeService(_context).GetMachineTypes();
+        }
+
         [HttpPost]
         public async Task<ActionResult<MachineTypeDTO>> PostTodoItem([FromBody]MachineType item)       
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -49,7 +56,7 @@ namespace MasterDataFactory.Controllers
 
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             machineTypeService.postMachineType(item);
-            return CreatedAtAction(nameof(GetMachineType), new { id = item.id }, item);
+            return CreatedAtAction(nameof(GetMachineType), new { Id = item.Id}, item);
         }
 
         /*

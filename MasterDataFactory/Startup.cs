@@ -30,9 +30,9 @@ namespace MasterDataFactory
         public void ConfigureServices(IServiceCollection services)
         {
             // Exemplo da ligação à BD
-            //var connection = "Server=lapr2019.database.windows.net,1433;User ID=lapr;Password=YoHwGciYDXaUcjmt75J6;";
-            //services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
-            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
+            var connection = "Server=lapr2019.database.windows.net,1433;Database=lapr5;User ID=lapr;Password=YoHwGciYDXaUcjmt75J6;";
+            services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
+            //services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.BuildServiceProvider().GetService<Context>().Database.Migrate();
         }
@@ -49,9 +49,25 @@ namespace MasterDataFactory
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseMvc();
+            //UpdateDatabase(app);
+
         }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+        using (var serviceScope = app.ApplicationServices
+            .GetRequiredService<IServiceScopeFactory>()
+            .CreateScope())
+            {
+            using (var context = serviceScope.ServiceProvider.GetService<Context>())
+            {
+                context.Database.Migrate();
+            }
+            }
+        }
+
+        
     }
 }

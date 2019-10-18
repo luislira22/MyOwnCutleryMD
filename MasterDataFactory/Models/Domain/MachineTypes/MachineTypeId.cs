@@ -6,16 +6,42 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MasterDataFactory.Models.Domain.MachinesTypes
 {
-    public class MachineTypeID
+    public class MachineTypeID : ValueObject
     {
-        public string id { get; set; }
+        public int id { get; set; }
 
-        public MachineTypeID(string id) {
+        public MachineTypeID(int id) {
             this.id = id;
+        }
+
+        public MachineTypeID()
+        {
+        }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            
+            // TODO: write your implementation of Equals() here
+            MachineTypeID other = (MachineTypeID)obj;
+            return other.id == this.id;
+        }
+        
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 
-    
+    /*
     public class MachineTypeIdValueVConverter : ValueConverter<MachineTypeID, string>
     {
         public MachineTypeIdValueVConverter(ConverterMappingHints mappingHints = null) 
@@ -25,4 +51,5 @@ namespace MasterDataFactory.Models.Domain.MachinesTypes
                 mappingHints
                 ){}
     }
+    */
 }

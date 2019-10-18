@@ -14,6 +14,7 @@ namespace MasterDataFactory.Models.PersistenceContext
         {
         }
 
+        public static string DEFAULT_SCHEMA { get; internal set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<MachineType> MachineTypes { get; set; }
         public DbSet<Operation> Operations { get; set; }
@@ -24,6 +25,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             
 
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
+            modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
             base.OnModelCreating(modelBuilder);
 
             /* E preciso usar isto quando utilizamos Value-Objects se esses VO nao fores chave
