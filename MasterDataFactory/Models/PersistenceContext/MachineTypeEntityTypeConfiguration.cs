@@ -13,7 +13,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         public void Configure(EntityTypeBuilder<MachineType> MachineTypeConfiguration)
         {
             MachineTypeConfiguration.ToTable("MachineTypes", Context.DEFAULT_SCHEMA);
-            MachineTypeConfiguration.HasKey(o => o.id);
+            MachineTypeConfiguration.HasKey(o => o.Id);
         }
     }
 }

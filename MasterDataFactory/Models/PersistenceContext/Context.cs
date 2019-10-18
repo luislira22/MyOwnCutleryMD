@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.Domain.Machines;
-using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.ProductionLines;
 using MasterDataFactory.Models.Domain.MachineTypes;
 
