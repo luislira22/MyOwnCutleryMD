@@ -13,16 +13,8 @@ namespace MasterDataProduct.Models.PersistenceContext
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Product>()
-                .OwnsOne(p => p.Plan);
-            modelBuilder.Entity<Product>(config =>
-            {
-                config.HasIndex(t => new {t.id, t.Ref})
-                    .IsUnique(true);
-                config.Property(t => t.Ref)
-                    .HasConversion(new ProductIdValueVConverter());
-            });
         }
     }
 }

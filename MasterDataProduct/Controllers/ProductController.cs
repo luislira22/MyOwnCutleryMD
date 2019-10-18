@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +20,19 @@ namespace MasterDataProduct.Controllers
 
             if (!_context.Products.Any())
             {
-                _context.Products.Add(new Product("Produto1", new ManufacturingPlan()));
+                _context.Products.Add(new Product(new ManufacturingPlan()));
                 _context.SaveChanges();
             }
         }
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        {
+            return await new ProductService(_context).GetProducts();
+        }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetProduct(long id)
+        public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
         {
             ProductService productService = new ProductService(_context);
             ProductDTO productDto = await productService.getProduct(id);
@@ -47,7 +54,7 @@ namespace MasterDataProduct.Controllers
 
             ProductService productService = new ProductService(_context);
             productService.postProduct(item);
-            return CreatedAtAction( nameof(GetProduct), new {id = item.id}, item);
+            return CreatedAtAction( nameof(GetProduct), new {id = item.Id}, item);
         }
     }
 }
