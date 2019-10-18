@@ -8,7 +8,7 @@ namespace MasterDataProduct.Models.PersistenceContext
     {
         public void Configure(EntityTypeBuilder<Product> productConfiguration)
         {
-            productConfiguration.ToTable("product");
+            productConfiguration.ToTable("Product");
             productConfiguration.HasKey(o => o.Id);
             productConfiguration.OwnsOne(o => o.Plan);
         }
