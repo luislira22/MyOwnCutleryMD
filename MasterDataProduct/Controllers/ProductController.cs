@@ -20,11 +20,11 @@ namespace MasterDataProduct.Controllers
 
             if (!_context.Products.Any())
             {
-                _context.Products.Add(new Product(new ManufacturingPlan()));
+                _context.Products.Add(new Product(new ManufacturingPlan("planoTeste1")));
                 _context.SaveChanges();
             }
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
@@ -34,13 +34,8 @@ namespace MasterDataProduct.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
         {
-            ProductService productService = new ProductService(_context);
-            ProductDTO productDto = await productService.getProduct(id);
-            if (productService == null)
-            {
-                return NotFound();
-            }
-
+            var productService = new ProductService(_context);
+            var productDto = await productService.GetProduct(id);
             return productDto;
         }
 
@@ -52,9 +47,9 @@ namespace MasterDataProduct.Controllers
                 return BadRequest(ModelState);
             }
 
-            ProductService productService = new ProductService(_context);
-            productService.postProduct(item);
-            return CreatedAtAction( nameof(GetProduct), new {id = item.Id}, item);
+            var productService = new ProductService(_context);
+            await productService.PostProduct(item);
+            return CreatedAtAction(nameof(GetProduct), new {id = item.Id}, item);
         }
     }
 }

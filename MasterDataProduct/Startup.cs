@@ -22,9 +22,9 @@ namespace MasterDataProduct
         {
             
             // Exemplo da ligação à BD
-            var connection = "Server=lapr2019.database.windows.net,1433;Database=lapr5;User ID=lapr;Password=YoHwGciYDXaUcjmt75J6;";
-            services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
-            //services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
+            //var connection = "Server=lapr2019.database.windows.net,1433;Database=lapr5;User ID=lapr;Password=YoHwGciYDXaUcjmt75J6;";
+            //services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.BuildServiceProvider().GetService<Context>().Database.Migrate();
         }
