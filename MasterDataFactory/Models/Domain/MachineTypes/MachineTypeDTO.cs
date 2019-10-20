@@ -1,14 +1,16 @@
+using System;
 using MasterDataFactory.Models.Domain.MachinesTypes;
 
 namespace MasterDataFactory.Models.Domain.MachineTypes
 {
     public class MachineTypeDTO
     {
-        public string Type {get;set;}
+        public Guid Id { get; set; }
+        public string Type { get; set; }
 
-        public MachineTypeDTO(string Type){
+        public MachineTypeDTO(string Type)
+        {
             this.Type = Type;
         }
-
     }
 }

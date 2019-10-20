@@ -19,6 +19,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         public async Task<MachineTypeDTO> getMachineType(Guid id)
         {
             var machineType = await _context.MachineTypes.FindAsync(id);
+            //TODO return do objeto em vez de DTO, a responsabilidade do DTO é do Controller e não do Service
             return machineType.toDTO();
         }
         public async void postMachineType(MachineType machine)

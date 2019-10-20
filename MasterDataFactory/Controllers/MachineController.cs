@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using System;
+using System.Data.SqlTypes;
+using MasterDataFactory.Models.Domain.MachineTypes;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace MasterDataFactory.Controllers
 {
@@ -13,11 +15,13 @@ namespace MasterDataFactory.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly MachineService _service;
+        private readonly MachineService _serviceMachineType;
+        private readonly MachineTypeService _serviceMachineTypeService;
 
         public MachineController(Context context)
         {
-            _service = new MachineService(context);
+            _serviceMachineType = new MachineService(context);
+            _serviceMachineTypeService = new MachineTypeService(context);
             //context.AddAsync(new Machine());
         }
 
@@ -25,19 +29,19 @@ namespace MasterDataFactory.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Machine>>> GetTodoItems()
         {
-            return await _service.GetMachines();
+            return await _serviceMachineType.GetMachines();
         }
 
         // POST: api/machine
         [HttpPost]
-        public async Task<ActionResult<Machine>> CreateMachine(Machine machine)
+        public async Task<ActionResult<Machine>> CreateMachineAndAddMachineType(MachineTypeDTO machineTypeDTO)
         {
-            await _service.CreateMachine(machine);
-            /*_context.TodoItems.Add(item);
-            await _context.SaveChangesAsync();
-            */
-            //return CreatedAtAction(nameof(machine), new { id = machine.Id }, machine); <-- supostamente e um bug
-            return CreatedAtAction("CreateMachine", null);
+            //MachineType machineType = _serviceMachineTypeService.getMachineType(machineTypeDTO.Id);
+            MachineType machineType = null;
+            if (machineType == null) return NotFound("Machine type not found.");
+            Machine machine = new Machine(machineType);
+            await _serviceMachineType.CreateMachine(machine);
+            return CreatedAtAction("CreateMachineAndAddMachineType", machine.toDTO());
         }
     }
 }
