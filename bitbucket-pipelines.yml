@@ -6,10 +6,11 @@ pipelines:
         caches:
           - dotnetcore
         script: # Modify the comma`nds below to build your repository.
+          - export SOLUTION=Solution
           - export MASTER_DATA_FACTORY=Solution/MasterDataFactory
           - export MASTER_DATA_PRODUCT=Solution/MasterDataProduct
           - export TEST_PROJECT=Solution/TestProject
-          - dotnet restore
+          - dotnet restore $SOLUTION
           - dotnet build $MASTER_DATA_FACTORY
           - dotnet build $MASTER_DATA_PRODUCT
           - dotnet test $TEST_PROJECT
