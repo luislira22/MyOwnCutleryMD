@@ -4,7 +4,7 @@ using MasterDataFactory.Models.Domain.MachineTypes;
 
 namespace MasterDataFactory.Models.Domain.Machines
 {
-    public class Machine
+    public class Machine : IEntity
     {
         public Guid Id { get; set; }
         [Required]
@@ -13,6 +13,11 @@ namespace MasterDataFactory.Models.Domain.Machines
         public Machine(MachineType machineType)
         {
             MachineType = machineType;
+        }
+ 
+        //@Tomás (tive de criar o vazio senão dava erro ao criar um machineType)
+        public Machine(){
+
         }
 
         public MachineDTO toDTO()

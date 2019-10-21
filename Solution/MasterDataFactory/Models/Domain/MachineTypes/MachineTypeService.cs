@@ -29,7 +29,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
             }
         }
 
-        public async void postMachineType(MachineType machine)
+        public async Task postMachineType(MachineType machine)
         {
             _context.MachineTypes.Add(machine);
             await _context.SaveChangesAsync();

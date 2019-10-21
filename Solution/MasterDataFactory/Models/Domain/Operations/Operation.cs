@@ -17,10 +17,13 @@ namespace MasterDataFactory.Models.Domain.Operations
             
         }
 
-        public Operation(Guid id, string description)
+        public Operation(string description)
         {
-            this.Id = id;
             this.Description = new OperationDescription(description);
+        }
+
+        public OperationDTO toDTO(){
+            return new OperationDTO(Id,Description.Description);
         }
     }
 }

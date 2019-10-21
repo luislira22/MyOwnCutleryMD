@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,11 @@ namespace MasterDataFactory.Controllers
 
             if (_context.MachineTypes.Count() == 0)
             {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.MachineTypes.Add(new MachineType("maquina1"));
+                // Create a new MachineType if collection is empty,
+                // which means you can't delete all MachineTypes.(quick bootstrap)
+                Operation op = new Operation("Triturar");
+                List<Operation> ops = new List<Operation>(){op};
+                _context.MachineTypes.Add(new MachineType("Trituradora",ops));
                 _context.SaveChanges();
             }
         }
@@ -56,7 +59,7 @@ namespace MasterDataFactory.Controllers
             }
 
             MachineTypeService machineTypeService = new MachineTypeService(_context);
-            machineTypeService.postMachineType(item);
+            await machineTypeService.postMachineType(item);
             return CreatedAtAction(nameof(GetMachineType), new { Id = item.Id}, item);
         }
 
