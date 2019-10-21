@@ -24,8 +24,8 @@ namespace MasterDataFactory.Controllers
                 // Create a new MachineType if collection is empty,
                 // which means you can't delete all MachineTypes.(quick bootstrap)
                 Operation op = new Operation("Triturar");
-                List<Operation> ops = new List<Operation>(){op};
-                _context.MachineTypes.Add(new MachineType("Trituradora",ops));
+                List<Operation> ops = new List<Operation>() {op};
+                _context.MachineTypes.Add(new MachineType("Trituradora", ops));
                 _context.SaveChanges();
             }
         }
@@ -40,6 +40,7 @@ namespace MasterDataFactory.Controllers
             {
                 return NotFound();
             }
+
             return machinetypeDTO;
         }
 
@@ -50,9 +51,8 @@ namespace MasterDataFactory.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MachineTypeDTO>> PostTodoItem([FromBody]MachineType item)       
+        public async Task<ActionResult<MachineTypeDTO>> PostTodoItem([FromBody] MachineType item)
         {
-            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -60,7 +60,23 @@ namespace MasterDataFactory.Controllers
 
             MachineTypeService machineTypeService = new MachineTypeService(_context);
             await machineTypeService.postMachineType(item);
-            return CreatedAtAction(nameof(GetMachineType), new { Id = item.Id}, item);
+            return CreatedAtAction(nameof(GetMachineType), new {Id = item.Id}, item);
+        }
+
+        // GET machinetype/operations/{machineTypeId}
+        [HttpGet("operations/{id}")]
+        public async Task<ActionResult<IEnumerable<OperationDTO>>> GetOperationsFromMachineType(Guid id)
+        {
+            try
+            {
+                var machineType = await new MachineTypeService(_context).getMachineType(id);
+                var operationsDTO = machineType.Operations.Select(operation => operation.toDTO()).ToList();
+                return operationsDTO.ToList();
+            }
+            catch (NullReferenceException)
+            {
+                return NoContent();
+            }
         }
 
         /*

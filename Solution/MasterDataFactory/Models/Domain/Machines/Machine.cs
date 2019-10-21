@@ -7,17 +7,15 @@ namespace MasterDataFactory.Models.Domain.Machines
     public class Machine : IEntity
     {
         public Guid Id { get; set; }
-        [Required]
-        public MachineType MachineType { get; set; }
+        [Required] public MachineType MachineType { get; set; }
 
         public Machine(MachineType machineType)
         {
             MachineType = machineType;
         }
- 
-        //@Tomás (tive de criar o vazio senão dava erro ao criar um machineType)
-        public Machine(){
 
+        protected Machine()
+        {
         }
 
         public MachineDTO toDTO()
