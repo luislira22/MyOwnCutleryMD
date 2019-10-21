@@ -31,7 +31,8 @@ namespace MasterDataFactory.Controllers
         public async Task<ActionResult<MachineTypeDTO>> GetMachineType(Guid id)
         {
             MachineTypeService machineTypeService = new MachineTypeService(_context);
-            MachineTypeDTO machinetypeDTO = await machineTypeService.getMachineType(id); 
+            MachineType machineType = await machineTypeService.getMachineType(id);
+            MachineTypeDTO machinetypeDTO = machineType.toDTO();
             if (machineTypeService == null)
             {
                 return NotFound();

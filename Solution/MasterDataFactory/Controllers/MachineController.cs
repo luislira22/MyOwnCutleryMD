@@ -1,13 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.PersistenceContext;
-using System;
-using System.Data.SqlTypes;
 using MasterDataFactory.Models.Domain.MachineTypes;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Serialization;
 
 namespace MasterDataFactory.Controllers
 {
@@ -36,10 +33,9 @@ namespace MasterDataFactory.Controllers
         [HttpPost]
         public async Task<ActionResult<Machine>> CreateMachineAndAddMachineType(MachineTypeDTO machineTypeDTO)
         {
-            //MachineType machineType = _serviceMachineTypeService.getMachineType(machineTypeDTO.Id);
-            MachineType machineType = null;
+            MachineType machineType = await _serviceMachineTypeService.getMachineType(machineTypeDTO.Id);
             if (machineType == null) return NotFound("Machine type not found.");
-            Machine machine = new Machine(machineType);
+            var machine = new Machine(machineType);
             await _serviceMachineType.CreateMachine(machine);
             return CreatedAtAction("CreateMachineAndAddMachineType", machine.toDTO());
         }
