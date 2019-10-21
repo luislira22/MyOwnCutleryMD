@@ -1,0 +1,15 @@
+image: microsoft/dotnet:sdk
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - dotnetcore
+        script: # Modify the comma`nds below to build your repository.
+          - export MASTER_DATA_FACTORY=Solution/MasterDataFactory
+          - export MASTER_DATA_PRODUCT=Solution/MasterDataProduct
+          - export TEST_PROJECT=Solution/TestProject
+          - dotnet restore
+          - dotnet build $MASTER_DATA_FACTORY
+          - dotnet build $MASTER_DATA_PRODUCT
+          - dotnet test $TEST_PROJECT
