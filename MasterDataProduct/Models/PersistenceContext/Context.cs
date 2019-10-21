@@ -8,9 +8,9 @@ namespace MasterDataProduct.Models.PersistenceContext
         public Context(DbContextOptions<Context> options) : base(options)
         {
         }
-        
+
         public DbSet<Product> Products { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductConfiguration());

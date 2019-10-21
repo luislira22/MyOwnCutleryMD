@@ -1,13 +1,14 @@
 namespace MasterDataProduct.Models.Domain.Products
 {
-    public class ProductDTO
+    public class ProductDto
     {
-        public string Ref {get;set;}
-        public string Plan {get;set;}
+        public string Ref { get; set; }
+        public string Plan { get; set; }
 
-        public ProductDTO(string Ref, string Plan){
-            this.Ref = Ref;
-            this.Plan = Plan;
+        public ProductDto(string refer, string plan)
+        {
+            Ref = refer;
+            Plan = plan;
         }
     }
 }

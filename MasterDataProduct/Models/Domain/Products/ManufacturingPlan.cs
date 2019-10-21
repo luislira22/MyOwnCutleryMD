@@ -8,7 +8,8 @@ namespace MasterDataProduct.Models.Domain.Products
 
         public ManufacturingPlan(string name)
         {
-            Name = name;
+            if (!string.IsNullOrEmpty(name))
+                Name = name;
         }
     }
 }

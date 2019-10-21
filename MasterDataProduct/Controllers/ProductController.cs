@@ -32,7 +32,7 @@ namespace MasterDataProduct.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
+        public async Task<ActionResult<ProductDto>> GetProduct(Guid id)
         {
             var productService = new ProductService(_context);
             var productDto = await productService.GetProduct(id);
@@ -40,7 +40,7 @@ namespace MasterDataProduct.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDTO>> PostProduct([FromBody] Product item)
+        public async Task<ActionResult<ProductDto>> PostProduct([FromBody] Product item)
         {
             if (!ModelState.IsValid)
             {

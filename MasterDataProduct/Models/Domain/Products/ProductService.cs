@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using MasterDataProduct.Models.PersistenceContext;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +16,10 @@ namespace MasterDataProduct.Models.Domain.Products
             _context = context;
         }
 
-        public async Task<ProductDTO> GetProduct(Guid id)
+        public async Task<ProductDto> GetProduct(Guid id)
         {
             var product = await _context.Products.FindAsync(id);
-            return product.toDTO();
+            return product.ToDto();
         }
 
         public async Task<ActionResult<Product>> PostProduct(Product product)
