@@ -13,14 +13,14 @@ namespace MasterDataProduct.Models.Domain.Products
 
         }
 
-        public Product( ManufacturingPlan Plan)
+        public Product( ManufacturingPlan plan)
         {
-            this.Plan = Plan;
+            this.Plan = plan;
         }
 
-        public ProductDTO toDTO()
+        public ProductDto ToDto()
         {
-            return new ProductDTO(Id.ToString(), Plan.Name);
+            return new ProductDto(Id.ToString(), Plan.Name);
         }
 
        
