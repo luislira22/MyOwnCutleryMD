@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories;
+using MasterDataFactory.Repositories.Impl;
 
-namespace MasterDataFactory.Models.Domain.Machines
+namespace MasterDataFactory.Services
 {
     public class MachineService
     {

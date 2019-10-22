@@ -10,6 +10,7 @@ namespace MasterDataFactory.Models.Domain.Machines
         {
             machineConfiguration.ToTable("machine");
             machineConfiguration.HasKey(o => o.Id);
+            machineConfiguration.OwnsOne(o => o.MachineModel);
             machineConfiguration.HasOne(o => o.MachineType);
         }
     }

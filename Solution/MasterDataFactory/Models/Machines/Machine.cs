@@ -8,6 +8,7 @@ namespace MasterDataFactory.Models.Domain.Machines
     {
         public Guid Id { get; set; }
         [Required] public MachineType MachineType { get; set; }
+        public MachineModel MachineModel { get; set; }
 
         public Machine(MachineType machineType)
         {

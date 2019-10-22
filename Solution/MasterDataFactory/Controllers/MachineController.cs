@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Services;
 
 namespace MasterDataFactory.Controllers
 {

@@ -6,7 +6,7 @@ using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasterDataFactory.Repositories
+namespace MasterDataFactory.Repositories.Impl
 {
     public class MachineRepository : GenericRepository<Machine>, IMachineRepository
     {
@@ -16,6 +16,7 @@ namespace MasterDataFactory.Repositories
 
         public override Task<bool> Exists(Guid id)
         {
+            //TODO
             throw new NotImplementedException();
         }
     }
