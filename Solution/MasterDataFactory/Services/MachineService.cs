@@ -3,27 +3,28 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Repositories;
 
 namespace MasterDataFactory.Models.Domain.Machines
 {
     public class MachineService
     {
-        private readonly Context _context;
+        private readonly IMachineRepository _machineRepository;
 
-        public MachineService(Context context) {
-            _context = context;
+        public MachineService(Context context)
+        {
+            _machineRepository = new MachineRepository(context);;
         }
 
         public async Task<ActionResult<IEnumerable<Machine>>> GetMachines()
         {
-            return await _context.Machines.ToListAsync();
+            return await _machineRepository.GetAll();
         }
 
         public async Task<ActionResult<Machine>> CreateMachine(Machine machine)
         {
             //TODO return
-            _context.Machines.Add(machine);
-            await _context.SaveChangesAsync();
+            await _machineRepository.Create(machine);
             return null;
         } 
     }
