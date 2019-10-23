@@ -1,20 +1,23 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
-using MasterDataFactory.Services;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("operation")]
     [ApiController]
     public class OperationController : ControllerBase
     {
+        private readonly Context _context;
         private readonly OperationService _service;
         
         public OperationController(Context _context){
+            this._context = _context;
             this._service = new OperationService(_context);
         }
         
@@ -22,29 +25,19 @@ namespace MasterDataFactory.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationDTO>> GetOperation(Guid id)
         {
-            Operation operation = await _service.getOperation(id); 
-            if (operation == null)
+            OperationDTO operationDto = await _service.getOperation(id); 
+            if (operationDto == null)
                 return NotFound();
-            return new OperationDTO(operation.Id,operation.Description.Description);
+            return operationDto;
         }
 
         [HttpPost]
-        public async Task<ActionResult<OperationDTO>> PostOperation(OperationDTO operationDto)
+        public async Task<ActionResult<OperationDTO>> PostOperation(Operation Operation)
         {
-            //create operation from DTO
-            Operation operation = new Operation(operationDto.Description);
-            try
-            {
-                _service.postOperation(operation);
-                return CreatedAtAction(nameof(GetOperation), new {id = operation.Id}, operation.toDTO());
-            }
-            catch (Exception e)
-            {
-                return BadRequest("operation failed.");
-            }
+            if (_service.postOperation(Operation))
+                return CreatedAtAction(nameof(GetOperation), new {id = Operation.Id}, Operation);
+            else
+                return BadRequest();
         }
-        
-        
-        
 }
 }

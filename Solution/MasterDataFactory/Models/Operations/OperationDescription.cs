@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MasterDataFactory.Models.Domain.Operations
 {
