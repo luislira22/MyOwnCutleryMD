@@ -19,9 +19,9 @@ namespace MasterDataProduct.Models.Domain.Products
             this.Plan = plan;
         }
 
-        public ProductDto ToDto()
+        public ProductDTO ToDto()
         {
-            return new ProductDto(Id.ToString(), Plan.Name);
+            return new ProductDTO(Id.ToString(), Plan.Name);
         }
 
        

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MasterDataProduct.Models.Domain.Products
 {
@@ -11,5 +12,7 @@ namespace MasterDataProduct.Models.Domain.Products
             if (!string.IsNullOrEmpty(name))
                 Name = name;
         }
+
+       
     }
 }

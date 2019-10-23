@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Project.Models
+namespace MasterDataProduct.Models
 {
     public abstract class ValueObject
     {
