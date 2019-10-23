@@ -1,4 +1,5 @@
 using System;
+using MasterDataProduct.DTO;
 
 namespace MasterDataProduct.Models.Domain.Products
 {

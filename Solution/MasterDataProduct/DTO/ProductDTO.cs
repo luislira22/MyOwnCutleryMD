@@ -1,4 +1,4 @@
-namespace MasterDataProduct.Models.Domain.Products
+namespace MasterDataProduct.DTO
 {
     public class ProductDto
     {
