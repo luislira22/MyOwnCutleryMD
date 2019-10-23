@@ -6,7 +6,7 @@ namespace MasterDataFactory.Models.Domain.Operations
     {
         public Guid Id {get;set;} 
         
-        public string Description{get; set; }
+        public string Description{get;set;}
 
         public OperationDTO(Guid id,string description)
         {

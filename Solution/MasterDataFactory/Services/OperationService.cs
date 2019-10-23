@@ -17,9 +17,9 @@ namespace MasterDataFactory.Services
         public async Task<Operation> getOperation(Guid id){
             return await _operationRepository.GetById(id);
         }
-        public async void postOperation(Operation operation){
+        public async void postOperation(Operation operation)
+        {
             await _operationRepository.Create(operation);
-            await _operationRepository.SaveChangesAsync();
         }
 
         
