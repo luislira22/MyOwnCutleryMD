@@ -2,14 +2,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MasterDataFactory.Models.Domain.Operations
 {
     public class Operation
     {
-        
-        //public OperationId Id{ get; set; }
-        public Guid Id{ get; set; }
+        public Guid Id{ get; set;}
         
         public OperationDescription Description{ get;set;}
 
