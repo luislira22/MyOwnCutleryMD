@@ -21,8 +21,13 @@
     <ItemGroup>
       <Folder Include="MasterDataFactory\Controllers" />
       <Folder Include="MasterDataFactory\Domain" />
-      <Folder Include="MasterDataProduct\Controllers" />
       <Folder Include="MasterDataProduct\Domain" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
