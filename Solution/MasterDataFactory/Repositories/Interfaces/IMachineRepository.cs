@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.Machines;
+using MasterDataFactory.Models.Machines;
 
-namespace MasterDataFactory.Repositories
+namespace MasterDataFactory.Repositories.Interfaces
 {
     public interface IMachineRepository : IGenericRepository<Machine>
     {

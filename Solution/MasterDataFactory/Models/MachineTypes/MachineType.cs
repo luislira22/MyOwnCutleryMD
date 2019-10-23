@@ -10,7 +10,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
     public class MachineType : IEntity
     {
         //internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
-        public Guid Id {get;set;}
+        public Guid Id {get; private set;}
 
         public string Type { get; set; }
 

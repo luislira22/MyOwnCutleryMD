@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.Domain.Operations;
-using MasterDataFactory.Models.Domain.Machines;
 using MasterDataFactory.Models.Domain.ProductionLines;
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.Machines;
 
 namespace MasterDataFactory.Models.PersistenceContext
 {
@@ -13,16 +13,18 @@ namespace MasterDataFactory.Models.PersistenceContext
         {
         }
 
+        protected Context()
+        {
+        }
+        
         public static string DEFAULT_SCHEMA { get; internal set; }
-        public DbSet<Machine> Machines { get; set; }
+        public virtual DbSet<Machine> Machines { get; set; }
         public DbSet<MachineType> MachineTypes { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<ProductionLine> ProductionLines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationConfiguration());

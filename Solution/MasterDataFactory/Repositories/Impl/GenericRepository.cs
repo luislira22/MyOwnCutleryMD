@@ -1,10 +1,11 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace MasterDataFactory.Repositories
+namespace MasterDataFactory.Repositories.Impl
 {
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

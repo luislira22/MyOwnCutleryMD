@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -49,25 +48,23 @@ namespace MasterDataFactory
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseMvc();
             //UpdateDatabase(app);
-
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)
         {
-        using (var serviceScope = app.ApplicationServices
-            .GetRequiredService<IServiceScopeFactory>()
-            .CreateScope())
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
             {
-            using (var context = serviceScope.ServiceProvider.GetService<Context>())
-            {
-                context.Database.Migrate();
-            }
+                using (var context = serviceScope.ServiceProvider.GetService<Context>())
+                {
+                    context.Database.Migrate();
+                }
             }
         }
-
-        
     }
 }

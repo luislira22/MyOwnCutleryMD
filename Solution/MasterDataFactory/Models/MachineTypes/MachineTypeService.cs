@@ -15,7 +15,13 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         {
             _context = context;
         }
-
+        
+        public async Task<bool> MachineExists(Guid id)
+        {
+            //TODO implementar reposotorios e deixar a linha de baixo
+            //return await _machineRepository.Exists(id);
+            return true;
+        }
         public async Task<MachineType> getMachineType(Guid id)
         {
             try

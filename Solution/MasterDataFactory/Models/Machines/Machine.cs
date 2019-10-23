@@ -1,18 +1,25 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using MasterDataFactory.DTO;
+using MasterDataFactory.Models.Domain;
 using MasterDataFactory.Models.Domain.MachineTypes;
 
-namespace MasterDataFactory.Models.Domain.Machines
+namespace MasterDataFactory.Models.Machines
 {
     public class Machine : IEntity
     {
         public Guid Id { get; set; }
-        [Required] public MachineType MachineType { get; set; }
+        public MachineType MachineType { get; set; }
+        public MachineBrand MachineBrand { get; set; }
         public MachineModel MachineModel { get; set; }
+        public MachineLocation MachineLocation { get; set; }
 
-        public Machine(MachineType machineType)
+
+        public Machine(MachineType machineType, MachineBrand machineBrand, MachineModel machineModel, MachineLocation machineLocation)
         {
             MachineType = machineType;
+            MachineBrand = machineBrand;
+            MachineModel = machineModel;
+            MachineLocation = machineLocation;
         }
 
         protected Machine()
@@ -21,7 +28,7 @@ namespace MasterDataFactory.Models.Domain.Machines
 
         public MachineDTO toDTO()
         {
-            return new MachineDTO(MachineType);
+            return new MachineDTO(this);
         }
     }
 }
