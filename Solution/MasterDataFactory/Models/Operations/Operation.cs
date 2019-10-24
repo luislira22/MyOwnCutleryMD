@@ -2,6 +2,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using MasterDataFactory.Models.Domain.MachineTypes;
+using Newtonsoft.Json;
 
 namespace MasterDataFactory.Models.Domain.Operations
 {
@@ -11,10 +14,17 @@ namespace MasterDataFactory.Models.Domain.Operations
         public OperationDuration Duration { get; set;}
         public OperationDescription Description{ get;set;}
 
-        protected Operation()
-        {
+
+        //public Guid? MachineTypeId { get; set; }
+
+        //[JsonIgnore] 
+        //[IgnoreDataMember] //prevenir ciclo infinito
+        //public MachineType Machine { get; set; }
+
+        protected Operation(){
             
         }
+        
         public Operation(string description,TimeSpan duration)
         {
             Description = new OperationDescription(description);

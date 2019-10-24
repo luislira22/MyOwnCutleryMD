@@ -1,19 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Repositories.Impl;
+using MasterDataFactory.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasterDataFactory.Models.Domain.MachineTypes
+namespace MasterDataFactory.Services
 {
     public class MachineTypeService
     {
-        private readonly Context _context;
+        private readonly IMachineTypeRepository _machineTypeRepository;
+
 
         public MachineTypeService(Context context)
         {
-            _context = context;
+            _machineTypeRepository = new MachineTypeRepository(context);
         }
         
         public async Task<bool> MachineExists(Guid id)
@@ -26,7 +30,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         {
             try
             {
-                var machineType = await _context.MachineTypes.FindAsync(id);
+                var machineType = await _machineTypeRepository.GetById(id);
                 return machineType;
             }
             catch (Exception)
@@ -37,13 +41,13 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 
         public async Task postMachineType(MachineType machine)
         {
-            _context.MachineTypes.Add(machine);
-            await _context.SaveChangesAsync();
+            await _machineTypeRepository.Create(machine);
+            await _machineTypeRepository.SaveChangesAsync();
         }
 
         public async Task<ActionResult<IEnumerable<MachineType>>> GetMachineTypes()
         {
-            return await _context.MachineTypes.ToListAsync();
+            return await _machineTypeRepository.GetAll();
         }
     }
 }

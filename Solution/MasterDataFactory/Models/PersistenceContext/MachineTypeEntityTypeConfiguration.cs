@@ -1,3 +1,4 @@
+using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,7 +15,8 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         {
             MachineTypeConfiguration.ToTable("MachineTypes", Context.DEFAULT_SCHEMA);
             MachineTypeConfiguration.HasKey(o => o.Id);
-            MachineTypeConfiguration.OwnsMany(o => o.Operations);
+            MachineTypeConfiguration.OwnsOne(o => o.Type);
+            MachineTypeConfiguration.HasMany<Operation>(o => o.Operations);//WithOne(m => m.Machine).IsRequired().HasForeignKey(m => m.MachineTypeId);
         }
     }
 }

@@ -1,27 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.Models.MachineTypes;
+using Newtonsoft.Json;
 
 namespace MasterDataFactory.Models.Domain.MachineTypes
 {
     public class MachineType : IEntity
     {
-        //internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
-        public Guid Id {get; private set;}
+        public Guid Id {get;set;}
 
-        public string Type { get; set; }
+        //Não há suporte para implementar em .NET Core uma chave primária que é um valueobject
+        //public MachineTypeID Id {get;set;}
+
+        public MachineTypeDescription Type { get; set; }
 
         public List<Operation> Operations {get;set;}
 
-        public MachineType()
+        protected MachineType()
         {
 
         }
 
-        public MachineType(string Type, List<Operation> ops)
+        public MachineType(MachineTypeDescription Type, List<Operation> ops)
         {
             this.Type = Type;
             this.Operations = ops;

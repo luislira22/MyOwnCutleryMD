@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.Models.MachineTypes;
 
 namespace MasterDataFactory.Models.Domain.MachineTypes
 {
@@ -12,10 +13,10 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 
         public List<OperationDTO> Operations {get;set;}
 
-        public MachineTypeDTO(Guid Id, string Type, List<OperationDTO> Ops)
+        public MachineTypeDTO(Guid Id, MachineTypeDescription Type, List<OperationDTO> Ops)
         {
             this.Id = Id;
-            this.Type = Type;
+            this.Type = Type.Type;
             this.Operations = Ops;
         }
     }
