@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
@@ -15,6 +16,7 @@
     <Compile Remove="Models\PersistenceContext\MachineContext.cs" />
     <Compile Remove="Models\Domain\Machines\MachineId.cs" />
     <Compile Remove="Models\Domain\**" />
+    <Compile Remove="DTO\MappingProfile.cs" />
   </ItemGroup>
 
   <ItemGroup>

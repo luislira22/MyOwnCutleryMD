@@ -7,6 +7,7 @@ using MasterDataFactory.DTO;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Machines;
+using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Services;
 
 namespace MasterDataFactory.Controllers
@@ -38,20 +39,18 @@ namespace MasterDataFactory.Controllers
         [HttpPost]
         public async Task<ActionResult<MachineDTO>> CreateMachine(MachineDTO machineDTO)
         {
-            bool machineTypeExists = await _serviceMachineType.MachineExists(Guid.Parse(machineDTO.MachineType));
+            bool machineTypeExists = await _serviceMachineType.doesMachineExists(Guid.Parse(machineDTO.MachineType));
             if(!machineTypeExists) return NotFound("Machine type not found.");
             
             var machineType = await _serviceMachineType.getMachineType(Guid.Parse(machineDTO.MachineType));
-            
             var machineBrand = new MachineBrand(machineDTO.MachineBrand);
             var machineModel = new MachineModel(machineDTO.MachineModel);
-            MachineLocation machineLocation = new MachineLocation(machineDTO.MachineLocation);
-            Machine machine = new Machine(machineType, machineBrand, machineModel, machineLocation);
-            Console.WriteLine("----------------------------------------------------" + machine.MachineType.Id);
+            var machineLocation = new MachineLocation(machineDTO.MachineLocation);
+
+            var machine = new Machine(machineType, machineBrand, machineModel, machineLocation);
             await _serviceMachine.CreateMachine(machine);
+            
             return CreatedAtAction("CreateMachine", machine.toDTO());
-            //TODO
-            //return null;
         }
 
         // DELETE: api/machine/{id}

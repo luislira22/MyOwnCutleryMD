@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.PersistenceContext;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace MasterDataFactory
 {
@@ -28,12 +27,15 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Exemplo da ligação à BD (A connectionString deve ser guardada no ficheiro appsettings.json - feito)
-            //var connection = Configuration.GetConnectionString("AzureDB");
-            //services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));
-            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MDF"));
+            // Exemplo da ligação à BD
+            /*var connection = "Server=lapr2019.database.windows.net;Port=5432;User Id=lapr;Password=YoHwGciYDXaUcjmt75J6;";
+            services.AddDbContext<MachineContext>(opt => opt.UseSqlServer(connection));*/
+            
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("Machine"));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("ProductionLine"));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MachineType"));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("Operation"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //services.BuildServiceProvider().GetService<Context>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

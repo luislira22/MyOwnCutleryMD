@@ -13,12 +13,12 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public MachineRepository(Context context) : base(context)
         {
+            context.Machines.Include(m => m.MachineType).ToListAsync();
         }
 
-        public override Task<bool> Exists(Guid id)
+        public override async Task<bool> Exists(Guid id)
         {
-            //TODO
-            throw new NotImplementedException();
+            return await _context.Machines.AnyAsync(o => o.Id == id);
         }
     }
 }

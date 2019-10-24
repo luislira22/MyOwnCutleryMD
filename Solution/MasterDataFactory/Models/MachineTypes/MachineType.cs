@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.Operations;
-using MasterDataFactory.Models.MachineTypes;
-using Newtonsoft.Json;
 
-namespace MasterDataFactory.Models.Domain.MachineTypes
+namespace MasterDataFactory.Models.MachineTypes
 {
     public class MachineType : IEntity
     {
@@ -16,6 +13,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
 
         //Não há suporte para implementar em .NET Core uma chave primária que é um valueobject
         //public MachineTypeID Id {get;set;}
+        public ICollection<Machine> Machines { get; set; }
 
         public MachineTypeDescription Type { get; set; }
 

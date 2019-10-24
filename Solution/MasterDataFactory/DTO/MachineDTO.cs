@@ -13,15 +13,15 @@ namespace MasterDataFactory.DTO
         public MachineDTO(Machine machine)
         {
             Id = machine.Id.ToString();
-            if (MachineType != null)
+            if (machine.MachineType != null)
             {
                 MachineType = machine.MachineType.Id.ToString();
             }
+
             MachineBrand = machine.MachineBrand.Brand;
             MachineModel = machine.MachineModel.Model;
             MachineLocation = machine.MachineLocation.Location;
         }
-        
 
         public MachineDTO()
         {

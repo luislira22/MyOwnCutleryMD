@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:Solution/MasterDataProduct/MasterDataProduct.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -11,3 +12,22 @@
   </ItemGroup>
 
 </Project>
+=======
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Domain\Machines\MachineIdValueConverter.cs" />
+  </ItemGroup>
+
+</Project>
+>>>>>>> Stashed changes:MasterDataFactory/MasterDataFactory.csproj

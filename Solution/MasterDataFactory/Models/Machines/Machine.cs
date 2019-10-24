@@ -2,6 +2,7 @@
 using MasterDataFactory.DTO;
 using MasterDataFactory.Models.Domain;
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.MachineTypes;
 
 namespace MasterDataFactory.Models.Machines
 {
