@@ -4,24 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.Models.MachineTypes;
 
 namespace MasterDataFactory.Models.Domain.MachineTypes
 {
     public class MachineType : IEntity
     {
-        //internal MachineTypeID Ref { get; private set; } //identificacao no dominio (value object) ex: PCX010
         public Guid Id {get;set;}
 
-        public string Type { get; set; }
+        public MachineTypeDescription Type { get; set; }
 
         public List<Operation> Operations {get;set;}
 
-        public MachineType()
+        protected MachineType()
         {
 
         }
 
-        public MachineType(string Type, List<Operation> ops)
+        public MachineType(MachineTypeDescription Type, List<Operation> ops)
         {
             this.Type = Type;
             this.Operations = ops;

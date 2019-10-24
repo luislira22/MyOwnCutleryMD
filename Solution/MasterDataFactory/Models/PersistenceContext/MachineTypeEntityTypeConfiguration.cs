@@ -14,6 +14,7 @@ namespace MasterDataFactory.Models.Domain.MachineTypes
         {
             MachineTypeConfiguration.ToTable("MachineTypes", Context.DEFAULT_SCHEMA);
             MachineTypeConfiguration.HasKey(o => o.Id);
+            MachineTypeConfiguration.OwnsOne(o => o.Type);
             MachineTypeConfiguration.OwnsMany(o => o.Operations);
         }
     }
