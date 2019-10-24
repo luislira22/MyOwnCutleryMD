@@ -5,25 +5,52 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MasterDataFactory.Models.Domain.Operations
 {
-    public class Operation
+    public class Operation : IEntity
     {
-        
-        //public OperationId Id{ get; set; }
         public Guid Id{ get; set; }
-        
+        public OperationDuration Duration { get; set;}
         public OperationDescription Description{ get;set;}
 
-        public Operation(){
+        protected Operation()
+        {
             
         }
-
-        public Operation(string description)
+        public Operation(string description,TimeSpan duration)
         {
-            this.Description = new OperationDescription(description);
+            Description = new OperationDescription(description);
+            Duration = new OperationDuration(duration);
         }
 
+        public Operation(Guid id, string description, TimeSpan duration)
+        {
+            Id = id;
+            Description = new OperationDescription(description);
+            Duration = new OperationDuration(duration);
+        }
+
+        public Operation(OperationDTO operationDto)
+        {
+            Duration = new OperationDuration(operationDto.Duration);
+            Description = new OperationDescription(operationDto.Description);
+        }
+        
+
         public OperationDTO toDTO(){
-            return new OperationDTO(Id,Description.Description);
+            return new OperationDTO(Id,Description.Description,Duration.Duration.ToString());
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+                return false;
+            Operation OperationTmp = ((Operation) obj);
+            return OperationTmp.Description.Equals(this.Description) || Duration.Equals(OperationTmp.Duration);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

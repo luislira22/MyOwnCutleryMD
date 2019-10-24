@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Repositories.Impl
 {
@@ -14,9 +15,9 @@ namespace MasterDataFactory.Repositories.Impl
             
         }
 
-        public override Task<bool> Exists(Guid id)
+        public async override Task<bool> Exists(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Operations.AnyAsync(o => o.Id == id);
         }
     }
 }

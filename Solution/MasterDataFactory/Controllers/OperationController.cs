@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 
 namespace MasterDataFactory.Controllers
@@ -16,33 +17,47 @@ namespace MasterDataFactory.Controllers
 
         public OperationController(Context _context)
         {
-            this._service = new OperationService(_context);
+            _service = new OperationService(_context);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OperationDTO>> GetOperation(Guid id)
+        public async Task<ActionResult<OperationDTO>> GetOperationById(Guid id)
         {
-            Operation operation = await _service.getOperation(id);
-            if (operation == null)
+            if (await _service.existsOperation(id))
+            {
                 return NotFound();
-            return new OperationDTO(operation.Id, operation.Description.Description);
+            }
+            Operation operation = await _service.getOperationById(id);
+            return operation.toDTO();
         }
 
         [HttpPost]
         public async Task<ActionResult<OperationDTO>> PostOperation(OperationDTO operationDto)
         {
             //create operation from DTO
-            Operation operation = new Operation(operationDto.Description);
+            Operation operation = new Operation(operationDto);
             try
             {
-                _service.postOperation(operation);
-                return CreatedAtAction(nameof(GetOperation), new {id = operation.Id}, operation.toDTO());
+                await _service.postOperation(operation);
+                return CreatedAtAction("PostOperation", operation.toDTO());
             }
             catch (Exception e)
             {
+                Console.Write(e.Message);
                 return BadRequest("operation failed.");
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteOperation(Guid id)
+        {
+            if (await _service.existsOperation(id))
+            {
+                return NotFound();
+            }
+            await _service.deleteOperation(id);
+            return Ok();
         }
     }
 }

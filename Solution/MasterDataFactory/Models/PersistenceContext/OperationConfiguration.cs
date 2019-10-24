@@ -11,6 +11,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             operationConfiguration.ToTable("operations",Context.DEFAULT_SCHEMA);
             operationConfiguration.HasKey(o => o.Id);
             operationConfiguration.OwnsOne(o => o.Description);
+            operationConfiguration.OwnsOne(o => o.Duration);
         }
     }
 }
