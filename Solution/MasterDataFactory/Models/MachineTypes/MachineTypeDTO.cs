@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using MasterDataFactory.Models.Domain.MachinesTypes;
 using MasterDataFactory.Models.Domain.Operations;
-using MasterDataFactory.Models.MachineTypes;
 
-namespace MasterDataFactory.Models.Domain.MachineTypes
+namespace MasterDataFactory.Models.MachineTypes
 {
     public class MachineTypeDTO
     {

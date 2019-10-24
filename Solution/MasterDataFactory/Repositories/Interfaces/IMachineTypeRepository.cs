@@ -1,4 +1,5 @@
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.MachineTypes;
 
 namespace MasterDataFactory.Repositories.Interfaces
 {

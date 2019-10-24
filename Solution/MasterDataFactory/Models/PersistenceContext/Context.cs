@@ -5,6 +5,7 @@ using MasterDataFactory.Models.Domain.ProductionLines;
 using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.MachineTypes;
+using MasterDataFactory.Models.Operations;
 
 namespace MasterDataFactory.Models.PersistenceContext
 {

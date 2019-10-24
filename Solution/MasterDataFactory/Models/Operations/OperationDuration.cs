@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MasterDataFactory.Models.Domain.Operations
+namespace MasterDataFactory.Models.Operations
 {
     public class OperationDuration : ValueObject
     {

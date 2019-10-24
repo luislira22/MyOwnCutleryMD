@@ -1,12 +1,8 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-using MasterDataFactory.Models.Domain.MachineTypes;
-using Newtonsoft.Json;
+﻿using System;
+using MasterDataFactory.Models.Domain;
+using MasterDataFactory.Models.Domain.Operations;
 
-namespace MasterDataFactory.Models.Domain.Operations
+namespace MasterDataFactory.Models.Operations
 {
     public class Operation : IEntity
     {

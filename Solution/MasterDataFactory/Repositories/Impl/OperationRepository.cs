@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

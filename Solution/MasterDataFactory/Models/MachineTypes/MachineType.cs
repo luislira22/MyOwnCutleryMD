@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MasterDataFactory.Models.Domain;
 using MasterDataFactory.Models.Domain.MachinesTypes;
+using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.Models.Machines;
+using MasterDataFactory.Models.Operations;
 
 namespace MasterDataFactory.Models.MachineTypes
 {

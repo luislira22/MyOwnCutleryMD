@@ -1,9 +1,9 @@
-using MasterDataFactory.Models.Domain.Operations;
-using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Models.MachineTypes;
+using MasterDataFactory.Models.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MasterDataFactory.Models.Domain.MachineTypes
+namespace MasterDataFactory.Models.PersistenceContext
 {
     public class MachineTypeEntityTypeConfiguration : IEntityTypeConfiguration<MachineType>
     {

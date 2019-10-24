@@ -9,6 +9,7 @@ using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Services;
+using MachineTypeService = MasterDataFactory.Models.Domain.MachineTypes.MachineTypeService;
 
 namespace MasterDataFactory.Controllers
 {

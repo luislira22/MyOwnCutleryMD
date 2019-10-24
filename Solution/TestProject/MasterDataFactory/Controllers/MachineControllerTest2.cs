@@ -6,6 +6,7 @@ using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.MachineTypes;
+using MasterDataFactory.Models.Operations;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Xunit;
@@ -25,7 +26,7 @@ namespace TestProject.MasterDataFactory.Controllers
         [Fact]
         public async void Test1()
         {
-            Guid id = Guid.NewGuid();
+           /* Guid id = Guid.NewGuid();
             IList<Operation> operations = new List<Operation>();
             Operation operation1 = new Operation
             {
@@ -50,7 +51,7 @@ namespace TestProject.MasterDataFactory.Controllers
 
             OperationController operationController = new OperationController(context.Object);
 
-            await operationController.GetOperation(id);
+            await operationController.GetOperation(id);*/
 
             /* IList<Machine> machines = new List<Machine>();
              Machine machine1 = new Machine(null);

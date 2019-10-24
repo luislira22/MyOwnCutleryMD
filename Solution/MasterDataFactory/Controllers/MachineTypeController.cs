@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.MachineTypes;
+using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
 using Microsoft.AspNetCore.Mvc;
+using MachineTypeService = MasterDataFactory.Models.Domain.MachineTypes.MachineTypeService;
 
 namespace MasterDataFactory.Controllers
 {
@@ -34,7 +36,8 @@ namespace MasterDataFactory.Controllers
         //mudar isto para outro sitio depois
         public async Task bootstrap()
         {
-            Operation op = new Operation("Triturar");
+            var DTO = new OperationDTO(Guid.NewGuid(), "Triturar", "22:22:11");
+            Operation op = new Operation(DTO);
             _serviceOperations.postOperation(op);
             List<Operation> ops = new List<Operation>() { op };
             _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
@@ -60,7 +63,7 @@ namespace MasterDataFactory.Controllers
             }
             foreach (OperationDTO opDTO in item.Operations)
             {
-                Operation op = await _serviceOperations.getOperation(opDTO.Id);
+                Operation op = await _serviceOperations.getOperationById(opDTO.Id);
                 if (op == null)
                 {
                     return NotFound(String.Format("The operation with id: {0} was not found!", opDTO.Id));
