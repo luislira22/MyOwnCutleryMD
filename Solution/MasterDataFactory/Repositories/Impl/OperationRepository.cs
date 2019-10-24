@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Repositories.Interfaces;
 
-namespace MasterDataFactory.Repositories
+namespace MasterDataFactory.Repositories.Impl
 {
     public class OperationRepository : GenericRepository<Operation>,IOperationRepository
     {

@@ -1,14 +1,30 @@
-using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.Machines;
 
-namespace MasterDataFactory.Models.Domain.Machines
+namespace MasterDataFactory.DTO
 {
     public class MachineDTO
     {
-        public MachineTypeDTO MachineType { get; }
+        public string Id { get; set; }
+        public string MachineType { get; set; }
+        public string MachineBrand { get; set; }
+        public string MachineModel { get; set; }
+        public string MachineLocation { get; set; }
 
-        public MachineDTO(MachineType machineType)
+        public MachineDTO(Machine machine)
         {
-            MachineType = machineType.toDTO();
+            Id = machine.Id.ToString();
+            if (MachineType != null)
+            {
+                MachineType = machine.MachineType.Id.ToString();
+            }
+            MachineBrand = machine.MachineBrand.Brand;
+            MachineModel = machine.MachineModel.Model;
+            MachineLocation = machine.MachineLocation.Location;
+        }
+        
+
+        public MachineDTO()
+        {
         }
     }
 }

@@ -1,10 +1,12 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.Machines;
+using MasterDataFactory.DTO;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Domain.MachineTypes;
+using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Services;
 
 namespace MasterDataFactory.Controllers
@@ -24,20 +26,42 @@ namespace MasterDataFactory.Controllers
 
         // GET: api/machine
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Machine>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<MachineDTO>>> GetAllMachines()
         {
-            return await _serviceMachine.GetMachines();
+            //await _serviceMachine.CreateMachine(new Machine(null));
+            var machines = await _serviceMachine.GetMachines();
+            var machineDTOList = machines.Value.Select(machine => machine.toDTO()).ToList();
+            return machineDTOList;
         }
 
         // POST: api/machine
         [HttpPost]
-        public async Task<ActionResult<Machine>> CreateMachineAndAddMachineType(MachineTypeDTO machineTypeDTO)
+        public async Task<ActionResult<MachineDTO>> CreateMachine(MachineDTO machineDTO)
         {
-            var machineType = await _serviceMachineType.getMachineType(machineTypeDTO.Id);
-            if (machineType == null) return NotFound("Machine type not found.");
-            var machine = new Machine(machineType);
+            bool machineTypeExists = await _serviceMachineType.MachineExists(Guid.Parse(machineDTO.MachineType));
+            if(!machineTypeExists) return NotFound("Machine type not found.");
+            
+            var machineType = await _serviceMachineType.getMachineType(Guid.Parse(machineDTO.MachineType));
+            
+            var machineBrand = new MachineBrand(machineDTO.MachineBrand);
+            var machineModel = new MachineModel(machineDTO.MachineModel);
+            MachineLocation machineLocation = new MachineLocation(machineDTO.MachineLocation);
+            Machine machine = new Machine(machineType, machineBrand, machineModel, machineLocation);
+            Console.WriteLine("----------------------------------------------------" + machine.MachineType.Id);
             await _serviceMachine.CreateMachine(machine);
-            return CreatedAtAction("CreateMachineAndAddMachineType", machine.toDTO());
+            return CreatedAtAction("CreateMachine", machine.toDTO());
+            //TODO
+            //return null;
+        }
+
+        // DELETE: api/machine/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMachine(Guid id)
+        {
+            bool exists = await _serviceMachine.MachineExists(id);
+            if (!exists) return NotFound();
+            await _serviceMachine.DeleteMachine(id);
+            return NoContent();
         }
     }
 }

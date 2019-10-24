@@ -1,6 +1,6 @@
 ﻿using MasterDataFactory.Models.Domain.Operations;
 
-namespace MasterDataFactory.Repositories
+namespace MasterDataFactory.Repositories.Interfaces
 {
     public interface IOperationRepository : IGenericRepository<Operation>
     {

@@ -1,8 +1,8 @@
-using System;
+using MasterDataFactory.Models.Machines;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MasterDataFactory.Models.Domain.Machines
+namespace MasterDataFactory.Models.PersistenceContext
 {
     public class MachineConfiguration : IEntityTypeConfiguration<Machine>
     {
@@ -10,8 +10,10 @@ namespace MasterDataFactory.Models.Domain.Machines
         {
             machineConfiguration.ToTable("machine");
             machineConfiguration.HasKey(o => o.Id);
-            machineConfiguration.OwnsOne(o => o.MachineModel);
             machineConfiguration.HasOne(o => o.MachineType);
+            machineConfiguration.OwnsOne(o => o.MachineBrand);
+            machineConfiguration.OwnsOne(o => o.MachineModel);
+            machineConfiguration.OwnsOne(o => o.MachineLocation);
         }
     }
 }

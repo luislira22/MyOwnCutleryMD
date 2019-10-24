@@ -1,6 +1,4 @@
-using System;
-
-namespace Project.Models
+namespace MasterDataProduct.Models
 {
     public class ErrorViewModel
     {

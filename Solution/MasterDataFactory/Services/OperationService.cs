@@ -4,6 +4,8 @@ using MasterDataFactory.Models.PersistenceContext;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Repositories;
+using MasterDataFactory.Repositories.Impl;
+using MasterDataFactory.Repositories.Interfaces;
 
 namespace MasterDataFactory.Services
 {

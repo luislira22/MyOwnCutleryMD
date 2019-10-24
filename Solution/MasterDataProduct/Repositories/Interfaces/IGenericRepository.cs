@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MasterDataFactory.Repositories.Interfaces
+namespace MasterDataProduct.Repositories.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
