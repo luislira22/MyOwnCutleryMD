@@ -23,14 +23,21 @@ namespace MasterDataFactory.Controllers
             _serviceMachineType = new MachineTypeService(context);
             _serviceOperations = new OperationService(context);
 
-            /* quick bootstrap. Mudar para bootstrapper eventualmente
+            /*  quick bootstrap. Mudar para bootstrapper eventualmente */
             if (context.MachineTypes.Count() == 0)
             {
-                Operation op = new Operation("Triturar");
-                List<Operation> ops = new List<Operation>() { op };
-                _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
+                //bootstrap();
             }
-            */
+
+        }
+
+        //mudar isto para outro sitio depois
+        public async Task bootstrap()
+        {
+            Operation op = new Operation("Triturar");
+            _serviceOperations.postOperation(op);
+            List<Operation> ops = new List<Operation>() { op };
+            _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
         }
 
         [HttpGet("{id}")]

@@ -8,10 +8,10 @@ namespace MasterDataFactory.Models.Domain.MachinesTypes
 {
     public class MachineTypeID : ValueObject
     {
-        public int id { get; set; }
+        public Guid Id { get; set; }
 
-        public MachineTypeID(int id) {
-            this.id = id;
+        public MachineTypeID(Guid id) {
+            this.Id = id;
         }
 
         public MachineTypeID()
@@ -20,7 +20,7 @@ namespace MasterDataFactory.Models.Domain.MachinesTypes
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return id;
+            yield return Id;
         }
 
         public override bool Equals(object obj)
@@ -32,7 +32,7 @@ namespace MasterDataFactory.Models.Domain.MachinesTypes
             
             // TODO: write your implementation of Equals() here
             MachineTypeID other = (MachineTypeID)obj;
-            return other.id == this.id;
+            return other.Id == this.Id;
         }
         
         public override int GetHashCode()
