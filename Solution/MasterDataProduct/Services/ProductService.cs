@@ -23,17 +23,23 @@ namespace MasterDataProduct.Services
         public async Task<Product> GetProduct(Guid id)
         {
             var product = await _productRepository.GetById(id);
+            if (product == null) throw new KeyNotFoundException();
             return product;
         }
-
-        public async Task PostProduct(Product product)
-        {
-            await _productRepository.Create(product);
-        }
+        
 
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _productRepository.GetAll();
+        }
+        
+        public async Task<Product> PostProduct(ProductDTO productDTO)
+        {
+            var plan = new ManufacturingPlan(productDTO.Plan.Name);
+
+            var product = new Product(plan);
+            await _productRepository.Create(product);
+            return product;
         }
     }
 }
