@@ -18,11 +18,7 @@ namespace MasterDataFactory.Services
         public MachineService(Context context)
         {
             _machineRepository = new MachineRepository(context);
-        }
-
-        public async Task<bool> MachineExists(Guid id)
-        {
-            return await _machineRepository.Exists(id);
+            _machineTypeRepository = new MachineTypeRepository(context);
         }
 
         public async Task<ActionResult<List<Machine>>> GetMachines()

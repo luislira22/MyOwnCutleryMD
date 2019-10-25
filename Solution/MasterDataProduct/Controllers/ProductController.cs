@@ -16,7 +16,6 @@ namespace MasterDataProduct.Controllers
     {
         private readonly ProductService _serviceProduct;
 
-        
 
         public ProductController(Context context)
         {
@@ -38,20 +37,20 @@ namespace MasterDataProduct.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
         {
-            var product= await _serviceProduct.GetProduct(id);
+            var product = await _serviceProduct.GetProduct(id);
             return product.ToDto();
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDTO>> PostProduct([FromBody] Product item)
+        public async Task<ActionResult<ProductDTO>> PostProduct([FromBody] ProductDTO item)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            await _serviceProduct.PostProduct(item);
-            return CreatedAtAction(nameof(GetProduct), new {id = item.Id}, item);
+
+            var product = await _serviceProduct.PostProduct(item);
+            return CreatedAtAction("PostProduct", product.ToDto());
         }
     }
 }

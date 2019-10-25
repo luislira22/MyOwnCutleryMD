@@ -10,8 +10,7 @@ namespace MasterDataProduct.Models.PersistenceContext
         {
             productConfiguration.ToTable("Product");
             productConfiguration.HasKey(o => o.Id);
-            productConfiguration.OwnsOne(o => o.Plan);
-            productConfiguration.Property(o => o.Plan).IsRequired();
+            productConfiguration.OwnsOne(o => o.Plan).Property(o => o.Name).IsRequired();
         }
     }
 }
