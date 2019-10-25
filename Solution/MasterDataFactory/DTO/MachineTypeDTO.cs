@@ -7,15 +7,15 @@ namespace MasterDataFactory.DTO
 {
     public class MachineTypeDTO
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Type { get; set; }
 
-        public List<OperationDTO> Operations {get;set;}
+        public List<string> Operations {get;set;}
 
-        public MachineTypeDTO(Guid Id, MachineTypeDescription Type, List<OperationDTO> Ops)
+        public MachineTypeDTO(string Id, string Type, List<string> Ops)
         {
             this.Id = Id;
-            this.Type = Type.Type;
+            this.Type = Type;
             this.Operations = Ops;
         }
     }

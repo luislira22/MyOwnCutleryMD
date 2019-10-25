@@ -9,7 +9,6 @@ using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
 using Microsoft.AspNetCore.Mvc;
-using MasterDataFactory.Services;
 
 namespace MasterDataFactory.Controllers
 {
@@ -34,6 +33,7 @@ namespace MasterDataFactory.Controllers
         }
 
         //mudar isto para outro sitio depois
+        /*
         public async Task bootstrap()
         {
             var DTO = new OperationDTO(Guid.NewGuid(), "Triturar", "22:22:11");
@@ -42,45 +42,46 @@ namespace MasterDataFactory.Controllers
             List<Operation> ops = new List<Operation>() { op };
             _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
         }
+        */
 
         [HttpGet("{id}")]
         public async Task<ActionResult<MachineTypeDTO>> GetMachineType(Guid id)
         {
-            MachineType machineType = await _serviceMachineType.getMachineType(id);
-            if (machineType == null)
-                return NotFound();
-            MachineTypeDTO machinetypeDTO = machineType.toDTO();
-            return machinetypeDTO;
+            try
+            {
+                MachineType machineType = await _serviceMachineType.getMachineType(id);
+                return machineType.toDTO();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(String.Format("The MachineType with id: {0} was not found!", id));
+            }
+            //catch(SqlException){}
         }
 
         [HttpPost]
         public async Task<ActionResult<MachineTypeDTO>> PostMachineType([FromBody]MachineTypeDTO item)
         {
-            List<Operation> operations = new List<Operation>();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            foreach (OperationDTO opDTO in item.Operations)
+            try
             {
-                Operation op = await _serviceOperations.getOperationById(opDTO.Id);
-                if (op == null)
-                {
-                    return NotFound(String.Format("The operation with id: {0} was not found!", opDTO.Id));
-                }
-                operations.Add(op);
+                MachineType machine = await _serviceMachineType.postMachineType(item);
+                return CreatedAtAction(nameof(PostMachineType), machine.toDTO());
             }
-            MachineType machineType = new MachineType(new MachineTypeDescription(item.Type), operations);
-            await _serviceMachineType.postMachineType(machineType);
-            return CreatedAtAction(nameof(GetMachineType), new { Id = machineType.Id }, machineType);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MachineTypeDTO>>> GetMachineTypes()
         {
-            ActionResult<IEnumerable<MachineType>> actionResult = await _serviceMachineType.GetMachineTypes();
-            var machines = actionResult.Value.Select(machineType => machineType.toDTO()).ToList();
-            return machines;
+            IEnumerable<MachineType> machines = (await _serviceMachineType.GetMachineTypes()).Value;
+            return machines.Select(m => m.toDTO()).ToList();
         }
 
         // GET machinetype/operations/{machineTypeId}
