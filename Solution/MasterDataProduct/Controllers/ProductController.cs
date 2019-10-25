@@ -52,5 +52,13 @@ namespace MasterDataProduct.Controllers
             var product = await _serviceProduct.PostProduct(item);
             return CreatedAtAction("PostProduct", product.ToDto());
         }
+
+        [HttpGet]
+        public async Task<ActionResult<ManufacturingPlanDTO>> GetProductionPlanFromProduct(Guid id)
+        {
+            //FIX Corregir posteriormente, não está grande coisa o construtor do DTO
+            var product = await _serviceProduct.GetProduct(id);
+            return new ManufacturingPlanDTO(product.Plan.Name);
+        }
     }
 }

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Compile Remove="Models\Domain\Machines\MachineIdValueConverter.cs" />
+    <Compile Remove="Controllers\ValuesController.cs" />
   </ItemGroup>
 
 </Project>

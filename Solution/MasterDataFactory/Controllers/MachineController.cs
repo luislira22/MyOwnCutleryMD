@@ -15,13 +15,11 @@ namespace MasterDataFactory.Controllers
     public class MachineController : ControllerBase
     {
         private readonly MachineService _serviceMachine;
-        private readonly MachineTypeService _serviceMachineType;
         private readonly IMapper _mapper;
 
         public MachineController(Context context, IMapper mapper)
         {
             _serviceMachine = new MachineService(context);
-            _serviceMachineType = new MachineTypeService(context);
             _mapper = mapper;
         }
 
@@ -42,9 +40,9 @@ namespace MasterDataFactory.Controllers
                 var machine = await _serviceMachine.CreateMachine(machineDTO);
                 return CreatedAtAction("CreateMachine", _mapper.Map<Machine, MachineDTO>(machine));
             }
-            catch (KeyNotFoundException)
+            catch (KeyNotFoundException exception)
             {
-                return NotFound("Machine type not found");
+                return NotFound(exception.Message);
             }
         }
         // DELETE: api/machine/{id}

@@ -13,12 +13,12 @@ namespace MasterDataFactory.Services
     public class MachineService
     {
         private readonly IMachineRepository _machineRepository;
-        private readonly IMachineTypeRepository _machineTypeRepository;
+        private readonly MachineTypeService _machineTypeService;
 
         public MachineService(Context context)
         {
             _machineRepository = new MachineRepository(context);
-            _machineTypeRepository = new MachineTypeRepository(context);
+            _machineTypeService = new MachineTypeService(context);
         }
 
         public async Task<ActionResult<List<Machine>>> GetMachines()
@@ -29,8 +29,7 @@ namespace MasterDataFactory.Services
         public async Task<Machine> CreateMachine(MachineDTO machineDTO)
         {
             var machineTypeId = Guid.Parse(machineDTO.MachineType);
-            var machineType = await _machineTypeRepository.GetById(machineTypeId);
-            if (machineType == null) throw new KeyNotFoundException();
+            var machineType = await _machineTypeService.getMachineType(machineTypeId);
 
             var machineBrand = new MachineBrand(machineDTO.MachineBrand);
             var machineModel = new MachineModel(machineDTO.MachineModel);
