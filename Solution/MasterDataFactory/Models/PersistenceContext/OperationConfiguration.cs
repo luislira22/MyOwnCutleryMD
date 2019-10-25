@@ -1,5 +1,4 @@
-﻿using MasterDataFactory.Models.Domain.Operations;
-using MasterDataFactory.Models.Operations;
+﻿using MasterDataFactory.Models.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

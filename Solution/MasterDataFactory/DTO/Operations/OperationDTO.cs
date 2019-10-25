@@ -1,6 +1,6 @@
 using System;
 
-namespace MasterDataFactory.Models.Domain.Operations
+namespace MasterDataFactory.DTO.Operations
 {
     public class OperationDTO
     {

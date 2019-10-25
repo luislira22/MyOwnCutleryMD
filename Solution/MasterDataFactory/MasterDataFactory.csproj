@@ -11,25 +11,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\Domain\Machines\MachineIdValueConverter.cs" />
-    <Compile Remove="Models\PersistenceContext\MachineContext.cs" />
-    <Compile Remove="Models\Domain\Machines\MachineId.cs" />
-    <Compile Remove="Models\Domain\**" />
-    <Compile Remove="DTO\AutoMapper.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Models\Domain\Machines\ss.http" />
-    <None Remove="Models\Domain\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Models\Domain\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Models\Domain\**" />
-  </ItemGroup>
 
 </Project>

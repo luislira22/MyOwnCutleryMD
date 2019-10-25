@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Impl;
 using MasterDataFactory.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Services
 {

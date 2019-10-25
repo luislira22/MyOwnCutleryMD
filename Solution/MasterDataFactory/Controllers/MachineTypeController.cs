@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.MachineTypes;
-using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.DTO;
+using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
 using Microsoft.AspNetCore.Mvc;
-using MachineTypeService = MasterDataFactory.Models.Domain.MachineTypes.MachineTypeService;
+using MasterDataFactory.Services;
 
 namespace MasterDataFactory.Controllers
 {
@@ -79,13 +79,8 @@ namespace MasterDataFactory.Controllers
         public async Task<ActionResult<IEnumerable<MachineTypeDTO>>> GetMachineTypes()
         {
             ActionResult<IEnumerable<MachineType>> actionResult = await _serviceMachineType.GetMachineTypes();
-            IEnumerable<MachineType> machines = actionResult.Value;
-            List<MachineTypeDTO> dtos = new List<MachineTypeDTO>();
-            foreach (MachineType machine in machines)
-            {
-                dtos.Add(machine.toDTO());
-            }
-            return new ActionResult<IEnumerable<MachineTypeDTO>>(dtos);
+            var machines = actionResult.Value.Select(machineType => machineType.toDTO()).ToList();
+            return machines;
         }
 
         // GET machinetype/operations/{machineTypeId}

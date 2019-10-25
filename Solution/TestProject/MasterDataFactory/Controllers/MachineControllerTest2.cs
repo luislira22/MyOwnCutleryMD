@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using MasterDataFactory.Controllers;
-using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.PersistenceContext;
-using MasterDataFactory.Models.Domain.Operations;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.Operations;
 using Moq;
@@ -22,8 +20,7 @@ namespace TestProject.MasterDataFactory.Controllers
         {
             _testOutputHelper = testOutputHelper;
         }
-
-        [Fact]
+        
         public async void Test1()
         {
            /* Guid id = Guid.NewGuid();

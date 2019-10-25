@@ -1,14 +1,13 @@
 ﻿using System;
-using MasterDataFactory.Models.Domain;
-using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.DTO.Operations;
 
 namespace MasterDataFactory.Models.Operations
 {
     public class Operation : IEntity
     {
-        public Guid Id{ get; set; }
-        public OperationDuration Duration { get; set;}
-        public OperationDescription Description{ get;set;}
+        public Guid Id { get; set; }
+        public OperationDuration Duration { get; set; }
+        public OperationDescription Description { get; set; }
 
 
         //public Guid? MachineTypeId { get; set; }
@@ -17,11 +16,11 @@ namespace MasterDataFactory.Models.Operations
         //[IgnoreDataMember] //prevenir ciclo infinito
         //public MachineType Machine { get; set; }
 
-        protected Operation(){
-            
+        protected Operation()
+        {
         }
-        
-        public Operation(string description,TimeSpan duration)
+
+        public Operation(string description, TimeSpan duration)
         {
             Description = new OperationDescription(description);
             Duration = new OperationDuration(duration);
@@ -39,12 +38,13 @@ namespace MasterDataFactory.Models.Operations
             Duration = new OperationDuration(operationDto.Duration);
             Description = new OperationDescription(operationDto.Description);
         }
-        
 
-        public OperationDTO toDTO(){
-            return new OperationDTO(Id,Description.Description,Duration.Duration.ToString());
+
+        public OperationDTO toDTO()
+        {
+            return new OperationDTO(Id, Description.Description, Duration.Duration.ToString());
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj == null || obj.GetType() != this.GetType())

@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Interfaces;

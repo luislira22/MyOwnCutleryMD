@@ -1,12 +1,10 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using MasterDataFactory.Models.Domain.Operations;
+using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-
 
 namespace MasterDataFactory.Controllers
 {

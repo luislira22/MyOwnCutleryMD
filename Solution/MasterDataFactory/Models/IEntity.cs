@@ -1,6 +1,6 @@
 using System;
 
-namespace MasterDataFactory.Models.Domain
+namespace MasterDataFactory.Models
 {
     public interface IEntity
     {

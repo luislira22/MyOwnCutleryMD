@@ -1,17 +1,12 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using MasterDataFactory.DTO;
 using MasterDataFactory.DTO.Machines;
 using MasterDataFactory.Models.PersistenceContext;
-using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.Machines;
-using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Services;
-using MachineTypeService = MasterDataFactory.Models.Domain.MachineTypes.MachineTypeService;
 
 namespace MasterDataFactory.Controllers
 {
@@ -38,7 +33,7 @@ namespace MasterDataFactory.Controllers
             var machines = await _serviceMachine.GetMachines();
             //var machineDTOList = new Lis;// machines.Value.Select(machine => machine.toDTO()).ToList();
             var machineDTOList = _mapper.Map<List<Machine>, List<MachineDTO>>(machines.Value);
-            
+
             return machineDTOList;
         }
 
@@ -46,9 +41,9 @@ namespace MasterDataFactory.Controllers
         [HttpPost]
         public async Task<ActionResult<MachineDTO>> CreateMachine(MachineDTO machineDTO)
         {
-            bool machineTypeExists = await _serviceMachineType.doesMachineExists(Guid.Parse(machineDTO.MachineType));
-            if(!machineTypeExists) return NotFound("Machine type not found.");
-            
+            bool machineTypeExists = await _serviceMachineType.MachineExists(Guid.Parse(machineDTO.MachineType));
+            if (!machineTypeExists) return NotFound("Machine type not found.");
+
             var machineType = await _serviceMachineType.getMachineType(Guid.Parse(machineDTO.MachineType));
             var machineBrand = new MachineBrand(machineDTO.MachineBrand);
             var machineModel = new MachineModel(machineDTO.MachineModel);
@@ -56,7 +51,7 @@ namespace MasterDataFactory.Controllers
 
             var machine = new Machine(machineType, machineBrand, machineModel, machineLocation);
             await _serviceMachine.CreateMachine(machine);
-            
+
             var machineCreatedDTO = _mapper.Map<Machine, MachineDTO>(machine);
             return CreatedAtAction("CreateMachine", machineCreatedDTO);
         }
