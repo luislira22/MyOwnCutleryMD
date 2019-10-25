@@ -5,6 +5,7 @@ using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.Operations;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MasterDataFactory.Models.MachineTypes
 {
@@ -18,14 +19,14 @@ namespace MasterDataFactory.Models.MachineTypes
 
         public MachineTypeDescription Type { get; set; }
 
-        public List<Operation> Operations {get;set;}
+        public ICollection<Operation> Operations {get;set;}
 
         protected MachineType()
         {
 
         }
 
-        public MachineType(MachineTypeDescription Type, List<Operation> ops)
+        public MachineType(MachineTypeDescription Type, ICollection<Operation> ops)
         {
             this.Type = Type;
             this.Operations = ops;
@@ -33,7 +34,6 @@ namespace MasterDataFactory.Models.MachineTypes
 
         public MachineTypeDTO toDTO()
         {
-            
             List<string> dtoOps = (Operations.Select(op => op.Id.ToString())).ToList();
             return new MachineTypeDTO(Id.ToString(),Type.Type,dtoOps);
         }

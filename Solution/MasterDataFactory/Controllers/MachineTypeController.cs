@@ -17,16 +17,16 @@ namespace MasterDataFactory.Controllers
     public class MachineTypeController : ControllerBase
     {
         private readonly MachineTypeService _serviceMachineType;
-        private readonly OperationService _serviceOperations;
 
         public MachineTypeController(Context context)
         {
             _serviceMachineType = new MachineTypeService(context);
-            _serviceOperations = new OperationService(context);
 
             /*  quick bootstrap. Mudar para bootstrapper eventualmente */
             if (context.MachineTypes.Count() == 0)
             {
+                // Create a new MachineType if collection is empty,
+                // which means you can't delete all MachineTypes.(quick bootstrap)
                 //bootstrap();
             }
 
@@ -40,7 +40,7 @@ namespace MasterDataFactory.Controllers
             Operation op = new Operation(DTO);
             _serviceOperations.postOperation(op);
             List<Operation> ops = new List<Operation>() { op };
-            _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
+            await _serviceMachineType.postMachineType(new MachineType(new MachineTypeDescription("Trituradora"), ops));
         }
         */
 
@@ -96,6 +96,22 @@ namespace MasterDataFactory.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound("Machine type does not exist");
+            }
+        }
+        
+        // PUT machinetype/operations/{machineTypeId}
+        [HttpPut("operations/{id}")]
+        public async Task<ActionResult<MachineTypeDTO>> updateMachineTypeOperations(Guid id,[FromBody]ICollection<string> operationIds)
+        {
+            try
+            {
+                await _serviceMachineType.UpdateMachineTypeOperation(id, operationIds);
+                MachineType machineType = await _serviceMachineType.getMachineType(id);
+                return CreatedAtAction(nameof(updateMachineTypeOperations),machineType.toDTO());
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
             }
         }
 

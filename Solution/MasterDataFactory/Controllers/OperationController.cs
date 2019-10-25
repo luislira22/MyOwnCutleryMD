@@ -31,7 +31,7 @@ namespace MasterDataFactory.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
@@ -62,7 +62,7 @@ namespace MasterDataFactory.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
     }

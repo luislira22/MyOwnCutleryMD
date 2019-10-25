@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO;
+using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
@@ -24,7 +26,7 @@ namespace MasterDataFactory.Services
             _serviceOperations = new OperationService(context);
         }
         
-        public async Task<List<Operation>> getOperations(Guid id)
+        public async Task<ICollection<Operation>> getOperations(Guid id)
         {
             var machineType = await _machineTypeRepository.GetById(id);
             if (machineType == null) throw new KeyNotFoundException();
@@ -41,19 +43,10 @@ namespace MasterDataFactory.Services
             return machineType;
         }
 
-        public async Task<MachineType> postMachineType(MachineTypeDTO machine)
+        public async Task<MachineType> postMachineType(MachineTypeDTO machinTypeDTO)
         {
-            List<Operation> operations = new List<Operation>();
-            foreach (string opDTO in machine.Operations)
-            {
-                Operation op = await _serviceOperations.getOperationById(Guid.Parse(opDTO));
-                if (op == null)
-                {
-                    throw new KeyNotFoundException(String.Format("The operation with id: {0} was not found!", opDTO));
-                }
-                operations.Add(op);
-            }
-            MachineType machineType = new MachineType(new MachineTypeDescription(machine.Type), operations);
+            ICollection<Operation> operations = ValidateOperations(machinTypeDTO.Operations).Result;
+            MachineType machineType = new MachineType(new MachineTypeDescription(machinTypeDTO.Type), operations);
             await _machineTypeRepository.Create(machineType);
             await _machineTypeRepository.SaveChangesAsync();
             return machineType;
@@ -62,6 +55,31 @@ namespace MasterDataFactory.Services
         public async Task<ActionResult<IEnumerable<MachineType>>> GetMachineTypes()
         {
             return await _machineTypeRepository.GetAll();
+        }
+
+        public async Task UpdateMachineTypeOperation(Guid id,ICollection<string> operationsId)
+        {
+            MachineType machineType = getMachineType(id).Result;
+            machineType.Operations = ValidateOperations(operationsId).Result;
+            await _machineTypeRepository.Update(id,machineType);
+        }
+
+        private async Task<ICollection<Operation>> ValidateOperations(ICollection<string> operationsId)
+        {
+            ICollection<Operation> operations = new List<Operation>();
+            foreach (string strId in operationsId)
+            {
+                
+                if (!Guid.TryParse(strId,out Guid id))
+                    throw new KeyNotFoundException(String.Format("id: {0} is not valid!", id));
+                
+                Operation operation = await _serviceOperations.getOperationById(id);
+                    if(operation == null)
+                        throw new KeyNotFoundException(String.Format("The operation with id: {0} was not found!", id));
+                    if(!operations.Contains(operation))
+                        operations.Add(operation);
+            }
+            return operations;
         }
     }
 }

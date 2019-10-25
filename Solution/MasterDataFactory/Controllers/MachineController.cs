@@ -72,12 +72,16 @@ namespace MasterDataFactory.Controllers
 
         public async Task<ActionResult<MachineDTO>> getMachineById(Guid id)
         {
-            bool exists = await _serviceMachine.MachineExists(id);
-            if (!exists)
-                return NotFound();
-            Machine machine = await _serviceMachine.GetMachineById(id);
-            var machineCreatedDTO = _mapper.Map<Machine, MachineDTO>(machine);
-            return machineCreatedDTO;
+            try
+            {
+                Machine machine = await _serviceMachine.GetMachineById(id);
+                var machineCreatedDTO = _mapper.Map<Machine, MachineDTO>(machine);
+                return machineCreatedDTO;
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }
