@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MasterDataFactory.Models.PersistenceContext;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.Operations;
@@ -15,7 +16,10 @@ namespace MasterDataFactory.Services
         }
         
         public async Task<Operation> getOperationById(Guid id){
-            return await _operationRepository.GetById(id);
+            Operation operation =  await _operationRepository.GetById(id);
+            if(operation == null)
+                throw new KeyNotFoundException();
+            return operation;
         }
         public async Task postOperation(Operation operation)
         {
@@ -24,6 +28,8 @@ namespace MasterDataFactory.Services
 
         public async Task deleteOperation(Guid id)
         {
+            if(!_operationRepository.Exists(id).Result)
+                throw new KeyNotFoundException();
             await _operationRepository.Delete(id);
         }
 

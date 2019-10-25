@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterDataFactory.Repositories.Impl

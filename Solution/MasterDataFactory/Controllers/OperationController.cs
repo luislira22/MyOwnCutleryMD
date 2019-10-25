@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.Operations;
@@ -23,21 +24,24 @@ namespace MasterDataFactory.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationDTO>> GetOperationById(Guid id)
         {
-            if (await _service.existsOperation(id))
+            try
+            {
+                Operation operation = await _service.getOperationById(id);
+                return operation.toDTO();
+            }
+            catch (KeyNotFoundException e)
             {
                 return NotFound();
             }
-            Operation operation = await _service.getOperationById(id);
-            return operation.toDTO();
         }
 
         [HttpPost]
         public async Task<ActionResult<OperationDTO>> PostOperation(OperationDTO operationDto)
         {
-            //create operation from DTO
             Operation operation = new Operation(operationDto);
             try
             {
+                //try to post object
                 await _service.postOperation(operation);
                 return CreatedAtAction("PostOperation", operation.toDTO());
             }
@@ -51,12 +55,15 @@ namespace MasterDataFactory.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteOperation(Guid id)
         {
-            if (await _service.existsOperation(id))
+            try
+            {
+                await _service.deleteOperation(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException e)
             {
                 return NotFound();
             }
-            await _service.deleteOperation(id);
-            return Ok();
         }
     }
 }
