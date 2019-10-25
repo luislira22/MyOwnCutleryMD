@@ -40,7 +40,7 @@ namespace MasterDataFactory.Repositories.Impl
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
-
+        
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

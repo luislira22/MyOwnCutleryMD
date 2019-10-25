@@ -49,8 +49,8 @@ namespace MasterDataFactory.Models.Operations
         {
             if (obj == null || obj.GetType() != this.GetType())
                 return false;
-            Operation OperationTmp = ((Operation) obj);
-            return OperationTmp.Description.Equals(this.Description) || Duration.Equals(OperationTmp.Duration);
+            Operation operationTmp = ((Operation) obj);
+            return operationTmp.Description.Equals(this.Description) || Duration.Equals(operationTmp.Duration);
         }
 
 
