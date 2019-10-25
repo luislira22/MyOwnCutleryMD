@@ -69,5 +69,15 @@ namespace MasterDataFactory.Controllers
            var machines = await _serviceMachine.GetMachineByType(type);
            return CreatedAtAction("GetMachineByMachineType", _mapper.Map<List<Machine>, List<MachineDTO>>(machines));
         }
+
+        public async Task<ActionResult<MachineDTO>> getMachineById(Guid id)
+        {
+            bool exists = await _serviceMachine.MachineExists(id);
+            if (!exists)
+                return NotFound();
+            Machine machine = await _serviceMachine.GetMachineById(id);
+            var machineCreatedDTO = _mapper.Map<Machine, MachineDTO>(machine);
+            return machineCreatedDTO;
+        }
     }
 }
