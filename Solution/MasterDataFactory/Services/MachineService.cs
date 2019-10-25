@@ -23,7 +23,7 @@ namespace MasterDataFactory.Services
             return await _machineRepository.Exists(id);
         }
         
-        public async Task<ActionResult<IEnumerable<Machine>>> GetMachines()
+        public async Task<ActionResult<List<Machine>>> GetMachines()
         {
             return await _machineRepository.GetAll();
         }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using MasterDataFactory.DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,11 @@ namespace MasterDataFactory
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MachineType"));
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("Operation"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            //Mapper
+            var mappingConfig = new MapperConfiguration(mapperConfig => mapperConfig.AddProfile(new MappingProfile()));
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

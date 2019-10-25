@@ -16,7 +16,7 @@
     <Compile Remove="Models\PersistenceContext\MachineContext.cs" />
     <Compile Remove="Models\Domain\Machines\MachineId.cs" />
     <Compile Remove="Models\Domain\**" />
-    <Compile Remove="DTO\MappingProfile.cs" />
+    <Compile Remove="DTO\AutoMapper.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using MasterDataFactory.DTO;
+using MasterDataFactory.DTO.Machines;
 using MasterDataFactory.Models.Domain;
 using MasterDataFactory.Models.Domain.MachineTypes;
 using MasterDataFactory.Models.MachineTypes;
@@ -14,8 +15,8 @@ namespace MasterDataFactory.Models.Machines
         public MachineModel MachineModel { get; set; }
         public MachineLocation MachineLocation { get; set; }
 
-
-        public Machine(MachineType machineType, MachineBrand machineBrand, MachineModel machineModel, MachineLocation machineLocation)
+        public Machine(MachineType machineType, MachineBrand machineBrand, MachineModel machineModel,
+            MachineLocation machineLocation)
         {
             MachineType = machineType;
             MachineBrand = machineBrand;
@@ -25,11 +26,6 @@ namespace MasterDataFactory.Models.Machines
 
         protected Machine()
         {
-        }
-
-        public MachineDTO toDTO()
-        {
-            return new MachineDTO(this);
         }
     }
 }
