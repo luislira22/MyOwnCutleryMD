@@ -22,7 +22,7 @@ namespace MasterDataFactory.Services
         {
             return await _machineRepository.Exists(id);
         }
-        
+
         public async Task<ActionResult<List<Machine>>> GetMachines()
         {
             return await _machineRepository.GetAll();
@@ -36,6 +36,12 @@ namespace MasterDataFactory.Services
         public async Task DeleteMachine(Guid id)
         {
             await _machineRepository.Delete(id);
+        }
+
+        public async Task<List<Machine>> GetMachineByType(Guid type)
+        {
+            return await _machineRepository.GetByType(type);
+            
         }
     }
 }

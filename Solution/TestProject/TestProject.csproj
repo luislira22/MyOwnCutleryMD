@@ -25,7 +25,6 @@
       <Folder Include="MasterDataFactory\Controllers" />
       <Folder Include="MasterDataFactory\Domain" />
       <Folder Include="MasterDataProduct\Controllers" />
-      <Folder Include="MasterDataProduct\Domain" />
     </ItemGroup>
 
 </Project>
