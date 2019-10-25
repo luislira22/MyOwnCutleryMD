@@ -90,13 +90,12 @@ namespace MasterDataFactory.Controllers
         {
             try
             {
-                var machineType = await _serviceMachineType.getMachineType(id);
-                var operationsDTO = machineType.Operations.Select(operation => operation.toDTO()).ToList();
-                return operationsDTO.ToList();
+                var operations = await _serviceMachineType.getOperations(id);
+                return operations.Select(operation => operation.toDTO()).ToList();
             }
-            catch (NullReferenceException)
+            catch (KeyNotFoundException)
             {
-                return NoContent();
+                return NotFound("Machine type does not exist");
             }
         }
 

@@ -23,12 +23,13 @@ namespace MasterDataFactory.Services
             _machineTypeRepository = new MachineTypeRepository(context);
             _serviceOperations = new OperationService(context);
         }
-
-        public async Task<bool> MachineExists(Guid id)
+        
+        public async Task<List<Operation>> getOperations(Guid id)
         {
-            //TODO implementar reposotorios e deixar a linha de baixo
-            //return await _machineRepository.Exists(id);
-            return true;
+            var machineType = await _machineTypeRepository.GetById(id);
+            if (machineType == null) throw new KeyNotFoundException();
+
+            return machineType.Operations;
         }
         public async Task<MachineType> getMachineType(Guid id)
         {
