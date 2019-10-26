@@ -1,7 +1,7 @@
-using MasterDataProduct.Models.Domain.Products;
+using MasterDataProduct.Models.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasterDataProduct.Models.PersistenceContext
+namespace MasterDataProduct.PersistenceContext
 {
     public class Context : DbContext
     {

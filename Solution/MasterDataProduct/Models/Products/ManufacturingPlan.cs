@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace MasterDataProduct.Models.Domain.Products
+namespace MasterDataProduct.Models.Products
 {
     public class ManufacturingPlan
     {

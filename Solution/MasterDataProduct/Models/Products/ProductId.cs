@@ -1,16 +1,14 @@
-using System;
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MasterDataProduct.Models.Domain.Products
+namespace MasterDataProduct.Models.Products
 {
     public class ProductId
     {
-        public string id { get; set; }
+        public string Id { get; set; }
 
         public ProductId(string id)
         {
-            this.id = id;
+            this.Id = id;
         }
     }
 
@@ -19,7 +17,7 @@ namespace MasterDataProduct.Models.Domain.Products
     {
         public ProductIdValueVConverter(ConverterMappingHints mappingHints = null)
             : base(
-                id => id.id,
+                id => id.Id,
                 reference => new ProductId(reference),
                 mappingHints
             )

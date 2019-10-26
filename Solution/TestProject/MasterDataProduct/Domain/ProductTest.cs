@@ -1,4 +1,4 @@
-using MasterDataProduct.Models.Domain.Products;
+using MasterDataProduct.Models.Products;
 using Xunit;
 
 namespace TestProject.MasterDataProduct.Domain

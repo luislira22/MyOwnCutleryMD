@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
-using MasterDataProduct.Models.Domain.Products;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.Models.Products;
+using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
 using Microsoft.AspNetCore.Mvc;
 
