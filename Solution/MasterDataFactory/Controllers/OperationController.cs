@@ -26,7 +26,7 @@ namespace MasterDataFactory.Controllers
         {
             try
             {
-                Operation operation = await _service.getOperationById(id);
+                Operation operation = await _service.GetOperationById(id);
                 return operation.toDTO();
             }
             catch (KeyNotFoundException e)
@@ -42,7 +42,7 @@ namespace MasterDataFactory.Controllers
             try
             {
                 //try to post object
-                await _service.postOperation(operation);
+                await _service.PostOperation(operation);
                 return CreatedAtAction("PostOperation", operation.toDTO());
             }
             catch (Exception e)
@@ -57,8 +57,8 @@ namespace MasterDataFactory.Controllers
         {
             try
             {
-                await _service.deleteOperation(id);
-                return Ok();
+                await _service.DeleteOperationById(id);
+                return NoContent();
             }
             catch (KeyNotFoundException e)
             {

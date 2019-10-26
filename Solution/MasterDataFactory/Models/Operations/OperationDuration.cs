@@ -19,7 +19,9 @@ namespace MasterDataFactory.Models.Operations
         
         private TimeSpan parseDuration(string duration)
         {
-            return TimeSpan.Parse(duration);
+            if (TimeSpan.TryParse(duration,out TimeSpan result))
+                return result;
+            throw new FormatException("invalid duration format.");
         }
 
         protected override IEnumerable<object> GetAtomicValues()
@@ -31,6 +33,12 @@ namespace MasterDataFactory.Models.Operations
         public override bool Equals(object obj)
         {
             return Duration.Equals(obj);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return Duration.GetHashCode();
         }
     }
 }
