@@ -50,6 +50,10 @@ namespace MasterDataFactory.Services
             return machineType;
         }
 
+        public async Task Delete(Guid id){
+            await _machineTypeRepository.Delete(id);
+        }
+
         public async Task<ActionResult<IEnumerable<MachineType>>> GetMachineTypes()
         {
             return await _machineTypeRepository.GetAll();

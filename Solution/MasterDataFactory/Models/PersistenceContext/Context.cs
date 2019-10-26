@@ -25,7 +25,8 @@ namespace MasterDataFactory.Models.PersistenceContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new MachineTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MachineTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductionLineConfiguration());
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new OperationConfiguration());
             base.OnModelCreating(modelBuilder);

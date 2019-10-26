@@ -13,9 +13,9 @@ namespace MasterDataFactory.Repositories.Impl
         {
             context.MachineTypes.Include(m => m.Operations).ToListAsync();
         }
-        public override Task<bool> Exists(Guid id)
+        public override async Task<bool> Exists(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.MachineTypes.AnyAsync(o => o.Id == id);
         }
     }
 }

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MasterDataFactory.Models.PersistenceContext
 {
-    public class MachineTypeEntityTypeConfiguration : IEntityTypeConfiguration<MachineType>
+    public class MachineTypeConfiguration : IEntityTypeConfiguration<MachineType>
     {
-        public MachineTypeEntityTypeConfiguration(){
+        public MachineTypeConfiguration(){
 
         }
 

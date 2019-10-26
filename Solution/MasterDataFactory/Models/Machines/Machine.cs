@@ -1,4 +1,5 @@
 ﻿using System;
+using MasterDataFactory.DTO.Machines;
 using MasterDataFactory.Models;
 using MasterDataFactory.Models.MachineTypes;
 
@@ -23,6 +24,11 @@ namespace MasterDataFactory.Models.Machines
 
         protected Machine()
         {
+        }
+
+        public MachineDTO toDTO(){
+            return null;//acho q era fixe fazer isto guilherme
+            //_mapper.Map<Machine, MachineDTO>(this);
         }
     }
 }

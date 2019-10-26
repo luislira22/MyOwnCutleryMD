@@ -108,7 +108,8 @@ namespace MasterDataFactory.Controllers
                     return BadRequest("Invalid model object");
                 }
                 await _serviceMachine.UpdateMachineType(id, newMachineTypeId);
-                return Ok("MachineType Updated Successfully!");
+                Machine machine = await _serviceMachine.GetMachineById(id);
+                return _mapper.Map<Machine, MachineDTO>(machine);
             }
             catch (KeyNotFoundException ex)
             {
