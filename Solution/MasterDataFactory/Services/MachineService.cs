@@ -44,19 +44,21 @@ namespace MasterDataFactory.Services
         {
             var machine = await _machineRepository.GetById(id);
             if (machine == null) throw new KeyNotFoundException();
-            
+
             await _machineRepository.Delete(id);
         }
 
         public async Task<Machine> GetMachineById(Guid id)
         {
-            return await _machineRepository.GetById(id);
+            var machine = await _machineRepository.GetById(id);
+            if (machine == null) throw new KeyNotFoundException();
+
+            return machine;
         }
 
         public async Task<List<Machine>> GetMachineByType(Guid type)
         {
             return await _machineRepository.GetByType(type);
-            
         }
     }
 }
