@@ -1,8 +1,8 @@
-using MasterDataProduct.Models.Domain.Products;
+using MasterDataProduct.Models.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MasterDataProduct.Models.PersistenceContext
+namespace MasterDataProduct.PersistenceContext
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {

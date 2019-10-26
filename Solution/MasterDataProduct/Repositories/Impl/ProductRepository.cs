@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using MasterDataProduct.Models.Domain.Products;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.Models.Products;
+using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Repositories.Interfaces;
 
 namespace MasterDataProduct.Repositories.Impl

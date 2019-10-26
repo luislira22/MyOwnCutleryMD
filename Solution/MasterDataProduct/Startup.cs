@@ -1,5 +1,5 @@
 ﻿using MasterDataProduct.Models;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.PersistenceContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

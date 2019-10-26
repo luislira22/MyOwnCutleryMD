@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
-using MasterDataProduct.Models.Domain.Products;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.Models.Products;
+using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Repositories.Impl;
 using MasterDataProduct.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +26,13 @@ namespace MasterDataProduct.Services
             if (product == null) throw new KeyNotFoundException();
             return product;
         }
-        
+
 
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _productRepository.GetAll();
         }
-        
+
         public async Task<Product> PostProduct(ProductDTO productDTO)
         {
             var plan = new ManufacturingPlan(productDTO.Plan.Name);
@@ -40,6 +40,14 @@ namespace MasterDataProduct.Services
             var product = new Product(plan);
             await _productRepository.Create(product);
             return product;
+        }
+
+        public async Task DeleteProduct(Guid id)
+        {
+            var p = await _productRepository.GetById(id);
+            if (p == null) throw new KeyNotFoundException();
+
+            await _productRepository.Delete(id);
         }
     }
 }
