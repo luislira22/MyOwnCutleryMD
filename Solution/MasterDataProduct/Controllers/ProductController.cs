@@ -73,6 +73,21 @@ namespace MasterDataProduct.Controllers
                 return NotFound(e.Message);
             }
         }
+        
+        // DELETE: api/machine/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMachine(Guid id)
+        {
+            try
+            {
+                await _serviceProduct.DeleteProduct(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Machine not found");
+            }
+        }
 
         [HttpGet("plan/{id}")]
         public async Task<ActionResult<ManufacturingPlanDTO>> GetProductionPlanFromProduct(Guid id)
