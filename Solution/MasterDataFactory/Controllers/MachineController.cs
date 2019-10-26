@@ -37,6 +37,8 @@ namespace MasterDataFactory.Controllers
         {
             try
             {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
                 var machine = await _serviceMachine.CreateMachine(machineDTO);
                 return CreatedAtAction("CreateMachine", _mapper.Map<Machine, MachineDTO>(machine));
             }
@@ -45,6 +47,7 @@ namespace MasterDataFactory.Controllers
                 return NotFound(exception.Message);
             }
         }
+
         // DELETE: api/machine/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMachine(Guid id)
@@ -75,7 +78,8 @@ namespace MasterDataFactory.Controllers
                 return NotFound(e.Message);
             }
         }
-
+        
+        [HttpGet("{id}")]
         public async Task<ActionResult<MachineDTO>> GetMachineById(Guid id)
         {
             try
