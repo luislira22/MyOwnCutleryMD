@@ -12,9 +12,6 @@ namespace MasterDataFactory.Models.MachineTypes
     public class MachineType : IEntity
     {
         public Guid Id {get;set;}
-
-        //Não há suporte para implementar em .NET Core uma chave primária que é um valueobject
-        //public MachineTypeID Id {get;set;}
         public ICollection<Machine> Machines { get; set; }
 
         public MachineTypeDescription Type { get; set; }
