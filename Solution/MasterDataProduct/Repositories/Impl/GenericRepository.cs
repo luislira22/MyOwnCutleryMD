@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

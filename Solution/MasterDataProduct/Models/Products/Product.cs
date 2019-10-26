@@ -1,7 +1,7 @@
 using System;
 using MasterDataProduct.DTO;
 
-namespace MasterDataProduct.Models.Domain.Products
+namespace MasterDataProduct.Models.Products
 {
     public class Product : IEntity
     {
@@ -11,7 +11,6 @@ namespace MasterDataProduct.Models.Domain.Products
 
         public Product()
         {
-
         }
 
         public Product( ManufacturingPlan plan)

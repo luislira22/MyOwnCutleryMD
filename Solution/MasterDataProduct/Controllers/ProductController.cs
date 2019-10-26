@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
-using MasterDataProduct.Models.Domain.Products;
-using MasterDataProduct.Models.PersistenceContext;
+using MasterDataProduct.Models.Products;
+using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,14 +31,28 @@ namespace MasterDataProduct.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _serviceProduct.GetProducts();
+            try
+            {
+                return await _serviceProduct.GetProducts();
+            }
+            catch (NullReferenceException)
+            {
+                return NoContent();
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
         {
-            var product = await _serviceProduct.GetProduct(id);
-            return product.ToDto();
+            try
+            {
+                var product = await _serviceProduct.GetProduct(id);
+                return Ok(product.ToDto());
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [HttpPost]
@@ -49,11 +63,18 @@ namespace MasterDataProduct.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = await _serviceProduct.PostProduct(item);
-            return CreatedAtAction("PostProduct", product.ToDto());
+            try
+            {
+                var product = await _serviceProduct.PostProduct(item);
+                return CreatedAtAction("PostProduct", product.ToDto());
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
-        [HttpGet]
+        [HttpGet("plan/{id}")]
         public async Task<ActionResult<ManufacturingPlanDTO>> GetProductionPlanFromProduct(Guid id)
         {
             //FIX Corregir posteriormente, não está grande coisa o construtor do DTO
