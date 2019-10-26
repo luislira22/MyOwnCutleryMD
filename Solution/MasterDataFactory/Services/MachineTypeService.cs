@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO;
-using MasterDataFactory.DTO.Operations;
+
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
@@ -73,11 +71,11 @@ namespace MasterDataFactory.Services
                 if (!Guid.TryParse(strId,out Guid id))
                     throw new KeyNotFoundException(String.Format("id: {0} is not valid!", id));
                 
-                Operation operation = await _serviceOperations.getOperationById(id);
-                    if(operation == null)
-                        throw new KeyNotFoundException(String.Format("The operation with id: {0} was not found!", id));
-                    if(!operations.Contains(operation))
-                        operations.Add(operation);
+                Operation operation = await _serviceOperations.GetOperationById(id);
+                if(operation == null)
+                    throw new KeyNotFoundException(String.Format("The operation with id: {0} was not found!", id));
+                if(!operations.Contains(operation))
+                    operations.Add(operation);
             }
             return operations;
         }

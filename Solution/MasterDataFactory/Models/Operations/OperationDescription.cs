@@ -6,7 +6,7 @@ namespace MasterDataFactory.Models.Operations
     {
         public string Description { get; set; }
 
-        public OperationDescription()
+        protected OperationDescription()
         {
             
         }
@@ -15,10 +15,11 @@ namespace MasterDataFactory.Models.Operations
         {
             this.Description = description;
         }
-        
+
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return Description;
         }
+        
     }
 }
