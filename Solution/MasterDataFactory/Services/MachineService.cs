@@ -60,5 +60,15 @@ namespace MasterDataFactory.Services
         {
             return await _machineRepository.GetByType(type);
         }
+
+        public async Task UpdateMachineType(Guid machineId, string machineTypeId)
+        {
+            Machine machine = await GetMachineById(machineId);
+            Guid.TryParse(machineTypeId,out Guid machineTypeGuid);
+            machine.MachineType = await _machineTypeService.getMachineType(machineTypeGuid);
+            await _machineRepository.Update(machineId,machine);
+        }
+
+
     }
 }

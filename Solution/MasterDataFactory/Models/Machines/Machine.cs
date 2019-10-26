@@ -1,5 +1,5 @@
 ﻿using System;
-using MasterDataFactory.Models.Domain;
+using MasterDataFactory.Models;
 using MasterDataFactory.Models.MachineTypes;
 
 namespace MasterDataFactory.Models.Machines

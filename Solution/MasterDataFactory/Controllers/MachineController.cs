@@ -78,7 +78,7 @@ namespace MasterDataFactory.Controllers
                 return NotFound(e.Message);
             }
         }
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<MachineDTO>> GetMachineById(Guid id)
         {
@@ -92,6 +92,32 @@ namespace MasterDataFactory.Controllers
             {
                 return NotFound(e.Message);
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<MachineDTO>> changeMachineType(Guid id, [FromBody]string newMachineTypeId)
+        {
+            try
+            {
+                if (newMachineTypeId.Length==0)
+                {
+                    return BadRequest("Machine object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+                await _serviceMachine.UpdateMachineType(id, newMachineTypeId);
+                return Ok("MachineType Updated Successfully!");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            /*Acrescentar mais tarde
+            catch(Exception ex){
+                return StatusCode(500, "Internal server error");
+            }*/
         }
     }
 }

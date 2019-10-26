@@ -10,8 +10,8 @@ namespace MasterDataFactory.Models.PersistenceContext
         {
             machineConfiguration.ToTable("machine");
             machineConfiguration.HasKey(o => o.Id);
-            machineConfiguration.HasOne(o => o.MachineType)
-                .WithMany(p => p.Machines).IsRequired();
+            machineConfiguration.HasOne(o => o.MachineType);
+                //.WithMany(p => p.Machines).IsRequired(); não é ligação bidirecional guilherme - @tomas
             machineConfiguration.OwnsOne(o => o.MachineBrand);
             machineConfiguration.OwnsOne(o => o.MachineModel);
             machineConfiguration.OwnsOne(o => o.MachineLocation);
