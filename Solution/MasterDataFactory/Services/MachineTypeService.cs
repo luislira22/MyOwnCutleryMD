@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MasterDataFactory.DTO;
 
 using MasterDataFactory.Models.MachineTypes;
+using MasterDataFactory.Models.MachineTypesOperations;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Repositories.Impl;
@@ -15,12 +16,15 @@ namespace MasterDataFactory.Services
     public class MachineTypeService
     {
         private readonly IMachineTypeRepository _machineTypeRepository;
+        private readonly IMachineTypeOperationRepository _machineTypesOperationsRepository;
+
         private readonly OperationService _serviceOperations;
 
 
         public MachineTypeService(Context context)
         {
             _machineTypeRepository = new MachineTypeRepository(context);
+            _machineTypesOperationsRepository = new MachineTypeOperationRepository(context);
             _serviceOperations = new OperationService(context);
         }
         
@@ -28,8 +32,7 @@ namespace MasterDataFactory.Services
         {
             var machineType = await _machineTypeRepository.GetById(id);
             if (machineType == null) throw new KeyNotFoundException();
-
-            return machineType.Operations;
+            return await _machineTypesOperationsRepository.GetOperationsByMachineType(id);
         }
         public async Task<MachineType> getMachineType(Guid id)
         {
@@ -61,7 +64,15 @@ namespace MasterDataFactory.Services
         public async Task UpdateMachineTypeOperation(Guid id,ICollection<string> operationsId)
         {
             MachineType machineType = getMachineType(id).Result;
-            machineType.Operations = ValidateOperations(operationsId).Result;
+
+            ICollection<Operation> operations = ValidateOperations(operationsId).Result;
+            List<MachineTypeOperation> machineTypeOperations = new List<MachineTypeOperation>();
+            foreach(Operation op in operations){
+                MachineTypeOperation machineTypeOperation = new MachineTypeOperation(machineType, op);
+                machineTypeOperations.Add(machineTypeOperation);
+            }
+            machineType.MachineTypeOperations = machineTypeOperations;
+
             await _machineTypeRepository.Update(id,machineType);
         }
 
@@ -70,7 +81,6 @@ namespace MasterDataFactory.Services
             ICollection<Operation> operations = new List<Operation>();
             foreach (string strId in operationsId)
             {
-                
                 if (!Guid.TryParse(strId,out Guid id))
                     throw new KeyNotFoundException(String.Format("id: {0} is not valid!", id));
                 

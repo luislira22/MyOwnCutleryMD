@@ -11,7 +11,8 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public MachineTypeRepository(Context context) : base(context)
         {
-            context.MachineTypes.Include(m => m.Operations).ToListAsync();
+            context.MachineTypes.Include(m => m.MachineTypeOperations).ToListAsync();
+            //context.MachineTypes.Include(m => m.Operations).ToListAsync();
         }
         public override async Task<bool> Exists(Guid id)
         {

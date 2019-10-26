@@ -4,6 +4,7 @@ using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.ProductionLines;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.Machines;
+using MasterDataFactory.Models.MachineTypesOperations;
 
 namespace MasterDataFactory.Models.PersistenceContext
 {
@@ -22,6 +23,7 @@ namespace MasterDataFactory.Models.PersistenceContext
         public virtual DbSet<MachineType> MachineTypes { get; set; }
         public virtual DbSet<Operation> Operations { get; set; }
         public virtual DbSet<ProductionLine> ProductionLines { get; set; }
+        public virtual DbSet<MachineTypeOperation> MachineTypeOperations { get; set; } //join table
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +31,20 @@ namespace MasterDataFactory.Models.PersistenceContext
             modelBuilder.ApplyConfiguration(new ProductionLineConfiguration());
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new OperationConfiguration());
+
+            modelBuilder.Entity<MachineTypeOperation>()
+            .HasKey(pt => new { pt.MachineTypeId, pt.OperationId });
+
+            modelBuilder.Entity<MachineTypeOperation>()
+                .HasOne(pt => pt.MachineType)
+                .WithMany(p => p.MachineTypeOperations)
+                .HasForeignKey(pt => pt.MachineTypeId);
+
+            modelBuilder.Entity<MachineTypeOperation>()
+                .HasOne(pt => pt.Operation)
+                .WithMany(t => t.MachineTypeOperations)
+                .HasForeignKey(pt => pt.OperationId);
+
             base.OnModelCreating(modelBuilder);
         }
     }

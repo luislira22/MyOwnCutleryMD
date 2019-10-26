@@ -6,4 +6,5 @@ namespace MasterDataFactory.Repositories.Interfaces
     {
         
     }
+    
 }

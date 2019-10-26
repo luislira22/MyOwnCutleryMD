@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using MasterDataFactory.DTO.Operations;
+using MasterDataFactory.Models.MachineTypesOperations;
 
 namespace MasterDataFactory.Models.Operations
 {
@@ -9,6 +11,7 @@ namespace MasterDataFactory.Models.Operations
         public OperationDuration Duration { get; set; }
         public OperationDescription Description { get; set; }
 
+        public List<MachineTypeOperation> MachineTypeOperations { get; set; }
 
         //public Guid? MachineTypeId { get; set; }
 
