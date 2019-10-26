@@ -64,11 +64,19 @@ namespace MasterDataFactory.Controllers
         //api/machinetype/{type} onde type é o id de um tipo de maquina
         public async Task<ActionResult<MachineDTO>> GetMachineByMachineType(Guid type)
         {
-           var machines = await _serviceMachine.GetMachineByType(type);
-           return CreatedAtAction("GetMachineByMachineType", _mapper.Map<List<Machine>, List<MachineDTO>>(machines));
+            try
+            {
+                var machines = await _serviceMachine.GetMachineByType(type);
+                return CreatedAtAction("GetMachineByMachineType",
+                    _mapper.Map<List<Machine>, List<MachineDTO>>(machines));
+            }
+            catch (NullReferenceException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
-        public async Task<ActionResult<MachineDTO>> getMachineById(Guid id)
+        public async Task<ActionResult<MachineDTO>> GetMachineById(Guid id)
         {
             try
             {
