@@ -85,7 +85,7 @@ namespace MasterDataProduct.Controllers
             }
             catch (KeyNotFoundException)
             {
-                return NotFound("Machine not found");
+                return NotFound("Product not found");
             }
         }
 
