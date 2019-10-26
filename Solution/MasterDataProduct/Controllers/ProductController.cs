@@ -35,7 +35,7 @@ namespace MasterDataProduct.Controllers
             {
                 return await _serviceProduct.GetProducts();
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return NoContent();
             }
