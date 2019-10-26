@@ -4,8 +4,8 @@ namespace MasterDataFactory.Models.MachineTypes
     {
         public string Type { get; set; }
 
-        public MachineTypeDescription(string Type){
-            this.Type = Type;
+        public MachineTypeDescription(string type){
+            Type = type;
         }
 
     }

@@ -106,8 +106,7 @@ namespace MasterDataFactory.Controllers
             try
             {
                 await _serviceMachineType.UpdateMachineTypeOperation(id, operationIds);
-                MachineType machineType = await _serviceMachineType.getMachineType(id);
-                return CreatedAtAction(nameof(updateMachineTypeOperations),machineType.toDTO());
+                return Ok();
             }
             catch (KeyNotFoundException e)
             {
