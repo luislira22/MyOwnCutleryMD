@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <Folder Include="MasterDataFactory\Controllers" />
-      <Folder Include="MasterDataFactory\Domain" />
       <Folder Include="MasterDataProduct\Controllers" />
     </ItemGroup>
 
