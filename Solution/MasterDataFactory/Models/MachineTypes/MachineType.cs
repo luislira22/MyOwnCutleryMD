@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using MasterDataFactory.DTO;
 using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.Machines;
@@ -26,10 +27,10 @@ namespace MasterDataFactory.Models.MachineTypes
 
         }
 
-        public MachineType(MachineTypeDescription Type, ICollection<Operation> ops)
+        public MachineType(MachineTypeDescription type, ICollection<Operation> ops)
         {
-            this.Type = Type;
-            this.Operations = ops;
+            Type = type;
+            Operations = ops;
         }
 
         public MachineTypeDTO toDTO()

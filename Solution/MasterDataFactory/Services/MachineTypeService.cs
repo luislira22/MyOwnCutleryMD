@@ -46,7 +46,6 @@ namespace MasterDataFactory.Services
             ICollection<Operation> operations = ValidateOperations(machinTypeDTO.Operations).Result;
             MachineType machineType = new MachineType(new MachineTypeDescription(machinTypeDTO.Type), operations);
             await _machineTypeRepository.Create(machineType);
-            await _machineTypeRepository.SaveChangesAsync();
             return machineType;
         }
 
