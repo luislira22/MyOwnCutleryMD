@@ -76,7 +76,7 @@ namespace MasterDataProduct.Controllers
         
         // DELETE: api/machine/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMachine(Guid id)
+        public async Task<IActionResult> DeleteProduct(Guid id)
         {
             try
             {
