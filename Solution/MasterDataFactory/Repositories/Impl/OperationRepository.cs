@@ -24,7 +24,7 @@ namespace MasterDataFactory.Repositories.Impl
             return await _context.Operations.AnyAsync(o => o.Id == id);
         }
 
-        public new async Task Delete(Guid operationId)
+        public async Task DeleteWithRelationship(Guid operationId)
         {
             //Apagar Operation + MachineTypeOperation(join row) + MachineType
             Operation operation = GetById(operationId).Result;

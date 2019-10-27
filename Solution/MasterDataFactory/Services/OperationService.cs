@@ -31,7 +31,7 @@ namespace MasterDataFactory.Services
             //Operation Operation = await GetOperationById(id);
             if(!_operationRepository.Exists(id).Result)
                 throw new KeyNotFoundException();
-            await _operationRepository.Delete(id);
+            await _operationRepository.DeleteWithRelationship(id);
         }
     }
 }
