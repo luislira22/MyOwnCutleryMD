@@ -23,9 +23,8 @@ namespace MasterDataFactory.Repositories.Impl
 
         public async Task<List<Machine>> GetByType(Guid idType)
         {
-            List<Machine> machines = new List<Machine>(_context.Machines.Where(e => e.MachineType.Id == idType));
+            List<Machine> machines = await _context.Machines.Where(e => e.MachineType.Id == idType).ToListAsync();
            return machines;
-
         }
     }
 }
