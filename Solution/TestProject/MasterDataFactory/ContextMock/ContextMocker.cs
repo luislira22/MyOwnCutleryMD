@@ -5,6 +5,7 @@ using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.MachineTypesOperations;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
+using MasterDataFactory.Models.ProductionLines;
 using Microsoft.EntityFrameworkCore;
 
 namespace TestProject.MasterDataFactory
@@ -65,6 +66,16 @@ namespace TestProject.MasterDataFactory
             dbContext.Machines.Add(machine1);
         }
 
+        public static void SeedProductionLines(Context dbContext){
+            SeedMachines(dbContext);
+            Machine machine = dbContext.Machines.FindAsync(new Guid("11111111-1111-1111-1111-111111111111")).Result;
+
+            List<Machine> machines = new List<Machine>(){machine};
+            ProductionLine productionLine = new ProductionLine(machines);
+            productionLine.Id = new Guid("12111111-1111-1111-1111-111111111111");
+
+            dbContext.ProductionLines.Add(productionLine);
+        }
 
     }
 }
