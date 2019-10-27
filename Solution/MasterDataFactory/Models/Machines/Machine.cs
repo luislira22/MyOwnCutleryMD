@@ -22,12 +22,13 @@ namespace MasterDataFactory.Models.Machines
             MachineLocation = machineLocation;
         }
 
-        protected Machine()
+        public Machine()
         {
         }
 
-        public MachineDTO toDTO(){
-            return null;//acho q era fixe fazer isto guilherme
+        public MachineDTO toDTO()
+        {
+            return null; //acho q era fixe fazer isto guilherme
             //_mapper.Map<Machine, MachineDTO>(this);
         }
     }
