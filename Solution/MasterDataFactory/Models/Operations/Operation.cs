@@ -47,11 +47,12 @@ namespace MasterDataFactory.Models.Operations
         {
             if (obj == null || obj.GetType() != this.GetType())
                 return false;
-            Operation operationTmp = ((Operation) obj);
-            return Id.Equals(operationTmp.Id);
+            Operation operationTmp = (Operation)obj;
+            return Id.Equals(operationTmp.Id) && 
+                   Description.Equals(operationTmp.Description) && 
+                   Duration.Equals(operationTmp.Duration);
         }
-
-
+        
         public override int GetHashCode()
         {
             return base.GetHashCode();

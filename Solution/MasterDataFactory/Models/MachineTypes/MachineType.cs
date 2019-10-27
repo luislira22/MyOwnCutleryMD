@@ -35,7 +35,6 @@ namespace MasterDataFactory.Models.MachineTypes
         {
             Type = type;
             //Operations = ops;
-            
             MachineTypeOperations = new List<MachineTypeOperation>();
             foreach(Operation op in ops){
                 MachineTypeOperation machineTypeOperation = new MachineTypeOperation(this, op);
