@@ -19,7 +19,7 @@ namespace MasterDataProduct.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MasterDataProduct.Models.Domain.Products.Product", b =>
+            modelBuilder.Entity("MasterDataProduct.Models.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -29,21 +29,22 @@ namespace MasterDataProduct.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("MasterDataProduct.Models.Domain.Products.Product", b =>
+            modelBuilder.Entity("MasterDataProduct.Models.Products.Product", b =>
                 {
-                    b.OwnsOne("MasterDataProduct.Models.Domain.Products.ManufacturingPlan", "Plan", b1 =>
+                    b.OwnsOne("MasterDataProduct.Models.Products.ManufacturingPlan", "Plan", b1 =>
                         {
                             b1.Property<Guid>("ProductId");
 
-                            b1.Property<string>("Name");
+                            b1.Property<string>("Name")
+                                .IsRequired();
 
                             b1.HasKey("ProductId");
 
                             b1.ToTable("Product");
 
-                            b1.HasOne("MasterDataProduct.Models.Domain.Products.Product")
+                            b1.HasOne("MasterDataProduct.Models.Products.Product")
                                 .WithOne("Plan")
-                                .HasForeignKey("MasterDataProduct.Models.Domain.Products.ManufacturingPlan", "ProductId")
+                                .HasForeignKey("MasterDataProduct.Models.Products.ManufacturingPlan", "ProductId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

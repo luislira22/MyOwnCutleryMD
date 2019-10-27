@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MasterDataProduct.Migrations
 {
-    public partial class initial : Migration
+    public partial class MDP : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace MasterDataProduct.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Plan_Name = table.Column<string>(nullable: true)
+                    Plan_Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
