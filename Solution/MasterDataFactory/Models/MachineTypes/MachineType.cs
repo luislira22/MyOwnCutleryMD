@@ -31,7 +31,7 @@ namespace MasterDataFactory.Models.MachineTypes
 
         }
 
-        public MachineType(MachineTypeDescription type, ICollection<Operation> ops)
+        public MachineType(MachineTypeDescription type, IList<Operation> ops)
         {
             Type = type;
             //Operations = ops;

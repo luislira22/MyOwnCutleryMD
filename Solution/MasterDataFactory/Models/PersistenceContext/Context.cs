@@ -43,7 +43,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             modelBuilder.Entity<MachineTypeOperation>()
                 .HasOne(pt => pt.Operation)
                 .WithMany(t => t.MachineTypeOperations)
-                .HasForeignKey(pt => pt.OperationId);
+                .HasForeignKey(pt => pt.OperationId).OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MasterDataFactory.DTO;
 using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.MachineTypes;
-using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -91,7 +90,7 @@ namespace MasterDataFactory.Controllers
             try
             {
                 var operations = await _serviceMachineType.getOperations(id);
-                return operations.Select(operation => operation.toDTO()).ToList();
+                return operations.Select(operation => operation.ToDTO()).ToList();
             }
             catch (KeyNotFoundException)
             {
@@ -101,7 +100,7 @@ namespace MasterDataFactory.Controllers
         
         // PUT machinetype/operations/{machineTypeId}
         [HttpPut("operations/{id}")]
-        public async Task<ActionResult<MachineTypeDTO>> updateMachineTypeOperations(Guid id,[FromBody]ICollection<string> operationIds)
+        public async Task<ActionResult<MachineTypeDTO>> UpdateMachineTypeOperations(Guid id,[FromBody]IList<string> operationIds)
         {
             try
             {
