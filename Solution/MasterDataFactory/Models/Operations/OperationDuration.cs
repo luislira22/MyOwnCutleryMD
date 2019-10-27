@@ -33,7 +33,10 @@ namespace MasterDataFactory.Models.Operations
 
         public override bool Equals(object obj)
         {
-            return Duration.Equals(obj);
+            if (obj == null || obj.GetType() != this.GetType())
+                return false;
+            OperationDuration operationDuration = (OperationDuration)obj;
+            return Duration.Equals(operationDuration.Duration);
         }
 
 

@@ -22,5 +22,18 @@ namespace MasterDataFactory.Models.Operations
             yield return Description;
         }
         
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+                return false;
+            OperationDescription operationDescription = (OperationDescription)obj;
+            return Description.Equals(operationDescription.Description);
+        }
+        
+        public override int GetHashCode()
+        {
+            return Description.GetHashCode();
+        }
+        
     }
 }

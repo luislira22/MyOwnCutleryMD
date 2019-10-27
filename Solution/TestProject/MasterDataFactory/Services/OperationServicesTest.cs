@@ -12,20 +12,19 @@ namespace TestProject.MasterDataFactory.Services
         [Fact]
         public async void EnsureGettingOpperationByIdFound()
         {
-            Guid operationId = new Guid("12345678-1234-1234-1234-123412341234");
-
             //mock
             Context context = ContextMocker.GetContextMock();
             ContextMocker.SeedOperations(context);
-            
-            OperationService service = new OperationService(context);
-            Operation result = await service.GetOperationById(operationId);
 
+            Guid expectedId = new Guid("12345678-1234-1234-1234-123412341234");
             string expectedDescription = "Triturar";
-            TimeSpan expectedDuration = new TimeSpan(0,20,10);
-            
-            Assert.True(expectedDescription.Equals(result.Description.Description));
-            Assert.True(expectedDuration.Equals(result.Duration.Duration));
+            TimeSpan expectedDuration = new TimeSpan(0, 20, 10);
+            Operation expected = new Operation(expectedId, expectedDescription, expectedDuration);
+
+            OperationService service = new OperationService(context);
+            Operation result = await service.GetOperationById(expectedId);
+
+            Assert.True(expected.Equals(result));
         }
 
         [Fact]
