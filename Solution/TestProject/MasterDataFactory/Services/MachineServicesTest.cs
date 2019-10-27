@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Services;
+using MasterDataFactory.Models.Machines;
 using Xunit;
 
 namespace TestProject.MasterDataFactory.Services
@@ -46,7 +47,27 @@ namespace TestProject.MasterDataFactory.Services
         [Fact]
         public async void EnsureMachineIsFoundByMachineType()
         {
-            //TODO Lira   
+            var context = ContextMocker.GetContextMock();
+            ContextMocker.SeedMachines(context);
+            var machineService = new MachineService(context);
+
+            List<Machine> result = await machineService.GetMachineByType(new Guid("21111111-1111-1111-1111-111111111111"));
+
+            foreach (Machine m in result)
+            {
+                if (m.MachineType.Id.Equals(new Guid("21111111-1111-1111-1111-111111111111")))
+                {
+                    Assert.True(/* expectedMachineModel.Equals(result.MachineModel.Model) */result.Contains(m));
+
+                }
+            }
+
+
+
+
+
+
+
         }
 
         [Fact]
