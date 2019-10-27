@@ -21,9 +21,9 @@ namespace TestProject.MasterDataFactory.Services
             
             var result = await MachineTypeService.getMachineType(MachineTypeId);
             
-            Assert.True(expectedMachineTypeDescription.Equals(result.Type.Type));
-            Assert.True(result.MachineTypeOperations[0].OperationId.Equals(OperationId));
-            Assert.True(result.MachineTypeOperations[0].MachineTypeId.Equals(MachineTypeId));
+            Assert.Equal(expectedMachineTypeDescription,result.Type.Type);
+            Assert.Equal(result.MachineTypeOperations[0].OperationId, OperationId);
+            Assert.Equal(result.MachineTypeOperations[0].MachineTypeId, MachineTypeId);
         }
         
         [Fact]

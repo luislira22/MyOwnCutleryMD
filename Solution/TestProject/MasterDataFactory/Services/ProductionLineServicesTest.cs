@@ -17,13 +17,12 @@ namespace TestProject.MasterDataFactory.Services
 
 
             var ProductionLineId = new Guid("12111111-1111-1111-1111-111111111111");
-            var expectedProductionLineTypeId = new Guid("11111111-1111-1111-1111-111111111111"); //TODO quando o Tomas fizer os testes dele
+            var expectedProductionLineTypeId = new Guid("12111111-1111-1111-1111-111111111111");
             var expectedMachineId = new Guid("11111111-1111-1111-1111-111111111111");
             var result = await ProductionLineService.GetProductionLineById(ProductionLineId);
             
-
-            Assert.True(expectedProductionLineTypeId.Equals(result.Id.Equals(ProductionLineId)));
-            Assert.True(expectedProductionLineTypeId.Equals(result.Machines[0].Id.Equals(expectedMachineId)));
+            Assert.Equal(expectedProductionLineTypeId, result.Id);
+            Assert.Equal(expectedMachineId, result.Machines[0].Id);
         }
 
         [Fact]
