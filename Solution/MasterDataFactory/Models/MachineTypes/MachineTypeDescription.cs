@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace MasterDataFactory.Models.MachineTypes
 {
-    public class MachineTypeDescription
+    public class MachineTypeDescription : ValueObject
     {
         public string Type { get; set; }
 
@@ -8,5 +10,13 @@ namespace MasterDataFactory.Models.MachineTypes
             Type = type;
         }
 
+        protected MachineTypeDescription()
+        {
+        }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return Type;
+        }
     }
 }

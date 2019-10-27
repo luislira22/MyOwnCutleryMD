@@ -31,19 +31,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             modelBuilder.ApplyConfiguration(new ProductionLineConfiguration());
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new OperationConfiguration());
-
-            modelBuilder.Entity<MachineTypeOperation>()
-            .HasKey(pt => new { pt.MachineTypeId, pt.OperationId });
-
-            modelBuilder.Entity<MachineTypeOperation>()
-                .HasOne(pt => pt.MachineType)
-                .WithMany(p => p.MachineTypeOperations)
-                .HasForeignKey(pt => pt.MachineTypeId);
-
-            modelBuilder.Entity<MachineTypeOperation>()
-                .HasOne(pt => pt.Operation)
-                .WithMany(t => t.MachineTypeOperations)
-                .HasForeignKey(pt => pt.OperationId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.ApplyConfiguration(new MachineTypeOperationConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

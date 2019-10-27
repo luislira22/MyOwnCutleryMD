@@ -14,7 +14,6 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public MachineTypeOperationRepository(Context context) : base(context)
         {
-            
         }
 
         public override Task<bool> Exists(Guid id)
@@ -26,6 +25,12 @@ namespace MasterDataFactory.Repositories.Impl
         {
             List<MachineTypeOperation> MachineTypeOperation = new List<MachineTypeOperation>(_context.MachineTypeOperations.Where(e => e.MachineType.Id == machineTypeID));
             return MachineTypeOperation.Select(mo => mo.Operation).ToList();
+        }
+
+        public async Task<List<MachineType>> GetMachineTypesWithOperationId(Guid operationId)
+        {
+            List<MachineTypeOperation> MachineTypeOperation = new List<MachineTypeOperation>(_context.MachineTypeOperations.Where(e => e.Operation.Id == operationId));
+            return MachineTypeOperation.Select(mo => mo.MachineType).ToList();
         }
     }
 }

@@ -29,6 +29,13 @@ namespace MasterDataFactory.Repositories.Impl
             await _context.SaveChangesAsync();
         }
 
+        public async Task Delete(Guid id, Guid id2)
+        {
+            var entity = await GetById(id,id2);
+            _context.Set<TEntity>().Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public abstract Task<bool> Exists(Guid id);
 
         public Task<List<TEntity>> GetAll()
@@ -40,7 +47,12 @@ namespace MasterDataFactory.Repositories.Impl
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
-        
+
+        public virtual async Task<TEntity> GetById(Guid id, Guid id2)
+        {
+            return await _context.Set<TEntity>().FindAsync(id, id2);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

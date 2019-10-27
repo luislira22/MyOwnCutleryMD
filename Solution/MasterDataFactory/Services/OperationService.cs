@@ -28,6 +28,7 @@ namespace MasterDataFactory.Services
 
         public async Task DeleteOperationById(Guid id)
         {
+            //Operation Operation = await GetOperationById(id);
             if(!_operationRepository.Exists(id).Result)
                 throw new KeyNotFoundException();
             await _operationRepository.Delete(id);

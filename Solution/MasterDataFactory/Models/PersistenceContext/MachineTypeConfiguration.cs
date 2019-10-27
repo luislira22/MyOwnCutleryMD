@@ -13,7 +13,7 @@ namespace MasterDataFactory.Models.PersistenceContext
 
         public void Configure(EntityTypeBuilder<MachineType> MachineTypeConfiguration)
         {
-            MachineTypeConfiguration.ToTable("MachineTypes", Context.DEFAULT_SCHEMA);
+            MachineTypeConfiguration.ToTable("MachineTypes");
             MachineTypeConfiguration.HasKey(o => o.Id);
             MachineTypeConfiguration.OwnsOne(o => o.Type).Property(t => t.Type).HasColumnName("Tipo");
             //MachineTypeConfiguration.HasMany<Operation>(o => o.Operations);//WithOne(m => m.Machine).IsRequired().HasForeignKey(m => m.MachineTypeId);
