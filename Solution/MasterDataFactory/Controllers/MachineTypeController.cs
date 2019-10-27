@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -91,7 +91,7 @@ namespace MasterDataFactory.Controllers
             try
             {
                 var operations = await _serviceMachineType.getOperations(id);
-                return operations.Select(operation => operation.toDTO()).ToList();
+                return operations.Select(operation => operation.ToDTO()).ToList();
             }
             catch (KeyNotFoundException)
             {
