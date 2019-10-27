@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.MachineTypesOperations;
 
@@ -8,17 +9,11 @@ namespace MasterDataFactory.Models.Operations
     public class Operation : IEntity
     {
         public Guid Id { get; set; }
+        
         public OperationDuration Duration { get; set; }
         public OperationDescription Description { get; set; }
-
         public List<MachineTypeOperation> MachineTypeOperations { get; set; }
-
-        //public Guid? MachineTypeId { get; set; }
-
-        //[JsonIgnore] 
-        //[IgnoreDataMember] //prevenir ciclo infinito
-        //public MachineType Machine { get; set; }
-
+        
         protected Operation()
         {
         }
@@ -43,7 +38,7 @@ namespace MasterDataFactory.Models.Operations
         }
 
 
-        public OperationDTO toDTO()
+        public OperationDTO ToDTO()
         {
             return new OperationDTO(Id, Description.Description, Duration.Duration.ToString());
         }
@@ -53,7 +48,7 @@ namespace MasterDataFactory.Models.Operations
             if (obj == null || obj.GetType() != this.GetType())
                 return false;
             Operation operationTmp = ((Operation) obj);
-            return Id==operationTmp.Id;
+            return Id.Equals(operationTmp.Id);
         }
 
 

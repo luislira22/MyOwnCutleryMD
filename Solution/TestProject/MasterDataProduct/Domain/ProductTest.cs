@@ -1,3 +1,4 @@
+using System;
 using MasterDataProduct.Models.Products;
 using Xunit;
 
@@ -18,5 +19,6 @@ namespace TestProject.MasterDataProduct.Domain
             Product p = new Product(new ManufacturingPlan("PlanoTeste"));
             Assert.True(p.Plan!=null);
         }
+        
     }
 }
