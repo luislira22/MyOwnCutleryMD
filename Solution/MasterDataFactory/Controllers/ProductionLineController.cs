@@ -51,6 +51,20 @@ namespace MasterDataFactory.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProductionLine(Guid id)
+        {
+            try
+            {
+                await _serviceProductionLine.DeleteProductionLineById(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
         
     }
 }

@@ -11,7 +11,7 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public ProductionLineRepository(Context context) : base(context)
         {
-            
+            context.ProductionLines.Include(p => p.Machines).ToListAsync();
         }
 
         public override async Task<bool> Exists(Guid id)
