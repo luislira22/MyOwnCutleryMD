@@ -31,8 +31,7 @@ namespace MasterDataFactory
         {
             // Exemplo da ligação à BD
             /*var connection = "Server=lapr2019.database.windows.net;Port=5432;User Id=lapr;Password=YoHwGciYDXaUcjmt75J6;";
-            services.AddDbContext<MachineContext>(opt => opt.UseSqlServer(connection));*/
-            
+            services.AddDbContext<Context>(opt => opt.UseSqlServer(connection));*/
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("Machine"));
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("ProductionLine"));
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MachineType"));
