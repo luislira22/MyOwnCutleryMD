@@ -27,7 +27,7 @@ namespace MasterDataFactory.Controllers
             try
             {
                 Operation operation = await _service.GetOperationById(id);
-                return operation.toDTO();
+                return operation.ToDTO();
             }
             catch (KeyNotFoundException e)
             {
@@ -43,7 +43,7 @@ namespace MasterDataFactory.Controllers
             {
                 //try to post object
                 await _service.PostOperation(operation);
-                return CreatedAtAction("PostOperation", operation.toDTO());
+                return CreatedAtAction("PostOperation", operation.ToDTO());
             }
             catch (Exception e)
             {
