@@ -18,7 +18,7 @@ namespace TestProject.MasterDataFactory.Services
             var machineService = new MachineService(context);
 
             var machineId = new Guid("11111111-1111-1111-1111-111111111111");
-            var expectedMachineTypeId = new Guid("11111111-1111-1111-1111-111111111111"); //TODO quando o Tomas fizer os testes dele
+            var expectedMachineTypeId = new Guid("21111111-1111-1111-1111-111111111111");
             const string expectedMachineBrand = "Siemens";
             const string expectedMachineModel = "HO-501";
             const string expectedMachineLocation = "Sector 10";
@@ -61,31 +61,6 @@ namespace TestProject.MasterDataFactory.Services
 
                 }
             }
-
-
-
-
-
-
-
-        }
-
-        [Fact]
-        public async void EnsureMachineTypeIsUpdated()
-        {
-            var context = ContextMocker.GetContextMock();
-            ContextMocker.SeedMachines(context);
-
-            var machineService = new MachineService(context);
-            var machineTypeService = new MachineTypeService(context);
-
-            Guid machineIdToBeUpdated = new Guid("11111111-1111-1111-1111-111111111111");
-            string idNewMachineType = "31111111-1111-1111-1111-111111111111";
-            await machineService.UpdateMachineType(machineIdToBeUpdated, idNewMachineType);
-
-            var result = await machineService.GetMachineById(machineIdToBeUpdated);
-
-            Assert.True(result.MachineType.Id.Equals(idNewMachineType));
         }
     }
 }
