@@ -46,7 +46,7 @@ namespace MasterDataFactory.Services
 
         public async Task<MachineType> postMachineType(MachineTypeDTO machinTypeDTO)
         {
-            ICollection<Operation> operations = ValidateOperations(machinTypeDTO.Operations).Result;
+            IList<Operation> operations = ValidateOperations(machinTypeDTO.Operations).Result;
             MachineType machineType = new MachineType(new MachineTypeDescription(machinTypeDTO.Type), operations);
             await _machineTypeRepository.Create(machineType);
             return machineType;
@@ -61,7 +61,7 @@ namespace MasterDataFactory.Services
             return await _machineTypeRepository.GetAll();
         }
 
-        public async Task UpdateMachineTypeOperation(Guid id,ICollection<string> operationsId)
+        public async Task UpdateMachineTypeOperation(Guid id,IList<string> operationsId)
         {
             MachineType machineType = getMachineType(id).Result;
 
@@ -76,9 +76,9 @@ namespace MasterDataFactory.Services
             await _machineTypeRepository.Update(id,machineType);
         }
 
-        private async Task<ICollection<Operation>> ValidateOperations(ICollection<string> operationsId)
+        private async Task<IList<Operation>> ValidateOperations(IList<string> operationsId)
         {
-            ICollection<Operation> operations = new List<Operation>();
+            IList<Operation> operations = new List<Operation>();
             foreach (string strId in operationsId)
             {
                 if (!Guid.TryParse(strId,out Guid id))
