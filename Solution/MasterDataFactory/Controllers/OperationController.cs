@@ -48,7 +48,7 @@ namespace MasterDataFactory.Controllers
             catch (Exception e)
             {
                 Console.Write(e.Message);
-                return BadRequest("operation failed.");
+                return BadRequest(e.Message);
             }
         }
 
