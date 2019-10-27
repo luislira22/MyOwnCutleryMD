@@ -62,23 +62,5 @@ namespace TestProject.MasterDataFactory.Services
                 }
             }
         }
-
-        [Fact]
-        public async void EnsureMachineTypeIsUpdated()
-        {
-            var context = ContextMocker.GetContextMock();
-            ContextMocker.SeedMachines(context);
-
-            var machineService = new MachineService(context);
-            var machineTypeService = new MachineTypeService(context);
-
-            Guid machineIdToBeUpdated = new Guid("11111111-1111-1111-1111-111111111111");
-            string idNewMachineType = "31111111-1111-1111-1111-111111111111";
-            await machineService.UpdateMachineType(machineIdToBeUpdated, idNewMachineType);
-
-            var result = await machineService.GetMachineById(machineIdToBeUpdated);
-
-            Assert.True(result.MachineType.Id.Equals(idNewMachineType));
-        }
     }
 }

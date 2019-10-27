@@ -47,6 +47,7 @@ namespace TestProject.MasterDataFactory
             machineType2.Id = new Guid("31111111-1111-1111-1111-111111111111");
 
             dbContext.MachineTypes.Add(machineType);
+            dbContext.MachineTypes.Add(machineType2);
         }
 
         public static void SeedMachines(Context dbContext)
