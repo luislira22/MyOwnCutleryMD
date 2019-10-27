@@ -62,9 +62,39 @@ namespace MasterDataProduct.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
-            await _serviceProduct.PostProduct(item);
-            return CreatedAtAction(nameof(GetProduct), new {id = item.Id}, item);
+
+            try
+            {
+                var product = await _serviceProduct.PostProduct(item);
+                return CreatedAtAction("PostProduct", product.ToDto());
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        
+        // DELETE: api/machine/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            try
+            {
+                await _serviceProduct.DeleteProduct(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Product not found");
+            }
+        }
+
+        [HttpGet("plan/{id}")]
+        public async Task<ActionResult<ManufacturingPlanDTO>> GetProductionPlanFromProduct(Guid id)
+        {
+            //FIX Corregir posteriormente, não está grande coisa o construtor do DTO
+            var product = await _serviceProduct.GetProduct(id);
+            return new ManufacturingPlanDTO(product.Plan.Name);
         }
     }
 }
