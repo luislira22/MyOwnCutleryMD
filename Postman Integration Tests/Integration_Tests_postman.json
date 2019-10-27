@@ -1,0 +1,1789 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "8e3050d3-90bd-43af-b717-7a3278075218",
+			"name": "Master Data Factory",
+			"description": "",
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33c0420e-31ce-436d-9a58-3a9d9e91398b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a9731a1-a6df-4d8a-a57c-3dd28604ccc2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"variables": [],
+			"order": [],
+			"folders_order": [
+				"7c9733fa-478a-47b2-b205-fe357e7e99f5",
+				"0cb3fe12-3dfc-466f-b5eb-86cf83c27f56",
+				"be6f0f9f-bc93-4b60-90e6-2d9ba51d084f",
+				"c6635b80-41b6-47d6-af83-056fb4ce789d",
+				"79cfef0b-b3ac-4afa-a2ee-325e7d1162b7",
+				"716483c0-6fc7-412d-b6cc-7ed4ce714b83",
+				"94030bbd-bc4a-4847-a0aa-9b79e209809f",
+				"63cee2c7-9ada-4f26-b39a-08a1badcd812",
+				"81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+				"2ca86bca-7161-492e-9ddb-f1bcbc9fadee",
+				"d0afa0ea-5180-4992-ae77-43c6633d4885",
+				"ec03a603-53d3-4818-9efb-e62c75a78975"
+			],
+			"protocolProfileBehavior": {},
+			"folders": [
+				{
+					"id": "0cb3fe12-3dfc-466f-b5eb-86cf83c27f56",
+					"name": "Create Machine Types",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"d7991c6d-56cc-45e0-8aa8-eb8616ffe68f",
+						"a13341b0-4dc5-4869-a6d7-66bc8ea80161"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "0cb3fe12-3dfc-466f-b5eb-86cf83c27f56"
+				},
+				{
+					"id": "be6f0f9f-bc93-4b60-90e6-2d9ba51d084f",
+					"name": "Create Machines",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"c1c00ea8-1ffa-422f-a579-6b0995ee9433"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "be6f0f9f-bc93-4b60-90e6-2d9ba51d084f"
+				},
+				{
+					"id": "7c9733fa-478a-47b2-b205-fe357e7e99f5",
+					"name": "Create Operations",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"2c7f3b9f-df08-4604-8072-cdb3a3ce26c2",
+						"288b153a-7321-4001-a001-3d27c488a7ff",
+						"bfc00f8b-8ec2-4cf3-8993-da0c87809daa",
+						"df5a86ba-ac7a-4bff-97a4-489064b6588d"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "7c9733fa-478a-47b2-b205-fe357e7e99f5"
+				},
+				{
+					"id": "c6635b80-41b6-47d6-af83-056fb4ce789d",
+					"name": "Create Production Line",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"5eac46bc-b4a9-4ddf-bd35-31ae667b99b8"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "c6635b80-41b6-47d6-af83-056fb4ce789d"
+				},
+				{
+					"id": "2ca86bca-7161-492e-9ddb-f1bcbc9fadee",
+					"name": "Delete Machine Types",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"2fb68c13-12aa-42f9-8826-4a69068aa47f"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "2ca86bca-7161-492e-9ddb-f1bcbc9fadee"
+				},
+				{
+					"id": "d0afa0ea-5180-4992-ae77-43c6633d4885",
+					"name": "Delete Machines",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"adafddac-f343-4358-94b4-b135946aa733",
+						"2007e4f3-85fb-4517-be11-ce82a9bb152f"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "d0afa0ea-5180-4992-ae77-43c6633d4885"
+				},
+				{
+					"id": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"name": "Delete Operations",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"8a257905-7787-44d3-b2b7-f1eb236dd2c4",
+						"eb5a31c1-ab2a-43b6-a64a-eb1e7d653eda",
+						"de6f5dcd-4f72-4b85-b808-59397c6aafb0",
+						"976bac3b-adb4-435d-900f-4f5d7241f60b",
+						"236b50c8-d3d6-475b-b22c-8377a19e48b4"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "81263bb6-02e9-4f27-9249-52fc8bc5fda4"
+				},
+				{
+					"id": "ec03a603-53d3-4818-9efb-e62c75a78975",
+					"name": "Delete ProductionLine",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"f76a0cbc-9ceb-4a2d-b105-069346c02624",
+						"a136136d-8ff8-4970-bcc8-b95bb72b0f09"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "ec03a603-53d3-4818-9efb-e62c75a78975"
+				},
+				{
+					"id": "94030bbd-bc4a-4847-a0aa-9b79e209809f",
+					"name": "Machine",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"dd77dd6c-74f1-46b7-8a2e-81bac86e742b",
+						"1221eec0-fce8-4b03-b370-c1eb699407eb"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "94030bbd-bc4a-4847-a0aa-9b79e209809f"
+				},
+				{
+					"id": "716483c0-6fc7-412d-b6cc-7ed4ce714b83",
+					"name": "MachineType",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"8540e252-7875-4b0b-a948-7520fb75d2e6",
+						"55c2a225-81cd-417f-ab22-cc0993bb37b8",
+						"b7b01a4d-c9a8-4e62-8072-4df2873c7f6b"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "716483c0-6fc7-412d-b6cc-7ed4ce714b83"
+				},
+				{
+					"id": "79cfef0b-b3ac-4afa-a2ee-325e7d1162b7",
+					"name": "Operation",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"3023a156-b0b2-49df-bd21-8787b32f4372"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "79cfef0b-b3ac-4afa-a2ee-325e7d1162b7"
+				},
+				{
+					"id": "63cee2c7-9ada-4f26-b39a-08a1badcd812",
+					"name": "ProductionLine",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folder": null,
+					"order": [
+						"041845ea-211f-4cf5-9c55-4d66dc5e4913"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"folderId": "63cee2c7-9ada-4f26-b39a-08a1badcd812"
+				}
+			],
+			"requests": [
+				{
+					"id": "041845ea-211f-4cf5-9c55-4d66dc5e4913",
+					"name": "GetProductionLine",
+					"url": "{{url}}api/productionline/{{productionLineId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": "63cee2c7-9ada-4f26-b39a-08a1badcd812",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "1221eec0-fce8-4b03-b370-c1eb699407eb",
+					"name": "UpdateMachineType",
+					"url": "{{url}}api/machine/{{machineId1}}",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32cfa4cf-e104-41a1-b383-186bd9d45eb1",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test((\"Machine response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Machine returns values inserted\",function(){",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData);",
+									"    pm.expect(jsonData.machineType).to.eql(pm.globals.get(\"machineTypeId2\"));",
+									"    pm.expect(jsonData.machineBrand).to.eql(\"Siemens\");",
+									"    pm.expect(jsonData.machineModel).to.eql(\"QC-450\");",
+									"    pm.expect(jsonData.machineLocation).to.eql(\"Sector 10\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "94030bbd-bc4a-4847-a0aa-9b79e209809f",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n});\n\npm.test((\"Machine response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test(\"Machine returns values inserted\",function(){\n    var jsonData = pm.response.json();\n    console.log(jsonData);\n    pm.expect(jsonData.machineType).to.eql(pm.globals.get(\"machineTypeId2\"));\n    pm.expect(jsonData.machineBrand).to.eql(\"Siemens\");\n    pm.expect(jsonData.machineModel).to.eql(\"QC-450\");\n    pm.expect(jsonData.machineLocation).to.eql(\"Sector 10\");\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "\"{{machineTypeId2}}\"",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "2007e4f3-85fb-4517-be11-ce82a9bb152f",
+					"name": "CantGetMachine",
+					"url": "{{url}}api/machine/{{machineId1}}",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": null,
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8fc4659b-7a29-47ee-a4b2-ed7e05dcf11e",
+								"exec": [
+									"pm.test((\"Status code is 404\"),function(){",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "d0afa0ea-5180-4992-ae77-43c6633d4885",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 404\"),function(){\n    pm.response.to.have.status(404);\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n    \"machinetype\": \"{{machineTypeId1}}\",\n    \"machinebrand\": \"SIEMENS\",\n    \"machinemodel\": \"IQ-502\",\n    \"machinelocation\": \"Secção 2\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "236b50c8-d3d6-475b-b22c-8377a19e48b4",
+					"name": "Operation 1 Not Found",
+					"url": "{{url}}api/operation/{{operationId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c936892e-485c-4747-99e0-26c3f7023aa8",
+								"exec": [
+									"pm.test((\"Status code is 404\"),function(){",
+									"    pm.response.to.have.status(404);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 404\"),function(){\n    pm.response.to.have.status(404);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "288b153a-7321-4001-a001-3d27c488a7ff",
+					"name": "Create Operation2",
+					"url": "{{url}}api/operation",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c4099c8-8790-43d1-9dc4-24ce1bb982a1",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"post Operations response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"post operation returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"operationId2\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "7c9733fa-478a-47b2-b205-fe357e7e99f5",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"post Operations response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"post operation returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"operationId2\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n\t\"description\": \"Triturar\",\n\t\"Duration\": \"00:30:00\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "2c7f3b9f-df08-4604-8072-cdb3a3ce26c2",
+					"name": "Create Operation1",
+					"url": "{{url}}api/operation",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f88c270-5f32-4936-995f-1c770b31694f",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"post Operations response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"post operation returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"operationId1\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "7c9733fa-478a-47b2-b205-fe357e7e99f5",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"post Operations response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"post operation returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"operationId1\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n\t\"description\": \"Esmagar\",\n\t\"Duration\": \"00:40:00\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "2fb68c13-12aa-42f9-8826-4a69068aa47f",
+					"name": "Can't get MachineType",
+					"url": "{{url}}api/machineType/{{machineTypeId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c936892e-485c-4747-99e0-26c3f7023aa8",
+								"exec": [
+									"pm.test((\"Status code is 404\"),function(){",
+									"    pm.response.to.have.status(404);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "2ca86bca-7161-492e-9ddb-f1bcbc9fadee",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 404\"),function(){\n    pm.response.to.have.status(404);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3023a156-b0b2-49df-bd21-8787b32f4372",
+					"name": "Get Operation 1",
+					"url": "{{url}}api/operation/{{operationId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a9e812-c197-4780-9632-70b89311ddc1",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "79cfef0b-b3ac-4afa-a2ee-325e7d1162b7",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "55c2a225-81cd-417f-ab22-cc0993bb37b8",
+					"name": "Update Machine Type Operations",
+					"url": "{{url}}api/machinetype/operations/{{machineTypeId1}}",
+					"description": "",
+					"data": [],
+					"dataOptions": {
+						"raw": {
+							"language": "json"
+						}
+					},
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "982ff71e-cc3c-4cff-94db-8b9e1d3436db",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "716483c0-6fc7-412d-b6cc-7ed4ce714b83",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "[\"{{operationId1}}\",\"{{operationId3}}\"]",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "5eac46bc-b4a9-4ddf-bd35-31ae667b99b8",
+					"name": "CreateProductionLine",
+					"url": "{{url}}api/productionline",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a89478b8-6f94-4b3a-a1ad-93282d9c3453",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"Machine type response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Machine type returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"productionLineId1\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ab2e17d2-0eaa-427f-af00-7b121898e6c0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "c6635b80-41b6-47d6-af83-056fb4ce789d",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"Machine type response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Machine type returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"productionLineId1\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n\t\"machines\" : [\"{{machineId1}}\"]\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "8540e252-7875-4b0b-a948-7520fb75d2e6",
+					"name": "Get Machine Type",
+					"url": "{{url}}api/machinetype/{{machineTypeId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a5113b33-b480-423f-8dba-9891fb013f0c",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test((\"Machine response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Machine returns values inserted\",function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.type).to.eql(\"Trituradora\");",
+									"    //pm.expect(jsonData.operations).to.include(pm.globals.get(\"operationId1\"));",
+									"    //pm.expect(jsonData.operations).to.include(pm.globals.get(\"operationId2\"));",
+									"    console.log(\"Expected \" + [pm.globals.get(\"operationId1\"),pm.globals.get(\"operationId2\")]);",
+									"    console.log(\"Result \" + jsonData.operations);",
+									"    pm.expect(jsonData.operations).to.have.members([pm.globals.get(\"operationId1\"),pm.globals.get(\"operationId2\")])",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "716483c0-6fc7-412d-b6cc-7ed4ce714b83",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})\n\npm.test((\"Machine response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test(\"Machine returns values inserted\",function(){\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.type).to.eql(\"Trituradora\");\n    //pm.expect(jsonData.operations).to.include(pm.globals.get(\"operationId1\"));\n    //pm.expect(jsonData.operations).to.include(pm.globals.get(\"operationId2\"));\n    console.log(\"Expected \" + [pm.globals.get(\"operationId1\"),pm.globals.get(\"operationId2\")]);\n    console.log(\"Result \" + jsonData.operations);\n    pm.expect(jsonData.operations).to.have.members([pm.globals.get(\"operationId1\"),pm.globals.get(\"operationId2\")])\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "8a257905-7787-44d3-b2b7-f1eb236dd2c4",
+					"name": "Delete Operation 1",
+					"url": "{{url}}api/operation/{{operationId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a9e812-c197-4780-9632-70b89311ddc1",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "976bac3b-adb4-435d-900f-4f5d7241f60b",
+					"name": "Delete Operation 4",
+					"url": "{{url}}api/operation/{{operationId4}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a9e812-c197-4780-9632-70b89311ddc1",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "a13341b0-4dc5-4869-a6d7-66bc8ea80161",
+					"name": "CreateMachineType 2",
+					"url": "{{url}}api/machinetype",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ae2e46c6-2979-4756-b1c9-9b5fd76d0bfe",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"Machine type response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Machine type returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"machineTypeId2\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "0cb3fe12-3dfc-466f-b5eb-86cf83c27f56",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"Machine type response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Machine type returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"machineTypeId2\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n    \"type\": \"Martelador\",\n    \"operations\": [\"{{operationId2}}\",\"{{operationId4}}\"]\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "a136136d-8ff8-4970-bcc8-b95bb72b0f09",
+					"name": "Cant get ProductionLine",
+					"url": "{{url}}api/productionLine/{{productionLineId1}}",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": null,
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8fc4659b-7a29-47ee-a4b2-ed7e05dcf11e",
+								"exec": [
+									"pm.test((\"Status code is 404\"),function(){",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "ec03a603-53d3-4818-9efb-e62c75a78975",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 404\"),function(){\n    pm.response.to.have.status(404);\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n    \"machinetype\": \"{{machineTypeId1}}\",\n    \"machinebrand\": \"SIEMENS\",\n    \"machinemodel\": \"IQ-502\",\n    \"machinelocation\": \"Secção 2\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "adafddac-f343-4358-94b4-b135946aa733",
+					"name": "Delete Machine",
+					"url": "{{url}}api/machine/{{machineId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e245bfe-10e8-4d19-b503-2a0fd980687c",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "d0afa0ea-5180-4992-ae77-43c6633d4885",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "b7b01a4d-c9a8-4e62-8072-4df2873c7f6b",
+					"name": "Get Updated Machine Type",
+					"url": "{{url}}api/machinetype/{{machineTypeId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4be69546-540c-48c8-96cb-45c8c8ad61f6",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test((\"Machine response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Machine returns values inserted\",function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.type).to.eql(\"Trituradora\");",
+									"    pm.expect(jsonData.operations[0]).to.eql(pm.globals.get(\"operationId1\"));",
+									"    pm.expect(jsonData.operations[1]).to.eql(pm.globals.get(\"operationId3\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "716483c0-6fc7-412d-b6cc-7ed4ce714b83",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})\n\npm.test((\"Machine response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test(\"Machine returns values inserted\",function(){\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.type).to.eql(\"Trituradora\");\n    pm.expect(jsonData.operations[0]).to.eql(pm.globals.get(\"operationId1\"));\n    pm.expect(jsonData.operations[1]).to.eql(pm.globals.get(\"operationId3\"));\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "bfc00f8b-8ec2-4cf3-8993-da0c87809daa",
+					"name": "Create Operation3",
+					"url": "{{url}}api/operation",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "215a940a-f5ae-496f-b6d3-95e325abfa34",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"post Operations response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"post operation returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"operationId3\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "7c9733fa-478a-47b2-b205-fe357e7e99f5",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"post Operations response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"post operation returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"operationId3\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n\t\"description\": \"Partir\",\n\t\"Duration\": \"00:30:00\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "c1c00ea8-1ffa-422f-a579-6b0995ee9433",
+					"name": "Create Machine 1",
+					"url": "{{url}}api/machine",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8fc4659b-7a29-47ee-a4b2-ed7e05dcf11e",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test((\"Machine response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Machine returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"machineId1\", jsonData.id);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45f01a97-00cf-445f-96f1-3edc8fd3dc60",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "be6f0f9f-bc93-4b60-90e6-2d9ba51d084f",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n});\n\npm.test((\"Machine response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Machine returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"machineId1\", jsonData.id);\n});\n\n",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n    \"machinetype\": \"{{machineTypeId1}}\",\n    \"machinebrand\": \"Siemens\",\n    \"machinemodel\": \"QC-450\",\n    \"machinelocation\": \"Sector 10\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "d7991c6d-56cc-45e0-8aa8-eb8616ffe68f",
+					"name": "CreateMachineType 1",
+					"url": "{{url}}api/machinetype",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ae2e46c6-2979-4756-b1c9-9b5fd76d0bfe",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"Machine type response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Machine type returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"machineTypeId1\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "0cb3fe12-3dfc-466f-b5eb-86cf83c27f56",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"Machine type response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Machine type returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"machineTypeId1\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n    \"type\": \"Trituradora\",\n    \"operations\": [\"{{operationId1}}\",\"{{operationId2}}\"]\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "dd77dd6c-74f1-46b7-8a2e-81bac86e742b",
+					"name": "GetMachine",
+					"url": "{{url}}api/machine/{{machineId1}}",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": null,
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8fc4659b-7a29-47ee-a4b2-ed7e05dcf11e",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test((\"Machine response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Machine returns values inserted\",function(){",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData);",
+									"    pm.expect(jsonData.machineType).to.eql(pm.globals.get(\"machineTypeId1\"));",
+									"    pm.expect(jsonData.machineBrand).to.eql(\"Siemens\");",
+									"    pm.expect(jsonData.machineModel).to.eql(\"QC-450\");",
+									"    pm.expect(jsonData.machineLocation).to.eql(\"Sector 10\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "94030bbd-bc4a-4847-a0aa-9b79e209809f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})\n\npm.test((\"Machine response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test(\"Machine returns values inserted\",function(){\n    var jsonData = pm.response.json();\n    console.log(jsonData);\n    pm.expect(jsonData.machineType).to.eql(pm.globals.get(\"machineTypeId1\"));\n    pm.expect(jsonData.machineBrand).to.eql(\"Siemens\");\n    pm.expect(jsonData.machineModel).to.eql(\"QC-450\");\n    pm.expect(jsonData.machineLocation).to.eql(\"Sector 10\");\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "de6f5dcd-4f72-4b85-b808-59397c6aafb0",
+					"name": "Delete Operation 3",
+					"url": "{{url}}api/operation/{{operationId3}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a9e812-c197-4780-9632-70b89311ddc1",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "df5a86ba-ac7a-4bff-97a4-489064b6588d",
+					"name": "Create Operation4",
+					"url": "{{url}}api/operation",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": null,
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "215a940a-f5ae-496f-b6d3-95e325abfa34",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test((\"post Operations response is json\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"post operation returns id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     pm.globals.set(\"operationId4\", jsonData.id);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "7c9733fa-478a-47b2-b205-fe357e7e99f5",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n})\n\npm.test((\"post Operations response is json\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"post operation returns id\"),function(){\n     var jsonData = pm.response.json();\n     pm.globals.set(\"operationId4\", jsonData.id);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"rawModeData": "{\n\t\"description\": \"Malhar\",\n\t\"Duration\": \"00:30:00\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "eb5a31c1-ab2a-43b6-a64a-eb1e7d653eda",
+					"name": "Delete Operation 2",
+					"url": "{{url}}api/operation/{{operationId2}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a9e812-c197-4780-9632-70b89311ddc1",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "81263bb6-02e9-4f27-9249-52fc8bc5fda4",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "f76a0cbc-9ceb-4a2d-b105-069346c02624",
+					"name": "Delete ProductionLine",
+					"url": "{{url}}api/productionLine/{{productionLineId1}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e245bfe-10e8-4d19-b503-2a0fd980687c",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "ec03a603-53d3-4818-9efb-e62c75a78975",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8e3050d3-90bd-43af-b717-7a3278075218",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		},
+		{
+			"id": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+			"name": "Master Data Product",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [],
+			"folders_order": [
+				"6b311453-9f9d-47d1-b074-977029c051e7",
+				"2908c9b7-3e86-4ba5-ab7e-e621096bc830",
+				"447a8d32-3d11-4282-8592-34129029b290",
+				"c482e643-6f79-437a-86bc-2931ff4afe9d"
+			],
+			"protocolProfileBehavior": {},
+			"folders": [
+				{
+					"id": "6b311453-9f9d-47d1-b074-977029c051e7",
+					"name": "Create Products",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folder": null,
+					"order": [
+						"174f77eb-ccbf-4926-9cdb-b4a2e536c0e6"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folderId": "6b311453-9f9d-47d1-b074-977029c051e7"
+				},
+				{
+					"id": "447a8d32-3d11-4282-8592-34129029b290",
+					"name": "Delete Products",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folder": null,
+					"order": [
+						"d37436e6-31e1-4d8f-8572-ca1e056f3325"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folderId": "447a8d32-3d11-4282-8592-34129029b290"
+				},
+				{
+					"id": "c482e643-6f79-437a-86bc-2931ff4afe9d",
+					"name": "Get All Products",
+					"description": "",
+					"auth": null,
+					"events": null,
+					"collection": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folder": null,
+					"order": [
+						"cdaa7334-ddf6-4817-b516-f270544f2545"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folderId": "c482e643-6f79-437a-86bc-2931ff4afe9d"
+				},
+				{
+					"id": "2908c9b7-3e86-4ba5-ab7e-e621096bc830",
+					"name": "Product",
+					"description": "Integration tests for Product\n",
+					"auth": null,
+					"events": null,
+					"collection": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folder": null,
+					"order": [
+						"1566be88-bf9d-43c2-a7c7-977247ba4678"
+					],
+					"folders_order": [],
+					"protocolProfileBehavior": {},
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"folderId": "2908c9b7-3e86-4ba5-ab7e-e621096bc830"
+				}
+			],
+			"requests": [
+				{
+					"id": "1566be88-bf9d-43c2-a7c7-977247ba4678",
+					"name": "GetProductById",
+					"url": "{{url_mdp}}api/product/{{productIdPost}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a6e3103-7211-4f5f-9a7e-2293d0366876",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"get previously inserted operation\",function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.plan.name).to.eql(\"planoTeste1\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "2908c9b7-3e86-4ba5-ab7e-e621096bc830",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})\n\npm.test(\"get previously inserted operation\",function(){\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.plan.name).to.eql(\"planoTeste1\");\n})",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "174f77eb-ccbf-4926-9cdb-b4a2e536c0e6",
+					"name": "Post Product 1",
+					"url": "{{url_mdp}}api/product",
+					"description": null,
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f05ea58-c4d6-4d3c-b245-5eae7d192b95",
+								"exec": [
+									"pm.test((\"Status code is 201\"),function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test((\"Post Product response is JSON\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Post Product returns Id\"),function(){",
+									"     var jsonData = pm.response.json();",
+									"     console.log(jsonData);",
+									"     pm.globals.set(\"productIdPost\", jsonData.ref);",
+									"     pm.globals.set(\"planName\",jsonData.plan.name);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a354aef7-86a6-44d8-9cee-3f30630b393c",
+								"exec": [
+									"pm.globals.set(\"planName\", \"planoTeste1\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "6b311453-9f9d-47d1-b074-977029c051e7",
+					"preRequestScript": "pm.globals.set(\"planName\", \"planoTeste1\");\n",
+					"tests": "pm.test((\"Status code is 201\"),function(){\n    pm.response.to.have.status(201);\n});\n\npm.test((\"Post Product response is JSON\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Post Product returns Id\"),function(){\n     var jsonData = pm.response.json();\n     console.log(jsonData);\n     pm.globals.set(\"productIdPost\", jsonData.ref);\n     pm.globals.set(\"planName\",jsonData.plan.name);\n});\n\n",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"rawModeData": "\n    {\n        \"plan\": {\n            \"name\": \"planoTeste1\"\n        }\n    }\n",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "cdaa7334-ddf6-4817-b516-f270544f2545",
+					"name": "GetAllProducts",
+					"url": "{{url_mdp}}api/product",
+					"description": "Returns a list of Product objects\n",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": null,
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ddc3951e-c60c-4e96-bd3a-440f2d7ca964",
+								"exec": [
+									"pm.test((\"Status code is 200\"),function(){",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test((\"Response is JSON\"),function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test((\"Is not empty\"),function(){",
+									"    pm.response.notEmpty;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "c482e643-6f79-437a-86bc-2931ff4afe9d",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 200\"),function(){\n    pm.response.to.have.status(200);\n})\n\npm.test((\"Response is JSON\"),function(){\n    pm.response.to.be.json;\n});\n\npm.test((\"Is not empty\"),function(){\n    pm.response.notEmpty;\n});\n",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "d37436e6-31e1-4d8f-8572-ca1e056f3325",
+					"name": "DeleteProduct",
+					"url": "{{url_mdp}}api/product/{{productIdPost}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f6a936b-193b-4419-b481-d620962ddc6f",
+								"exec": [
+									"pm.test((\"Status code is 204\"),function(){",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": "447a8d32-3d11-4282-8592-34129029b290",
+					"preRequestScript": null,
+					"tests": "pm.test((\"Status code is 204\"),function(){\n    pm.response.to.have.status(204);\n});",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "95eb7f68-f08b-42f8-92e8-0d60ca9ada06",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		},
+	],
+	"environments": [
+		{
+			"id": "ad3e7d3b-70da-4069-9956-09e14661f0a2",
+			"name": "Prod",
+			"values": [
+				{
+					"key": "url",
+					"value": "https://masterdatafactory.azurewebsites.net/",
+					"enabled": true
+				},
+				{
+					"key": "url_mdp",
+					"value": "https://masterdataproduct.azurewebsites.net/",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "b7bb75c9-04ac-4040-a33d-3b79f77b065c",
+			"name": "Dev",
+			"values": [
+				{
+					"key": "url",
+					"value": "https://localhost:5001/",
+					"enabled": true
+				},
+				{
+					"key": "url_mdp",
+					"value": "https://localhost:5001/",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "a92c58e5-571e-46b5-ab5c-dd959eaf3704",
+			"name": "Team Workspace - globals",
+			"values": []
+		},
+		{
+			"id": "5e239bb5-01a9-465c-856c-2046b783b984",
+			"name": "LAPR5 - globals",
+			"values": [
+				{
+					"key": "operationId1",
+					"value": "83703c4d-9cd6-4cd3-4faf-08d75b329cd0",
+					"enabled": true
+				},
+				{
+					"key": "operationId2",
+					"value": "fad71079-e132-4570-8eba-541d2c60ab76",
+					"enabled": true
+				},
+				{
+					"key": "machineTypeId1",
+					"value": "dabe4d74-c83f-4a5d-bdc9-a4cd6bd70c0a",
+					"enabled": true
+				},
+				{
+					"key": "machineId1",
+					"value": "2a8e03d7-ec6d-4b18-8bc7-796f96b5c5a3",
+					"enabled": true
+				},
+				{
+					"key": "operationId3",
+					"value": "c9f6e764-7d2c-435d-9bf6-a9719ada5b50",
+					"enabled": true
+				},
+				{
+					"key": "operationId4",
+					"value": "f87f71da-2a26-46d3-b22b-5accf17cbc09",
+					"enabled": true
+				},
+				{
+					"key": "machineTypeId2",
+					"value": "eb12d9de-9ad6-4ea3-bcaf-f827d718dd46",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "efc90e2a-d233-4b0c-830f-c8aa6f620f21",
+			"name": "My Workspace - globals",
+			"values": []
+		}
+	],
+	"headerPresets": [],
+	"globals": []
+}
