@@ -29,10 +29,8 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
-            //services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MasterDataFactory"));
-            
+            //services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("MasterDataFactory"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             //Mapper
@@ -53,7 +51,7 @@ namespace MasterDataFactory
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000"));
             app.UseHttpsRedirection();
             app.UseMvc();
             //UpdateDatabase(app);

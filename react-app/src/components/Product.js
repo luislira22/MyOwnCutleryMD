@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-
+/*
 class ProductHeaderRow extends Component {
     render() {
         return (
@@ -53,7 +53,7 @@ class ProductTable extends React.Component {
     }
 }
 
-
+*/
 const Products = ({ products }) => {
     return (
         <table className="table">
