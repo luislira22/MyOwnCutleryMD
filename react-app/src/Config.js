@@ -1,0 +1,26 @@
+
+const ENDPOINTS_DEV = {
+    masterdatafactory: "https://localhost:5001/",
+    masterdataproduct: "https://localhost:5001/"
+}
+
+const ENDPOINTS_PROD = {
+    masterdatafactory: "https://masterdatafactory.azurewebsites.net/",
+    masterdataproduct: "https://masterdataproduct.azurewebsites.net/"
+}
+
+const ENDPOINTS = process.env.NODE_ENV === 'development' ? ENDPOINTS_DEV : ENDPOINTS_PROD
+
+export default {
+    endpoints: ENDPOINTS,
+    routes: {
+        machines: {
+            getAll: `${ENDPOINTS.masterdatafactory}api/machine`,
+            createMachine: `${ENDPOINTS.masterdatafactory}api/machine`,
+        },
+        machinetypes: {
+            getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`
+        }
+    }
+}
+

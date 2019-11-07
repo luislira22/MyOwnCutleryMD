@@ -1,20 +1,7 @@
 import React, {Component} from 'react';
-import Products from './components/Product.js'
+import Machine from './components/Machine'
 
 class App extends Component {
-    state = {
-      products: []
-    }
-
-    componentDidMount() {
-
-      fetch('https://localhost:5001/api/product')
-      .then(results => results.json())
-      .then((data) => {
-          this.setState({products : data})
-      })
-      .catch(console.log);
-  }
 
   render() {
     return (
@@ -22,7 +9,7 @@ class App extends Component {
         <h1>MyOwnCutlery</h1>
         <hr/>
         <div className="content">
-          <Products products={this.state.products} />
+          <Machine/>
         </div>
       </div>
       
