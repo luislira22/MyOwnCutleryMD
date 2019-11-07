@@ -11,6 +11,9 @@ class App extends Component {
         <div className="content">
           <Machine/>
         </div>
+        <div className="content">
+          <MachineTypes machineTypes={this.state.machineTypes} />
+        </div>
       </div>
       
     )
