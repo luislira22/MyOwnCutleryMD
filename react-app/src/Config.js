@@ -1,4 +1,3 @@
-
 const ENDPOINTS_DEV = {
     masterdatafactory: "https://localhost:5001/",
     masterdataproduct: "https://localhost:5001/"
@@ -20,6 +19,9 @@ export default {
         },
         machinetypes: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`
+        },
+        products: {
+            getAll: `${ENDPOINTS.masterdataproduct}api/product`
         }
     }
 }
