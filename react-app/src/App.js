@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import NavigationBar from './NavigationBar'
-import Machine from './components/Machine'
-import Product from './components/Product'
-import MachineType from './components/MachineType'
-import Operation from './components/Operation'
+import React from 'react';
+import NavigationBar from './components/NavigationBar'
 
 function App(){
     return (
