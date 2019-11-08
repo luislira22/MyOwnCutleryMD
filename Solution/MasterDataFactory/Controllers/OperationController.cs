@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.Operations;
@@ -20,7 +21,14 @@ namespace MasterDataFactory.Controllers
             _service = new OperationService(_context);
         }
 
-
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OperationDTO>>> GetOperations()
+        {
+            IEnumerable<Operation> operations = (await _service.GetOperations());
+            return operations.Select(m => m.ToDTO()).ToList();
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationDTO>> GetOperationById(Guid id)
         {
@@ -65,5 +73,6 @@ namespace MasterDataFactory.Controllers
                 return NotFound(e.Message);
             }
         }
+        
     }
 }
