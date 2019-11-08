@@ -15,7 +15,6 @@ class NavigationBar extends Component {
 
   render() {
     return (
-      
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="#home">My Own Cutlery</Navbar.Brand>
         <Nav className="mr-auto">

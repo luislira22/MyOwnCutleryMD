@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
 import NavigationBar from './components/NavigationBar'
-import { BrowserRouter, Route } from 'react-router-dom'
 import Machine from './components/Machine'
 import MachineType from './components/MachineType'
+import SceneManager from './three/SceneManager'
 
 class App extends Component {
+
+  componentDidMount() {
+    SceneManager(this.mount);
+  }
 
   render() {
     return (
       <div>
         <NavigationBar />
-        <div class="center">
+        <div className="center">
           <div className="content">
-            <Machine/>
-            <MachineType/>
+            <Machine />
+            <MachineType />
+            <div ref={ref => (this.mount = ref)} />
           </div>
         </div>
       </div>
     )
   }
-  //Before last commit
-  // render() {
-  //   return (
-  //     <div>
-  //       <h1>MyOwnCutlery</h1>
-  //       <hr/>
-  //       <div className="content">
-  //         <Machine/>
-  //       </div>
 
-  //       <div className="content">
-  //         <MachineTypes machineTypes={this.state.machineTypes} />
-  //       </div>
-  //     </div>
-
-  //   )
-  // }
-
+  componentWillUnmount() {
+    //this.mount.removeChild()
+  }
 }
 
 export default App;
