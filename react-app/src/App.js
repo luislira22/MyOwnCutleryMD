@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
-import NavigationBar from './components/NavigationBar'
-import { BrowserRouter, Route } from 'react-router-dom'
+import NavigationBar from './NavigationBar'
 import Machine from './components/Machine'
 import Product from './components/Product'
 import MachineType from './components/MachineType'
+import Operation from './components/Operation'
 
-class App extends Component {
-
-  render() {
+function App(){
     return (
       <div>
         <NavigationBar />
         <div class="center">
           <div className="content">
-            <Machine/>
-            <MachineType/>
-            <Product/>
           </div>
         </div>
       </div>
     )
   }
+
+
 
   /*
         <div className="content">
@@ -44,7 +41,5 @@ class App extends Component {
 
   //   )
   // }
-
-}
 
 export default App;
