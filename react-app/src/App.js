@@ -19,6 +19,12 @@ class App extends Component {
       </div>
     )
   }
+
+  /*
+        <div className="content">
+          <Machine/>
+        </div>
+  */
   //Before last commit
   // render() {
   //   return (
