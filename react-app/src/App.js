@@ -1,18 +1,22 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import NavigationBar from './components/NavigationBar'
+import { BrowserRouter, Route } from 'react-router-dom'
 import Machine from './components/Machine'
+import MachineType from './components/MachineType'
 
 class App extends Component {
 
   render() {
     return (
       <div>
-        <h1>MyOwnCutlery</h1>
-        <hr/>
-        <div className="content">
-          <Machine/>
+        <NavigationBar />
+        <div class="center">
+          <div className="content">
+            <Machine/>
+            <MachineType/>
+          </div>
         </div>
       </div>
-      
     )
   }
   //Before last commit
@@ -24,15 +28,15 @@ class App extends Component {
   //       <div className="content">
   //         <Machine/>
   //       </div>
-      
+
   //       <div className="content">
   //         <MachineTypes machineTypes={this.state.machineTypes} />
   //       </div>
   //     </div>
-      
+
   //   )
   // }
-  
+
 }
 
 export default App;

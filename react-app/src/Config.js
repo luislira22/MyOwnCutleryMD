@@ -1,3 +1,5 @@
+import React from "react";
+
 const ENDPOINTS_DEV = {
     masterdatafactory: "https://localhost:5001/",
     masterdataproduct: "https://localhost:5001/"
@@ -7,7 +9,12 @@ const ENDPOINTS_PROD = {
     masterdatafactory: "https://masterdatafactory.azurewebsites.net/",
     masterdataproduct: "https://masterdataproduct.azurewebsites.net/"
 }
-
+/*
+const internalroutes = {
+  "/machines": () => <Machine />,
+  "/machinetypes": () => <MachineType />
+};
+*/
 const ENDPOINTS = process.env.NODE_ENV === 'development' ? ENDPOINTS_DEV : ENDPOINTS_PROD
 
 export default {
@@ -18,7 +25,8 @@ export default {
             createMachine: `${ENDPOINTS.masterdatafactory}api/machine`,
         },
         machinetypes: {
-            getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`
+            getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`,
+            createMachineType: `${ENDPOINTS.masterdatafactory}api/machinetype`,
         },
         products: {
             getAll: `${ENDPOINTS.masterdataproduct}api/product`
