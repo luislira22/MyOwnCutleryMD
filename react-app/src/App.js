@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from './components/NavigationBar'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Machine from './components/Machine'
+import Product from './components/Product'
 import MachineType from './components/MachineType'
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
           <div className="content">
             <Machine/>
             <MachineType/>
+            <Product/>
           </div>
         </div>
       </div>

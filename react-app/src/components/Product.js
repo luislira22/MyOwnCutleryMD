@@ -31,6 +31,7 @@ function Products() {
                         <>
                             <ProductTable products={products} /*{machineTypes={machineTypes}}*/ />
                             {/* <CreateMachine machineTypes={machineTypes} />*/}
+                            <CreateProduct/>
                         </>
                     )
             }
@@ -58,16 +59,16 @@ function ProductTable(props) {
 }
 
 function ProductTableRow(props) {
-    const product = props.products.find(function (product) {
-        if (product.id === props.product.id) {
-            return product;
-        }
-    });
+    /* const product = props.products.find(function (product) {
+         if (product.id === props.product.id) {
+             return product;
+         }
+     });*/
 
     return (
         <tr>
             <td>{props.product.id}</td>
-            {/* <td>{props.product.plan.name}</td>*/}
+            <td>{props.product.plan.name}</td>
             <td>
                 <button type="button" className="btn btn-outline-primary btn-sm ">
                     <i><FaPencilAlt/></i>
@@ -77,31 +78,43 @@ function ProductTableRow(props) {
     )
 }
 
+function CreateProduct(props) {
+    const [manufacturingPlan, setManufacturingPlan] = useState("");
 
-//TODO complete product e esclarecer questoes com o guilherme
-//TODO complete product e esclarecer questoes com o guilherme
-//TODO complete product e esclarecer questoes com o guilherme
+    const handleSubmit = event => {
+        event.preventDefault();
 
-/*
-const Products = ({ products }) => {
+        const requestHeader = {
+            "Content-Type": "application/json;charset=UTF-8",
+        }
+        const requestBody = {
+            plan: {name : manufacturingPlan}
+        }
+        console.log(requestBody);
+        axios.post(config.routes.products.createProduct, requestBody, requestHeader);
+        axios({
+            method: "post",
+            url: config.routes.products.createProduct,
+            data: requestBody,
+            headers: requestHeader,
+        })
+
+    }
+
     return (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th scope="col">Product Id</th>
-                    <th scope="col">Manufacturing Plan Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {products.map((product) => (
-                    <tr>
-                        <td>{product.id} </td>
-                        <td>{product.plan.name} </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <form onSubmit={handleSubmit}>
+            <div className="form-row">
+                <div className="form-group col-md-6">
+                    <label htmlFor="name">Manufacturing Plan</label>
+                    <input type="text" className="form-control" id="manufacturingPlan"
+                           onChange={e => setManufacturingPlan(e.target.value)}/>
+                </div>
+            </div>
+            <button type="submit" className="btn btn-primary">Create</button>
+        </form>
     )
-};
+}
 
-export default Products;*/
+export default Products;
+
+

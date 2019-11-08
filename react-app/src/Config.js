@@ -29,7 +29,10 @@ export default {
             createMachineType: `${ENDPOINTS.masterdatafactory}api/machinetype`,
         },
         products: {
-            getAll: `${ENDPOINTS.masterdataproduct}api/product`
+            getAll: `${ENDPOINTS.masterdataproduct}api/product`,
+            createProduct: `${ENDPOINTS.masterdataproduct}api/product`
+
+
         }
     }
 }
