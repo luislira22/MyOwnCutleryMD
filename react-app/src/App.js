@@ -9,15 +9,9 @@ function App(){
     return (
       <div>
         <NavigationBar />
-        <div class="center">
-          <div className="content">
-          </div>
-        </div>
       </div>
     )
   }
-
-
 
   /*
         <div className="content">
