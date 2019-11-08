@@ -88,9 +88,9 @@ function CreateProduct(props) {
             "Content-Type": "application/json;charset=UTF-8",
         }
         const requestBody = {
-            manufacturingplan: manufacturingPlan
+            plan: {name : manufacturingPlan}
         }
-
+        console.log(requestBody);
         axios.post(config.routes.products.createProduct, requestBody, requestHeader);
         axios({
             method: "post",
@@ -105,7 +105,7 @@ function CreateProduct(props) {
         <form onSubmit={handleSubmit}>
             <div className="form-row">
                 <div className="form-group col-md-6">
-                    <label htmlFor="manufacturingPlan">Manufacturing Plan</label>
+                    <label htmlFor="name">Manufacturing Plan</label>
                     <input type="text" className="form-control" id="manufacturingPlan"
                            onChange={e => setManufacturingPlan(e.target.value)}/>
                 </div>
