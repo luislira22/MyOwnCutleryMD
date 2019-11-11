@@ -23,6 +23,7 @@ export default {
         machines: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machine`,
             createMachine: `${ENDPOINTS.masterdatafactory}api/machine`,
+            filterByMachineType: `${ENDPOINTS.masterdatafactory}api/machine/machinetype/`,
         },
         machinetypes: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`,
