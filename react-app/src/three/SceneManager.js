@@ -92,7 +92,6 @@ class SceneManager extends Component {
         //dirLightHeper = new THREE.DirectionalLightHelper(dirLight, 10);
         //scene.add(dirLightHeper);
 
-
         //ADD PRODUCTION LINE
         this.createProductionLine();
         //ADD MACHINE
@@ -146,6 +145,7 @@ class SceneManager extends Component {
                 object.castShadow = true;
                 object.scale.set(10, 10, 10);
                 object.translateZ(30);
+                object.translateX(50);
                 object.translateX(machineOffset);
                 machineOffset += 30;
                 //object.rotateX(Math.PI /2)
