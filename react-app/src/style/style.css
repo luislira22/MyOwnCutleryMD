@@ -5,3 +5,7 @@ body {
 .center{
     margin: 50px 100px 0px 100px;
 }
+
+.react-icons {
+    vertical-align: middle;
+  }

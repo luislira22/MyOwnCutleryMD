@@ -6,6 +6,8 @@ import Machines from './Machine';
 import Operations from './Operation';
 import Products from './Product';
 import style from '../style/style.css'
+import { Scene } from 'three';
+import SceneManager from '../three/SceneManager';
 
 function NavigationBar(props) {
   return (
@@ -18,6 +20,7 @@ function NavigationBar(props) {
             <Nav.Link href="/machineTypes">MachineTypes</Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>
             <Nav.Link href="/operations">Operations</Nav.Link>
+            <Nav.Link href="/visualization">Visualization</Nav.Link>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -31,6 +34,7 @@ function NavigationBar(props) {
             <Route path='/machineTypes' component={MachineTypes} />
             <Route path='/operations' component={Operations} />
             <Route path='/products' component={Products} />
+            <Route path='/visualization' component={SceneManager} />
           </div>
         </Switch>
       </div>
