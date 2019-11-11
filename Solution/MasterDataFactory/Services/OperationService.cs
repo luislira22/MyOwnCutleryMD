@@ -15,6 +15,11 @@ namespace MasterDataFactory.Services
            _operationRepository = new OperationRepository(_context);
         }
 
+        public async Task<List<Operation>> GetOperations()
+        {
+            return await _operationRepository.GetAll();
+        }
+
         public async Task<Operation> GetOperationById(Guid id){
             Operation operation =  await _operationRepository.GetById(id);
             if(operation == null)

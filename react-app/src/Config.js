@@ -9,6 +9,8 @@ const ENDPOINTS_PROD = {
     masterdatafactory: "https://masterdatafactory.azurewebsites.net/",
     masterdataproduct: "https://masterdataproduct.azurewebsites.net/"
 }
+
+
 /*
 const internalroutes = {
   "/machines": () => <Machine />,
@@ -30,7 +32,12 @@ export default {
             createMachineType: `${ENDPOINTS.masterdatafactory}api/machinetype`,
         },
         products: {
-            getAll: `${ENDPOINTS.masterdataproduct}api/product`
+            getAll: `${ENDPOINTS.masterdataproduct}api/product`,
+            createProduct: `${ENDPOINTS.masterdataproduct}api/product`
+        },    
+        operations:{
+            getById: `${ENDPOINTS.masterdatafactory}api/operation/`,
+            createOperation: `${ENDPOINTS.masterdatafactory}api/operation`
         }
     }
 }
