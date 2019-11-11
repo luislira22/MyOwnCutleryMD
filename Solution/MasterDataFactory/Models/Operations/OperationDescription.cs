@@ -1,25 +1,32 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 
 namespace MasterDataFactory.Models.Operations
 {
     public class OperationDescription : ValueObject
     {
-        public string Description { get; set; }
+        public string Value { get; set; }
 
-        protected OperationDescription()
+        public OperationDescription(string value)
         {
-            
+            Validate(value);
+            Value = value;
         }
-        
-        public OperationDescription(string description)
+
+        private void Validate(string value)
         {
-            this.Description = description;
+            if(value == null)
+                throw new ArgumentException("Description is needed.");
+            if(value.Equals(""))
+                throw new ArgumentException("Description can't be empty.");
+                
         }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return Description;
+            yield return Value;
         }
         
         public override bool Equals(object obj)
@@ -27,12 +34,12 @@ namespace MasterDataFactory.Models.Operations
             if (obj == null || obj.GetType() != this.GetType())
                 return false;
             OperationDescription operationDescription = (OperationDescription)obj;
-            return Description.Equals(operationDescription.Description);
+            return Value.Equals(operationDescription.Value);
         }
         
         public override int GetHashCode()
         {
-            return Description.GetHashCode();
+            return Value.GetHashCode();
         }
         
     }

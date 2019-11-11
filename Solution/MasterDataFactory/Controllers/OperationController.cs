@@ -21,6 +21,11 @@ namespace MasterDataFactory.Controllers
             _service = new OperationService(_context);
         }
 
+        [HttpGet]
+        public async Task<Boolean> OperationExists(Guid id)
+        {
+            return await _service.OperationExists(id);
+        }
         
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OperationDTO>>> GetOperations()
@@ -46,16 +51,17 @@ namespace MasterDataFactory.Controllers
         [HttpPost]
         public async Task<ActionResult<OperationDTO>> PostOperation(OperationDTO operationDto)
         {
-            Operation operation = new Operation(operationDto);
+            
             try
             {
+                Operation operation = new Operation(operationDto);
+                
                 //try to post object
                 await _service.PostOperation(operation);
                 return CreatedAtAction("PostOperation", operation.ToDTO());
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                Console.Write(e.Message);
                 return BadRequest(e.Message);
             }
         }

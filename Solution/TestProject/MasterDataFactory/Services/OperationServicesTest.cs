@@ -19,7 +19,8 @@ namespace TestProject.MasterDataFactory.Services
             Guid expectedId = new Guid("12345678-1234-1234-1234-123412341234");
             string expectedDescription = "Triturar";
             TimeSpan expectedDuration = new TimeSpan(0, 20, 10);
-            Operation expected = new Operation(expectedId, expectedDescription, expectedDuration);
+            string expectedTool = "broca 20mm";
+            Operation expected = new Operation(expectedId, expectedDescription, expectedDuration,expectedTool);
 
             OperationService service = new OperationService(context);
             Operation result = await service.GetOperationById(expectedId);

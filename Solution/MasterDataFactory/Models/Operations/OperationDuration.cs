@@ -6,16 +6,23 @@ namespace MasterDataFactory.Models.Operations
 {
     public class OperationDuration : ValueObject
     {
-        public TimeSpan Duration { get; set;}
+        public TimeSpan Value { get; set;}
         
-        public OperationDuration(TimeSpan duration)
+        public OperationDuration(TimeSpan value)
         {
-            Duration = duration;
+            Value = value;
         }
 
         public OperationDuration(string duration)
         {
-            Duration = parseDuration(duration);
+            Validate(duration);
+            Value = parseDuration(duration);
+        }
+
+        private void Validate(string duration)
+        {
+            if (duration == null)
+                throw new ArgumentException("duration is needed.");
         }
         
         private TimeSpan parseDuration(string duration)
@@ -27,7 +34,7 @@ namespace MasterDataFactory.Models.Operations
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return Duration;
+            yield return Value;
         }
 
 
@@ -36,13 +43,13 @@ namespace MasterDataFactory.Models.Operations
             if (obj == null || obj.GetType() != this.GetType())
                 return false;
             OperationDuration operationDuration = (OperationDuration)obj;
-            return Duration.Equals(operationDuration.Duration);
+            return Value.Equals(operationDuration.Value);
         }
 
 
         public override int GetHashCode()
         {
-            return Duration.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

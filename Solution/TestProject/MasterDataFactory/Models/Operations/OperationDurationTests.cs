@@ -11,8 +11,8 @@ namespace TestProject.MasterDataFactory.Models.Operations
         public void EnsureTimeSpanPFailsParse()
         {
             string duration = "10,00:00";
-            
-            OperationDTO operationDTO = new OperationDTO(new Guid(), "description",duration);
+
+            OperationDTO operationDTO = new OperationDTO(new Guid(), "description",duration,"50mm");
 
             Assert.Throws<FormatException>(() => new Operation(operationDTO));
         }

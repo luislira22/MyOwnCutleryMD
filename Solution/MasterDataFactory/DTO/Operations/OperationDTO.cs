@@ -8,12 +8,15 @@ namespace MasterDataFactory.DTO.Operations
         public string Duration { get; set; }
         
         public string Description{get;set;}
+        
+        public string Tool { get; set; }
 
-        public OperationDTO(Guid id,string description,string duration)
+        public OperationDTO(Guid id,string description,string duration,string tool)
         {
-            this.Id = id;
-            this.Description = description;
-            this.Duration = duration;
+            Id = id;
+            Description = description;
+            Duration = duration;
+            Tool = tool;
         }
     }
 }
