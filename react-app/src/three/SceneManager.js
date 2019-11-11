@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import metal_texture from '../img/metal_floor_texture.jpg'
-import machine_obj from './obj/MachineDesign.obj'
-import machine_material from './obj/MachineDesign.mtl'
-import productionline from './obj/ProductionLine.obj'
-import productionlinematerial from './obj/ProductionLine.mtl'
+import machine_obj from './objects/MachineDesign.obj'
+import machine_material from './objects/MachineDesign.mtl'
+import productionline from './objects/ProductionLine.obj'
+import productionlinematerial from './objects/ProductionLine.mtl'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
