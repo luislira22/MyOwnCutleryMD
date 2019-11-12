@@ -20,7 +20,8 @@ const MachineTable = props => (
                     key={machine.id}
                     machine={machine}
                     machineTypes={props.machineTypes}
-                    editMachineRow={props.editMachineRow} />
+                    editMachineRow={props.editMachineRow}
+                    showUpdate={props.showUpdate} />
             ))}
         </tbody>
     </table>
@@ -41,7 +42,8 @@ const MachineRow = props => {
             machinemodel: props.machine.machineModel == null ? "" : props.machine.machineModel,
             machinelocation: props.machine.machineLocation == null ? "" : props.machine.machineLocation,
         }
-        props.editMachineRow(newMachine);
+        props.editMachineRow(newMachine)
+        props.showUpdate()
     }
 
     return (

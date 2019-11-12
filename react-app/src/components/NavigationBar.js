@@ -3,7 +3,6 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import MachineTypes from './MachineType';
 import Machines from './Machine';
-import Machines2 from './Machine2';
 import Operations from './Operation';
 import Products from './Product';
 import style from '../style/style.css'
@@ -22,7 +21,6 @@ function NavigationBar(props) {
             <Nav.Link href="/products">Products</Nav.Link>
             <Nav.Link href="/operations">Operations</Nav.Link>
             <Nav.Link href="/visualization">Visualization</Nav.Link>
-            <Nav.Link href="/machines2">Machines2</Nav.Link>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -37,7 +35,6 @@ function NavigationBar(props) {
             <Route path='/operations' component={Operations} />
             <Route path='/products' component={Products} />
             <Route path='/visualization' component={SceneManager} />
-            <Route path='/machines2' component={Machines2} />
           </div>
         </Switch>
       </div>
