@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
+using MasterDataProduct.DTO.Products;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Repositories.Impl;
@@ -33,14 +37,12 @@ namespace MasterDataProduct.Services
             return await _productRepository.GetAll();
         }
 
-        public async Task<Product> PostProduct(ProductDTO productDTO)
+        public async Task<Product> PostProduct(Product product)
         {
-            var plan = new ManufacturingPlan(productDTO.Plan.Name);
-
-            var product = new Product(plan);
             await _productRepository.Create(product);
             return product;
         }
+        
 
         public async Task DeleteProduct(Guid id)
         {
@@ -48,6 +50,39 @@ namespace MasterDataProduct.Services
             if (p == null) throw new KeyNotFoundException();
 
             await _productRepository.Delete(id);
+        }
+        
+        public async Task<ManufacturingPlan> CreateManufacturingPlan(ICollection<string> idsCollection)
+        {
+            ManufacturingPlan manufacturingPlan = new ManufacturingPlan();
+            foreach (var guidString in idsCollection)
+            {
+                Guid guid;
+                if(!Guid.TryParse(guidString,out guid))
+                    throw new FormatException("Invalid Guid format.");
+                
+                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/"+ guidString);
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                
+                if (response.StatusDescription != "OK")
+                    throw new WebException("Can't find api request URL");
+
+                bool exists;
+                using (Stream stream = response.GetResponseStream()) 
+                using (StreamReader reader = new StreamReader(stream))
+                { 
+                    exists = Boolean.Parse(reader.ReadToEnd());
+                }
+                
+                response.Close();
+                
+                if(!exists)
+                    throw new ArgumentException("No operation with guid "+ guidString + " exists.");
+
+                if(!manufacturingPlan.operationIDs.Contains(guid)) 
+                    manufacturingPlan.AddOperationId(guid);
+            }
+            return manufacturingPlan;
         }
     }
 }

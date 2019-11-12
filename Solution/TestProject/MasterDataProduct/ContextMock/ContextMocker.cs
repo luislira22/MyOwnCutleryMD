@@ -18,12 +18,12 @@ namespace TestProject.MasterDataProduct.ContextMock
 
         public static void SeedProducts(Context dbContext)
         {
-            var product1 = new Product(new Guid("12345678-1234-1234-1234-123412341234"),
-                new ManufacturingPlan("UnitTestPlan"));
+            var product1 = new Product(new Guid("12345678-1234-1234-1234-123412341234"),new Ref( "product1"),
+                new ManufacturingPlan());
             dbContext.Products.Add(product1);
             
-            var product2 = new Product(new Guid("12345678-1234-1234-1234-123412341235"),
-                new ManufacturingPlan("UnitTestPlan"));
+            var product2 = new Product(new Guid("12345678-1234-1234-1234-123412341235"),new Ref( "product2"),
+                new ManufacturingPlan());
             dbContext.Products.Add(product1);
             
             

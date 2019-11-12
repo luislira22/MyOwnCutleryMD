@@ -1,31 +1,49 @@
 using System;
-using MasterDataProduct.DTO;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using MasterDataProduct.DTO.Products;
 
 namespace MasterDataProduct.Models.Products
 {
     public class Product : IEntity
     {
         public Guid Id { get; set; }
+        
+        public Ref Reference { get; set; }
         public ManufacturingPlan Plan { get; set; }
 
         public Product()
         {
+            
         }
 
-        public Product(ManufacturingPlan plan)
+        public Product(Ref reference,ManufacturingPlan plan)
         {
+            Reference = reference;
             Plan = plan;
         }
 
-        public Product(Guid plan, ManufacturingPlan manufacturingPlan)
+        public Product(ProductDTO dto)
+        {
+            Plan = new ManufacturingPlan();
+            Reference = new Ref(dto.Ref);
+        }
+
+        public Product(Guid plan,Ref reference, ManufacturingPlan manufacturingPlan)
         {
             Id = plan;
+            Reference = reference;
             Plan = manufacturingPlan;
         }
 
         public ProductDTO ToDto()
         {
-            return new ProductDTO(Id.ToString(), new ManufacturingPlanDTO(Plan.Name));
+            ICollection<string> collection = new Collection<string>();
+            foreach (var guid in Plan.operationIDs)
+            {
+                collection.Add(guid.ToString());
+            }
+            return new ProductDTO(Reference.Value,new ManufacturingPlanDTO(collection));
         }
     }
 }

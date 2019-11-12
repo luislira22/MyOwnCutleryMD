@@ -1,4 +1,4 @@
-namespace MasterDataProduct.DTO
+namespace MasterDataProduct.DTO.Products
 {
     public class ProductDTO
     {

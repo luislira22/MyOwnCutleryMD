@@ -32,7 +32,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             modelBuilder.ApplyConfiguration(new MachineConfiguration());
             modelBuilder.ApplyConfiguration(new OperationConfiguration());
             modelBuilder.ApplyConfiguration(new MachineTypeOperationConfiguration());
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

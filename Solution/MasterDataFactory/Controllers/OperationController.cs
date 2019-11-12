@@ -21,10 +21,12 @@ namespace MasterDataFactory.Controllers
             _service = new OperationService(_context);
         }
 
-        [HttpGet]
-        public async Task<Boolean> OperationExists(Guid id)
+        [HttpGet("exists/{id}")]
+        public async Task<ActionResult<bool>> OperationExists(Guid id)
         {
-            return await _service.OperationExists(id);
+            if (await _service.OperationExists(id))
+                return Ok(true);
+            return Ok(false);
         }
         
         [HttpGet]

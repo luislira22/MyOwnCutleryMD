@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
+using MasterDataProduct.DTO.Products;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
@@ -20,12 +22,6 @@ namespace MasterDataProduct.Controllers
         public ProductController(Context context)
         {
             _serviceProduct = new ProductService(context);
-
-            if (!context.Products.Any())
-            {
-                context.Products.Add(new Product(new ManufacturingPlan("planoTeste1")));
-                context.SaveChanges();
-            }
         }
 
         [HttpGet]
@@ -56,21 +52,34 @@ namespace MasterDataProduct.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDTO>> PostProduct([FromBody] ProductDTO item)
+        public async Task<ActionResult<ProductDTO>> PostProduct([FromBody] ProductDTO dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
-                var product = await _serviceProduct.PostProduct(item);
-                return CreatedAtAction("PostProduct", product.ToDto());
+                //Create Manufacturing plan
+                ManufacturingPlan manufacturingPlan =
+                    await _serviceProduct.CreateManufacturingPlan(dto.Plan.Operations);
+                //Create Product
+                Product product = new Product(new Ref(dto.Ref), manufacturingPlan);
+                //Create Product
+                var productResponse = await _serviceProduct.PostProduct(product);
+                return CreatedAtAction("PostProduct", productResponse.ToDto());
             }
             catch (KeyNotFoundException e)
             {
                 return NotFound(e.Message);
+            }
+            catch (FormatException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (WebException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
         }
         
@@ -88,7 +97,8 @@ namespace MasterDataProduct.Controllers
                 return NotFound("Product not found");
             }
         }
-
+        //TODO
+        /*
         [HttpGet("plan/{id}")]
         public async Task<ActionResult<ManufacturingPlanDTO>> GetProductionPlanFromProduct(Guid id)
         {
@@ -96,5 +106,6 @@ namespace MasterDataProduct.Controllers
             var product = await _serviceProduct.GetProduct(id);
             return new ManufacturingPlanDTO(product.Plan.Name);
         }
+        */
     }
 }
