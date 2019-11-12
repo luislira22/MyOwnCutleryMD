@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Loading from './Loading'
-import { FaSyncAlt, FaPlus, FaPencilAlt, FaSearch } from 'react-icons/fa';
+import { FaSyncAlt, FaPlus, FaPencilAlt, FaSearch, FaCheck } from 'react-icons/fa';
 import config from '../Config'
 import axios from "axios";
 import $ from 'jquery';
@@ -19,17 +19,22 @@ function Machines() {
         setIsLoading(false);
     };
 
-    const fetchFilterData = async (machineTypeId) => {
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchFilterByMachineType = async (machineTypeId) => {
         const filterMachines = await axios(config.routes.machines.filterByMachineType + machineTypeId);
         const allMachineTypes = await axios(config.routes.machinetypes.getAll);
         setMachines(filterMachines.data);
         setMachineTypes(allMachineTypes.data);
         setIsLoading(false);
-    }
+    };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+
+
+
+
 
     return (
         <>
@@ -38,7 +43,7 @@ function Machines() {
                 isLoading ? <Loading /> :
                     (
                         <>
-                            <NavBar machineTypes={machineTypes} reloadInfo={fetchData} filterByMachineType={fetchFilterData} />
+                            <NavBar machineTypes={machineTypes} reloadInfo={fetchData} filterByMachineType={fetchFilterByMachineType} />
                             <MachineTable machines={machines} machineTypes={machineTypes} />
                             <CreateMachine machineTypes={machineTypes} reloadInfo={fetchData} />
                         </>
@@ -52,7 +57,7 @@ function NavBar(props) {
 
     function handleReload() {
         props.reloadInfo();
-        $('#machineTypeSelection').prop('selectedIndex',0);
+        $('#machineTypeSelection').prop('selectedIndex', 0);
     }
 
     function handleFilter(e) {
@@ -113,12 +118,20 @@ function MachineTable(props) {
     )
 }
 
+
+
 function MachineTableRow(props) {
+
     const machineType = props.machineTypes.find(function (machineType) {
         if (machineType.id === props.machine.machineType) {
             return machineType;
         }
     });
+
+    function ss(e) {
+        let row = e.parentElement.nodeName;
+        console.log(row);
+    }
 
     return (
         <tr>
@@ -128,7 +141,7 @@ function MachineTableRow(props) {
             <td>{props.machine.machineModel}</td>
             <td>{props.machine.machineLocation}</td>
             <td style={{ textAlign: "center" }}>
-                <button type="button" className="btn btn-outline-primary btn-sm ">
+                <button id="update" type="button" className="btn btn-outline-primary btn-sm" onClick="">
                     <i><FaPencilAlt className="react-icons" /></i>
                 </button>
             </td>
@@ -139,10 +152,10 @@ function MachineTableRow(props) {
 
 function CreateMachine(props) {
 
-    const [machineType, setMachineType] = useState("");
-    const [machineLocation, setMachineLocation] = useState("");
-    const [machineBrand, setMachineBrand] = useState("");
-    const [machineModel, setMachineModel] = useState("");
+    const [createMachineType, setCreateMachineType] = useState("");
+    const [createMachineLocation, setCreateMachineLocation] = useState("");
+    const [createMachineBrand, setCreateMachineBrand] = useState("");
+    const [createMachineModel, setCreateMachineModel] = useState("");
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -161,10 +174,10 @@ function CreateMachine(props) {
             "Content-Type": "application/json;charset=UTF-8",
         }
         const requestBody = {
-            machinetype: machineType,
-            machinelocation: machineLocation,
-            machinebrand: machineBrand,
-            machinemodel: machineModel
+            machinetype: createMachineType,
+            machinelocation: createMachineLocation,
+            machinebrand: createMachineBrand,
+            machinemodel: createMachineModel
         }
 
         await axios({
@@ -182,12 +195,12 @@ function CreateMachine(props) {
                     <div class="modal-content">
                         <div class="modal-body">
                             <h3>Create</h3>
-                            <br/>
+                            <br />
                             <form id="createMachineForm" onSubmit={handleSubmit}>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="inputState">Machine Type</label>
-                                        <select id="inputState" className="form-control" onChange={e => setMachineType(e.target.value)} required>
+                                        <select id="inputState" className="form-control" onChange={e => setCreateMachineType(e.target.value)} required>
                                             <option selected disabled>Choose...</option>
                                             {props.machineTypes.map(machinetype => (
                                                 <option key={machinetype.id} value={machinetype.id}>{machinetype.type}</option>
@@ -196,17 +209,17 @@ function CreateMachine(props) {
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="machineLocation">Location</label>
-                                        <input type="text" className="form-control" id="machineLocation" onChange={e => setMachineLocation(e.target.value)} />
+                                        <input type="text" className="form-control" id="machineLocation" onChange={e => setCreateMachineLocation(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="machineBrand">Brand</label>
-                                        <input type="text" className="form-control" id="machineBrand" onChange={e => setMachineBrand(e.target.value)} />
+                                        <input type="text" className="form-control" id="machineBrand" onChange={e => setCreateMachineBrand(e.target.value)} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="machineModel">Model</label>
-                                        <input type="text" className="form-control" id="machineModel" onChange={e => setMachineModel(e.target.value)} />
+                                        <input type="text" className="form-control" id="machineModel" onChange={e => setCreateMachineModel(e.target.value)} />
                                     </div>
                                 </div>
                                 <button type="submit" className="btn btn-primary">Create</button>
@@ -218,5 +231,6 @@ function CreateMachine(props) {
         </>
     )
 }
+
 
 export default Machines;
