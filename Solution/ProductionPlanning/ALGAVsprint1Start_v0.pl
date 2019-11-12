@@ -1,31 +1,24 @@
 % FÁBRICA
 
 % Linhas
-
 linhas([lA]).
 
 
 % Máquinas
-
-
 maquinas([ma]).
 
 
 
 % Ferramentas
-
-
 ferramentas([fa,fa,fc]).
 
 
 % Maquinas que constituem as Linhas
-
 tipos_maq_linha(lA,[ma]).
 % ...
 
 
 % Operações
-
 tipo_operacoes([opt1,opt2,opt3]).
 
 % operacoes/1 deve ser criado dinamicamente
@@ -53,7 +46,6 @@ operacao_maquina(opt3,ma,fc,8,40).
 
 
 % PRODUTOS
-
 produtos([pA,pB,pC]).
 
 operacoes_produto(pA,[opt1]).
@@ -65,7 +57,6 @@ operacoes_produto(pC,[opt3]).
 % ENCOMENDAS
 
 %Clientes
-
 clientes([clA,clB]).
 
 
@@ -95,8 +86,10 @@ apaga1(X,[Y|L],[Y|L1]):-apaga1(X,L,L1).
 
 % permuta_tempo/3 faz uma permutação das operações atribu�das a uma maquina e calcula tempo de ocupação incluindo trocas de ferramentas
 
-permuta_tempo(M,LP,Tempo):- operacoes_atrib_maq(M,L),
-permuta(L,LP),soma_tempos(semfer,M,LP,Tempo).
+permuta_tempo(M,LP,Tempo):- 
+	operacoes_atrib_maq(M,L),
+	permuta(L,LP),
+	soma_tempos(semfer,M,LP,Tempo).
 
 
 soma_tempos(_,_,[],0).
@@ -107,13 +100,15 @@ soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
 			Tempo is Tsetup+Texec+Tempo1).
 
 % melhor escalonamento com findall, gera todas as solucoes e escolhe melhor
-
+% M -> Máquina, Lm -> Lista de Máquinas, Tm -> ?, LP -> , LL, Lm, Tm, Tf, Tcomp
 melhor_escalonamento(M,Lm,Tm):-
 				get_time(Ti),
-				findall(p(LP,Tempo), 
-				permuta_tempo(M,LP,Tempo), LL),
+				findall(p(LP,Tempo), permuta_tempo(M,LP,Tempo), LL),
+				write(LL),
+				write("-"),
 				melhor_permuta(LL,Lm,Tm),
-				get_time(Tf),Tcomp is Tf-Ti,
+				get_time(Tf),
+				Tcomp is Tf-Ti,
 				write('GERADO EM '),write(Tcomp),
 				write(' SEGUNDOS'),nl.
 
@@ -158,16 +153,3 @@ minimiza_tempo_ocupacao(M,F,[Op|LOp],Res,Tempo):-
 		% soma_tempos(F,M,Res,Tempo).
 % Caso contrário escolher uma operação Op de LOp que utiliza uma ferramenta diferente F1 remover Op da 
 % lista de operações que falta fazer e continuar, considerando agora que a ferramenta F1 está carregada
-
-
-
-
-
-
-
-
-
-
-
-
-
