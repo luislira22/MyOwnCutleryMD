@@ -43,7 +43,7 @@ classif_operacoes(op5,opt3).
 % ...
 
 
-% Afetaãoo de tipos de operaçoes a tipos de maquinas
+% Afetação de tipos de operaçoes a tipos de maquinas
 % com ferramentas, tempos de setup e tempos de execucao)
 
 operacao_maquina(opt1,ma,fa,5,60).
@@ -136,6 +136,37 @@ cria_ops_prod_cliente([Opt|LOpt],Cliente,Prod,Qt,TConc,N,Nf):-
 	assertz(op_prod_cliente(Op,M,F,Prod,Cliente,Qt,TConc,Tsetup,Texec)),
 	cria_ops_prod_cliente(LOpt,Cliente,Prod,Qt,TConc,Ni,Nf).
 			
+% Heurística para minimização de tempo de ocupação
+minimiza_tempo_ocupacao(_,_,[],_,_).
+% se houver uma operação Op pertencente à lista das operações que falta fazer LOp e 
+% que use a ferramenta F então fazer essa operação Op;
+minimiza_tempo_ocupacao(M,F,[Op|LOp],Res,Tempo):-
+		(
+			classif_operacoes(Op,Tipo) , 
+			operacao_maquina(Tipo,M,F,_,_),
+			minimiza_tempo_ocupacao(M,F,LOp,[Op|Res],Tempo),!,
+			soma_tempos(F,M,Res,Tempo)	
+		);
+		
+		(
+			classif_operacoes(Op,Tipo) , 
+			operacao_maquina(Tipo,M,F1,_,_),
+			minimiza_tempo_ocupacao(M,F1,LOp,[Op|Res],Tempo),
+			soma_tempos(F1,M,Res,Tempo)	
+		).
+	
+		% soma_tempos(F,M,Res,Tempo).
+% Caso contrário escolher uma operação Op de LOp que utiliza uma ferramenta diferente F1 remover Op da 
+% lista de operações que falta fazer e continuar, considerando agora que a ferramenta F1 está carregada
+
+
+
+
+
+
+
+
+
 
 
 
