@@ -7,11 +7,11 @@ namespace MasterDataProduct.Models.Products
     public class ManufacturingPlan
     {
 
-        public ICollection<Guid> operationIDs;
+        public ICollection<Guid> operations;
 
         public ManufacturingPlan()
         {
-            operationIDs = new Collection<Guid>();
+            operations = new Collection<Guid>();
         }
         
         public ManufacturingPlan(ICollection<string> guidStrings)
@@ -20,14 +20,14 @@ namespace MasterDataProduct.Models.Products
             {
                 Guid tmp;
                 if(Guid.TryParse(guidString,out tmp))
-                    operationIDs.Add(tmp);
+                    operations.Add(tmp);
                 throw new FormatException("invalid Guid format.");
             }
         }
 
         public void AddOperationId(Guid id)
         {
-            operationIDs.Add(id);
+            operations.Add(id);
         }
 
        

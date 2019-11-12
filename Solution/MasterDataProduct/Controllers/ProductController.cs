@@ -8,6 +8,7 @@ using MasterDataProduct.DTO.Products;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
+using Microsoft.AspNetCore.JsonPatch.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataProduct.Controllers
@@ -25,11 +26,14 @@ namespace MasterDataProduct.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
         {
             try
             {
-                return await _serviceProduct.GetProducts();
+                //TODO
+                //LISTA DE OPERATIONS NAO ESTA A APARECER NO RESULT DO GET!!!! :(
+                var products = (List<Product>) (await _serviceProduct.GetProducts()).Value; // <-- merdando aqui
+                return products.Select(m => m.ToDto()).ToList();
             }
             catch (NullReferenceException)
             {
@@ -43,7 +47,8 @@ namespace MasterDataProduct.Controllers
             try
             {
                 var product = await _serviceProduct.GetProduct(id);
-                return Ok(product.ToDto());
+                return Ok(product);
+                //return Ok(product.ToDto());
             }
             catch (KeyNotFoundException e)
             {
@@ -63,6 +68,7 @@ namespace MasterDataProduct.Controllers
                 Product product = new Product(new Ref(dto.Ref), manufacturingPlan);
                 //Create Product
                 var productResponse = await _serviceProduct.PostProduct(product);
+
                 return CreatedAtAction("PostProduct", productResponse.ToDto());
             }
             catch (KeyNotFoundException e)
@@ -82,7 +88,7 @@ namespace MasterDataProduct.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         // DELETE: api/machine/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
@@ -97,6 +103,7 @@ namespace MasterDataProduct.Controllers
                 return NotFound("Product not found");
             }
         }
+
         //TODO
         /*
         [HttpGet("plan/{id}")]
