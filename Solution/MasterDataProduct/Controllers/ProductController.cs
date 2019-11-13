@@ -47,8 +47,8 @@ namespace MasterDataProduct.Controllers
             try
             {
                 var product = await _serviceProduct.GetProduct(id);
-                return Ok(product);
-                //return Ok(product.ToDto());
+                //return Ok(product);
+                return Ok(product.ToDto());
             }
             catch (KeyNotFoundException e)
             {

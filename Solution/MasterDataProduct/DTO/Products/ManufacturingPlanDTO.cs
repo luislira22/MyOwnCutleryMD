@@ -4,9 +4,9 @@ namespace MasterDataProduct.DTO.Products
 {
     public class ManufacturingPlanDTO
     {
-        public ICollection<string> Operations { get; set; }
+        public ICollection<OperationIdDTO> Operations { get; set; }
 
-        public ManufacturingPlanDTO(ICollection<string> operations)
+        public ManufacturingPlanDTO(ICollection<OperationIdDTO> operations)
         {
             Operations = operations;
         }

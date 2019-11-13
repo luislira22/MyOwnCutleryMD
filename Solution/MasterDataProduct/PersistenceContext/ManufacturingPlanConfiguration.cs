@@ -10,7 +10,7 @@ namespace MasterDataProduct.PersistenceContext
         {
             manufacturingPlanConfiguration.ToTable("ManufacturingPlan");
             manufacturingPlanConfiguration.HasKey(mp => mp.Id);
-            manufacturingPlanConfiguration.HasMany(mp => mp.Ids);
+            manufacturingPlanConfiguration.OwnsMany(mp => mp.Ids);
             //.WithOne(oi => oi.ManufacturingPlan);
         }
     }

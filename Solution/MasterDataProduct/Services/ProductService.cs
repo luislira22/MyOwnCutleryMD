@@ -52,16 +52,16 @@ namespace MasterDataProduct.Services
             await _productRepository.Delete(id);
         }
         
-        public ManufacturingPlan CreateManufacturingPlan(ICollection<string> idsCollection)
+        public ManufacturingPlan CreateManufacturingPlan(ICollection<OperationIdDTO> idsCollection)
         {
             ManufacturingPlan manufacturingPlan = new ManufacturingPlan();
-            foreach (var guidString in idsCollection)
+            foreach (var opIdDTO in idsCollection)
             {
                 Guid guid;
-                if (!Guid.TryParse(guidString, out guid))
+                if (!Guid.TryParse(opIdDTO.Id, out guid))
                     throw new FormatException("Invalid Guid format.");
 
-                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/" + guidString);
+                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/" + opIdDTO.Id);
                 HttpWebResponse response = (HttpWebResponse) request.GetResponse();
 
                 if (response.StatusDescription != "OK")
@@ -76,8 +76,8 @@ namespace MasterDataProduct.Services
 
                 response.Close();
 
-                if(!manufacturingPlan.Ids.Contains(new OperationId(guidString))) 
-                    manufacturingPlan.AddOperationId(guidString);
+                if(!manufacturingPlan.Ids.Contains(new OperationId(opIdDTO.Id))) 
+                    manufacturingPlan.AddOperationId(opIdDTO.Id);
             }
 
             return manufacturingPlan;

@@ -1,4 +1,5 @@
 ﻿using System;
+using MasterDataProduct.DTO.Products;
 
 namespace MasterDataProduct.Models.Products
 {
@@ -8,7 +9,7 @@ namespace MasterDataProduct.Models.Products
         public string Value { get; set; }
         public int Index { get; set; }
         
-        public virtual ManufacturingPlan  ManufacturingPlan {get; set; }
+        //public ManufacturingPlan  ManufacturingPlan {get; set; }
         
         public OperationId(string value,int index)
         {
@@ -19,6 +20,10 @@ namespace MasterDataProduct.Models.Products
         public OperationId(string value)
         {
             Value = value;
+        }
+
+        public OperationId(OperationIdDTO dto){
+            this.Value = dto.Id;
         }
         
         public override bool Equals(object obj)
@@ -32,6 +37,14 @@ namespace MasterDataProduct.Models.Products
         public override int GetHashCode()
         {
             return Value.GetHashCode();
+        }
+
+        public string toString(){
+            return Id.ToString();
+        }
+
+        public OperationIdDTO toDTO(){
+            return new OperationIdDTO(Value);
         }
     }
 }
