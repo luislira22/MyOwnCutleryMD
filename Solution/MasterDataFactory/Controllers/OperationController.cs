@@ -53,7 +53,6 @@ namespace MasterDataFactory.Controllers
         [HttpPost]
         public async Task<ActionResult<OperationDTO>> PostOperation(OperationDTO operationDto)
         {
-            
             try
             {
                 Operation operation = new Operation(operationDto);

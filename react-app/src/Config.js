@@ -2,7 +2,7 @@ import React from "react";
 
 const ENDPOINTS_DEV = {
     masterdatafactory: "https://localhost:5001/",
-    masterdataproduct: "https://localhost:5002/"
+    masterdataproduct: "https://localhost:5001/"
 }
 
 const ENDPOINTS_PROD = {
@@ -26,7 +26,7 @@ export default {
             getAll: `${ENDPOINTS.masterdatafactory}api/machine`,
             create: `${ENDPOINTS.masterdatafactory}api/machine`,
             filterByMachineType: `${ENDPOINTS.masterdatafactory}api/machine/machinetype/`,
-            updateMachineType: `${ENDPOINTS.masterdatafactory}api/machine/`,
+            updateMachineType: `${ENDPOINTS.masterdatafactory}api/machine/`
         },
         machinetypes: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`,

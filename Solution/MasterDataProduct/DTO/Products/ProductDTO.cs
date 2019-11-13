@@ -1,14 +1,19 @@
+using System;
+using MasterDataProduct.Models.Products;
+
 namespace MasterDataProduct.DTO.Products
 {
     public class ProductDTO
     {
-        public string Ref { get; set; }
-        public ManufacturingPlanDTO Plan { get; set; }
-
-        public ProductDTO(string refer, ManufacturingPlanDTO plan)
-        {
-            Ref = refer;
-            Plan = plan;
+            public Guid Id;
+            public string Ref { get; set; }
+            public ManufacturingPlanDTO Plan { get; set; }
+            public ProductDTO(Guid id,string refer, ManufacturingPlanDTO plan)
+            {
+                Id = id;
+                Ref = refer;
+                Plan = plan;
+            }
         }
-    }
 }
+
