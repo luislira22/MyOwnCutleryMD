@@ -16,12 +16,12 @@ const Machine = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     const [showCreate, setShowCreate] = useState(false)
-    
+
     const handleCreateShow = () => setShowCreate(true)
     const handleCreateHide = () => setShowCreate(false)
 
     const [showUpdate, setShowUpdate] = useState(false)
-    
+
     const handleUpdateShow = () => setShowUpdate(true)
     const handleUpdateHide = () => setShowUpdate(false)
 
@@ -96,7 +96,7 @@ const Machine = () => {
                             editMachineRow={editMachineRow}
                             showUpdate={handleUpdateShow} />
 
-                        <Modal 
+                        <Modal
                             show={showCreate}
                             onHide={handleCreateHide}
                             size="lg"
@@ -110,13 +110,13 @@ const Machine = () => {
                             </Modal.Body>
                         </Modal>
 
-                        <Modal 
-                            show={showUpdate} 
+                        <Modal
+                            show={showUpdate}
                             onHide={handleUpdateHide}
                             size="lg"
                             aria-labelledby="contained-modal-title-vcenter"
                             centered>
-                                
+
                             <Modal.Body>
                                 <UpdateMachineForm
                                     currentMachine={currentMachine}
@@ -127,11 +127,6 @@ const Machine = () => {
                         </Modal>
                     </>
                 )}
-
-
-
-
-
         </div>
     )
 }
