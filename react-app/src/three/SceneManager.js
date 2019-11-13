@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import metal_texture from '../img/metal_floor_texture.jpg'
-import machine_obj from './objects/MachineDesign.obj'
-import machine_material from './objects/MachineDesign.mtl'
-import productionline from './objects/ProductionLine.obj'
-import productionlinematerial from './objects/ProductionLine.mtl'
+import productionline_glb from './objects/ProductionLine.glb'
+import machine_glb from './objects/MachineDesign.glb'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 var scene, machineOffset = 0, dirLight, dirLightHeper, hemiLight, hemiLightHelper;
+var mixers = [];
+var clock = new THREE.Clock();
+
 
 class SceneManager extends Component {
 
@@ -18,8 +18,8 @@ class SceneManager extends Component {
         const height = this.mount.clientHeight
         //ADD SCENE
         scene = new THREE.Scene()
-        //scene.background = new THREE.Color().setHSL(0.6, 0, 1);
-        scene.background = new THREE.Color(0xe8fffe);
+        scene.background = new THREE.Color().setHSL(0.6, 0, 1);
+        //scene.background = new THREE.Color(0xe8fffe);
         //ADD CAMERA
         this.camera = new THREE.PerspectiveCamera(
             75,
@@ -27,7 +27,9 @@ class SceneManager extends Component {
             0.1,
             1000
         )
-        this.camera.position.z = 200
+        this.camera.position.z = 10;
+        this.camera.position.y = 10;
+
         //ADD FLOOR
         const texture = new THREE.TextureLoader().load(metal_texture);
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -37,35 +39,36 @@ class SceneManager extends Component {
         const materialFloorTexture = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
         this.meshPlane = new THREE.Mesh(geometryPlane, materialFloorTexture);
         this.meshPlane.rotateX(Math.PI / 2);
-        scene.add(this.meshPlane);
+        this.meshPlane.receiveShadow = true;
+        //scene.add(this.meshPlane);
+
 
         //ADD WALLS
         const wall = new THREE.PlaneBufferGeometry(300, 100, 1);
         this.meshWall = new THREE.Mesh(wall, materialFloorTexture);
         this.meshWall.translateZ(-200);
         this.meshWall.translateY(50);
-        scene.add(this.meshWall);
+        //scene.add(this.meshWall);
         const wall2 = new THREE.PlaneBufferGeometry(400, 100, 1);
         this.meshWall2 = new THREE.Mesh(wall2, materialFloorTexture);
         this.meshWall2.rotateY(Math.PI / 2);
         this.meshWall2.translateZ(-150);
         this.meshWall2.translateY(50);
-        scene.add(this.meshWall2);
-
+        //scene.add(this.meshWall2);
 
         // GROUND
+
         var groundGeo = new THREE.PlaneBufferGeometry(10000, 10000);
         var groundMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
         groundMat.color.setHSL(0.095, 1, 0.75);
         var ground = new THREE.Mesh(groundGeo, groundMat);
-        ground.position.y = - 33;
+        //ground.position.y = - 10;
         ground.rotation.x = - Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
 
-        var light = new THREE.AmbientLight(0x404040, 1); // soft white light
-        scene.add(light);
-
+        //var light = new THREE.AmbientLight(0x404040, 1); // soft white light
+        //scene.add(light);
         //ADD LIGHTS
         hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
         hemiLight.color.setHSL(0.6, 1, 0.6);
@@ -89,16 +92,20 @@ class SceneManager extends Component {
         dirLight.shadow.camera.bottom = - d;
         dirLight.shadow.camera.far = 3500;
         dirLight.shadow.bias = - 0.0001;
-        //dirLightHeper = new THREE.DirectionalLightHelper(dirLight, 10);
-        //scene.add(dirLightHeper);
+        dirLightHeper = new THREE.DirectionalLightHelper(dirLight, 10);
+        scene.add(dirLightHeper);
 
         //ADD PRODUCTION LINE
         this.createProductionLine();
         //ADD MACHINE
         this.createMachine();
-        this.createMachine();
+        //this.createMachine();
         //ADD RENDERER
         this.renderer = new THREE.WebGLRenderer({ antialias: true })
+
+        this.renderer.gammaInput = true;
+        this.renderer.gammaOutput = true;
+        this.renderer.shadowMap.enabled = true;
         //this.renderer.setClearColor(0x0077ff, 1);
         this.renderer.setSize(width, height)
         this.mount.appendChild(this.renderer.domElement)
@@ -109,51 +116,55 @@ class SceneManager extends Component {
     }
 
     createProductionLine() {
-
-        let loader = new OBJLoader();
-        let mtlloader = new MTLLoader();
-
-
-        mtlloader.load(productionlinematerial, function (materials) {
-
-            materials.preload();
-
-            loader.setMaterials(materials);
-            loader.load(productionline, function (object) {
-
-                object.scale.set(10, 10, 10);
-                //object.translateZ(30);
-                //object.translateX(distance);
-                //object.rotateX(Math.PI /2)
-                scene.add(object);
-                console.log(object);
-
-            }, null, null);
-
+        var loader = new GLTFLoader();
+        loader.load(productionline_glb, function (gltf) {
+            var meshBase = gltf.scene.children[2];
+            var meshPassadeira = gltf.scene.children[1];
+            meshBase.castShadow = true;
+            meshBase.receiveShadow = true;
+            scene.add(meshBase);
+            meshPassadeira.castShadow = true;
+            meshPassadeira.receiveShadow = true;
+            scene.add(meshPassadeira);
+            var mixerPassadeira = new THREE.AnimationMixer(meshPassadeira);
+            mixerPassadeira.clipAction(gltf.animations[0]).setDuration(1).play();
+            mixers.push(mixerPassadeira);
         });
     }
 
     createMachine() {
-        let loader = new OBJLoader();
-        let mtlloader = new MTLLoader();
-        mtlloader.load(machine_material, function (materials) {
+        var loader = new GLTFLoader();
+        loader.load(machine_glb, function (gltf) {
+            console.log(gltf.scene.children)
 
-            materials.preload();
-
-            loader.setMaterials(materials);
-            loader.load(machine_obj, function (object) {
-                object.castShadow = true;
-                object.scale.set(10, 10, 10);
-                object.translateZ(30);
-                object.translateX(50);
-                object.translateX(machineOffset);
-                machineOffset += 30;
-                //object.rotateX(Math.PI /2)
-                scene.add(object);
-                console.log(object);
-
-            }, null, null);
-
+            var meshMachine = gltf.scene.children[2];
+            var meshtool1 = gltf.scene.children[0];
+            var meshtool2 = gltf.scene.children[1];
+            //meshtool2.parent = meshMachine;
+            //meshtool2.position.set(0,10,2.5);
+            //meshMachine.translateZ(2.5);
+            //meshMachine.translateY(10 + machineOffset);
+            meshMachine.castShadow = true;
+            meshMachine.receiveShadow = true;
+            //meshtool1.translateY(10 + machineOffset);
+            //meshtool1.translateZ(2.5);
+            //meshtool2.translateY(10 + machineOffset);
+            //meshtool2.translateZ(2.5);
+            //machineOffset -= 3;
+            scene.add(meshMachine);
+            var pivotPoint = new THREE.Object3D();
+            meshMachine.add(pivotPoint);
+            pivotPoint.add(meshtool2);
+            //meshMachine.add(meshtool2);
+            //scene.add(meshtool1);
+            scene.add(meshtool2);
+            //var mixersMachine = new THREE.AnimationMixer(meshtool2);
+            console.log(gltf)
+            //mixersMachine.clipAction(gltf.animations[1]).setDuration(1).play();
+            //mixers.push(mixersMachine);
+            //var mixersMachine = new THREE.AnimationMixer(meshtool1);
+            //mixersMachine.clipAction(gltf.animations[1]).setDuration(1).play();
+            //mixers.push(mixersMachine);
         });
     }
 
@@ -174,6 +185,10 @@ class SceneManager extends Component {
         this.frameId = window.requestAnimationFrame(this.animate)
     }
     renderScene = () => {
+        var delta = clock.getDelta();
+        for (var i = 0; i < mixers.length; i++) {
+            mixers[i].update(delta);
+        }
         this.renderer.render(scene, this.camera)
     }
     render() {
@@ -187,92 +202,3 @@ class SceneManager extends Component {
 }
 
 export default SceneManager;
-
-/*
-export default scene => {
-
-    var camera, scene, renderer;
-    var meshBox, meshPlane,loader,mtlloader;
-
-    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 200;
-    scene = new THREE.Scene();
-    var texture = new THREE.TextureLoader().load(metal_texture);
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(25, 25);
-    texture.anisotropy = 16;
-    var geometryBox = new THREE.BoxBufferGeometry(30, 20, 200);
-    var materialFloorTexture = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
-    var geometryPlane = new THREE.PlaneBufferGeometry(300, 400, 1);
-    var materialBox = new THREE.MeshBasicMaterial({ color: 0x133337, side: THREE.DoubleSide });
-    var helper = new THREE.GridHelper(160, 10);
-    meshBox = new THREE.Mesh(geometryBox, materialBox);
-    meshPlane = new THREE.Mesh(geometryPlane, materialFloorTexture);
-    meshPlane.rotation.x = Math.PI / 2;
-    meshBox.translateY(10);
-    scene.add(helper);
-    scene.add(meshPlane);
-    scene.add(meshBox);
-    createMachine(35);
-    createMachine(-35);
-
-    var ambient = new THREE.AmbientLight(0x444444);
-    scene.add(ambient);
-
-    var directionalLight = new THREE.DirectionalLight(0xffeedd);
-    directionalLight.position.set(0, 0, 1).normalize();
-    scene.add(directionalLight);
-
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    let controls = new OrbitControls(camera, renderer.domElement);
-    renderer.setClearColor(0xffffff, 1);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    document.body.appendChild(renderer.domElement);
-    window.addEventListener('resize', onWindowResize, false);
-    controls.addEventListener('change', () => renderer.render(scene, camera));
-
-    function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    function render() {
-        requestAnimationFrame(render);
-        renderer.render(scene, camera);
-    }
-
-    function createMachine(distance) {
-       loader = new OBJLoader2();
-       loader.load(machine_obj, function (object) {
-
-            object.translateX(distance);
-            object.scale.set(0.05, 0.05, 0.05);
-            scene.add(object);
-            console.log(object);
-
-        });
-       loader = new OBJLoader2();
-       mtlloader = newmtlloader();
-       mtlloader.load(machine_material, function (materials) {
-
-            materials.preload();
-
-           loader.setMaterials(materials);
-           loader.load(machine_obj, function (object) {
-
-                object.translateX(distance);
-                object.scale.set(0.05, 0.05, 0.05);
-                scene.add(object);
-                console.log(object);
-
-            }, null, null);
-
-        });
-    }
-    //init();
-    render();
-}
-*/

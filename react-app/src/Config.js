@@ -30,6 +30,7 @@ export default {
         },
         machinetypes: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`,
+            create: `${ENDPOINTS.masterdatafactory}api/machinetype`,
             createMachineType: `${ENDPOINTS.masterdatafactory}api/machinetype`,
         },
         products: {
@@ -38,6 +39,7 @@ export default {
         },    
         operations:{
             getById: `${ENDPOINTS.masterdatafactory}api/operation/`,
+            getAll: `${ENDPOINTS.masterdataproduct}api/operation`,
             createOperation: `${ENDPOINTS.masterdatafactory}api/operation`
         }
     }
