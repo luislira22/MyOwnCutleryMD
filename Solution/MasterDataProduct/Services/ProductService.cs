@@ -42,7 +42,7 @@ namespace MasterDataProduct.Services
             await _productRepository.Create(product);
             return product;
         }
-        
+
 
         public async Task DeleteProduct(Guid id)
         {
@@ -58,30 +58,28 @@ namespace MasterDataProduct.Services
             foreach (var guidString in idsCollection)
             {
                 Guid guid;
-                if(!Guid.TryParse(guidString,out guid))
+                if (!Guid.TryParse(guidString, out guid))
                     throw new FormatException("Invalid Guid format.");
-                
-                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/"+ guidString);
+
+                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/" + guidString);
                 HttpWebResponse response = (HttpWebResponse) request.GetResponse();
-                
+
                 if (response.StatusDescription != "OK")
                     throw new WebException("Can't find api request URL");
 
                 bool exists;
-                using (Stream stream = response.GetResponseStream()) 
+                using (Stream stream = response.GetResponseStream())
                 using (StreamReader reader = new StreamReader(stream))
-                { 
+                {
                     exists = Boolean.Parse(reader.ReadToEnd());
                 }
-                
+
                 response.Close();
-                
-                if(!exists)
-                    throw new ArgumentException("No operation with guid "+ guidString + " exists.");
 
                 if(!manufacturingPlan.Ids.Contains(new OperationId(guidString))) 
                     manufacturingPlan.AddOperationId(guidString);
             }
+
             return manufacturingPlan;
         }
     }
