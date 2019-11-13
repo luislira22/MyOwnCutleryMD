@@ -46,8 +46,8 @@ class SceneManager extends Component {
         this.meshWall.translateY(50);
         scene.add(this.meshWall);
         const wall2 = new THREE.PlaneBufferGeometry(400, 100, 1);
-        this.meshWall2= new THREE.Mesh(wall2, materialFloorTexture);
-        this.meshWall2.rotateY(Math.PI /2);
+        this.meshWall2 = new THREE.Mesh(wall2, materialFloorTexture);
+        this.meshWall2.rotateY(Math.PI / 2);
         this.meshWall2.translateZ(-150);
         this.meshWall2.translateY(50);
         scene.add(this.meshWall2);

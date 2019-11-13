@@ -24,8 +24,9 @@ export default {
     routes: {
         machines: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machine`,
-            createMachine: `${ENDPOINTS.masterdatafactory}api/machine`,
+            create: `${ENDPOINTS.masterdatafactory}api/machine`,
             filterByMachineType: `${ENDPOINTS.masterdatafactory}api/machine/machinetype/`,
+            updateMachineType: `${ENDPOINTS.masterdatafactory}api/machine/`
         },
         machinetypes: {
             getAll: `${ENDPOINTS.masterdatafactory}api/machinetype`,
