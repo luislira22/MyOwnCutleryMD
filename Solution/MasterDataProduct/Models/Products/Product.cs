@@ -39,11 +39,11 @@ namespace MasterDataProduct.Models.Products
         public ProductDTO ToDto()
         {
             ICollection<string> collection = new Collection<string>();
-            foreach (var guid in Plan.operationIDs)
+            foreach (var guid in Plan.Ids)
             {
                 collection.Add(guid.ToString());
             }
-            return new ProductDTO(Reference.Value,new ManufacturingPlanDTO(collection));
+            return new ProductDTO(Id,Reference.Value,new ManufacturingPlanDTO(collection));
         }
     }
 }

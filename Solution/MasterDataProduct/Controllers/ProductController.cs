@@ -57,8 +57,7 @@ namespace MasterDataProduct.Controllers
             try
             {
                 //Create Manufacturing plan
-                ManufacturingPlan manufacturingPlan =
-                    await _serviceProduct.CreateManufacturingPlan(dto.Plan.Operations);
+                ManufacturingPlan manufacturingPlan = _serviceProduct.CreateManufacturingPlan(dto.Plan.Operations);
                 //Create Product
                 Product product = new Product(new Ref(dto.Ref), manufacturingPlan);
                 //Create Product

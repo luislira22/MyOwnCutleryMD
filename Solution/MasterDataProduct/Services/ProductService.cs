@@ -52,7 +52,7 @@ namespace MasterDataProduct.Services
             await _productRepository.Delete(id);
         }
         
-        public async Task<ManufacturingPlan> CreateManufacturingPlan(ICollection<string> idsCollection)
+        public ManufacturingPlan CreateManufacturingPlan(ICollection<string> idsCollection)
         {
             ManufacturingPlan manufacturingPlan = new ManufacturingPlan();
             foreach (var guidString in idsCollection)
@@ -79,8 +79,8 @@ namespace MasterDataProduct.Services
                 if(!exists)
                     throw new ArgumentException("No operation with guid "+ guidString + " exists.");
 
-                if(!manufacturingPlan.operationIDs.Contains(guid)) 
-                    manufacturingPlan.AddOperationId(guid);
+                if(!manufacturingPlan.Ids.Contains(new OperationId(guidString))) 
+                    manufacturingPlan.AddOperationId(guidString);
             }
             return manufacturingPlan;
         }
