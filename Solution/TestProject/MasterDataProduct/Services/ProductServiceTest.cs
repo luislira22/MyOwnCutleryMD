@@ -19,8 +19,18 @@ namespace TestProject.MasterDataProduct.Services
             ContextMocker.SeedProducts(context);
             var service = new ProductService(context);
             var result = await service.GetProduct(operationId);
-            const string expectedPlanName = "UnitTestPlan";
-            Assert.True(expectedPlanName.Equals(result.Plan.Name));
+            Assert.True(result.Id.Equals(operationId));
+        }
+        
+        [Fact]
+        public async void Ensure_get_product_has_correct_plan()
+        {
+            Guid operationId = new Guid("12345678-1234-1234-1234-123412341234");
+            var context = ContextMocker.GetContextMock();
+            ContextMocker.SeedProducts(context);
+            var service = new ProductService(context);
+            var result = await service.GetProduct(operationId);
+            Assert.True(result.Plan.Ids.Count==3);
         }
 
         [Fact]
