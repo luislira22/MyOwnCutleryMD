@@ -10,18 +10,20 @@ namespace MasterDataFactory.Models.ProductionLines
     {
         public Guid Id { get; set; }
 
+        public ProductionLineDescription description {get;set;}
         public List<Machine> Machines { get; set; }
         protected ProductionLine(){
             
         }
 
-        public ProductionLine(List<Machine> Machines){
+        public ProductionLine(ProductionLineDescription description, List<Machine> Machines){
+            this.description = description;
             this.Machines = Machines;
         }
 
         public ProductionLineDTO toDTO(){
             List<string> machines = Machines.Select(m => m.Id.ToString()).ToList();
-            return new ProductionLineDTO(Id.ToString(),machines);
+            return new ProductionLineDTO(Id.ToString(), description.Description, machines);
         }
 
     }
