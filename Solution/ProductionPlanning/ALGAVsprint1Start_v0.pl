@@ -1,3 +1,4 @@
+:- dynamic operacao_tempo_atraso/3
 % FÁBRICA
 
 % Linhas
@@ -118,7 +119,10 @@ soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
 	operacao_maquina(Opt,M,Fer1,Tsetup,Texec),
 	soma_tempos(Fer1,M,LOp,Tempo1),
 	((Fer1==Fer,!,Tempo is Texec+Tempo1);
-			Tempo is Tsetup+Texec+Tempo1).
+			Tempo is Tsetup+Texec+Tempo1),
+			write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
+	write(' Operation '),write(Op),
+	write(' TempoAcumu '), write(Tempo),nl.
 %Seleciona a melhor permuta, considerando o menor somatório dos tAtraso e o menor tOcupacao
 melhor_permuta([p(LP,Tempo)],LP,Tempo):-!.
 melhor_permuta([p(LP,Tempo)|LL],LPm,Tm):- melhor_permuta(LL,LP1,T1),

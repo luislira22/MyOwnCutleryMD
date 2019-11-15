@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO;
+using MasterDataFactory.DTO.MachineType;
 using MasterDataFactory.DTO.Operations;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
@@ -100,11 +101,11 @@ namespace MasterDataFactory.Controllers
         
         // PUT machinetype/operations/{machineTypeId}
         [HttpPut("operations/{id}")]
-        public async Task<ActionResult<MachineTypeDTO>> UpdateMachineTypeOperations(Guid id,[FromBody]IList<string> operationIds)
+        public async Task<ActionResult<MachineTypeDTO>> UpdateMachineTypeOperations(Guid id,[FromBody]OperationsDTO operationsDTO)
         {
             try
             {
-                await _serviceMachineType.UpdateMachineTypeOperation(id, operationIds);
+                await _serviceMachineType.UpdateMachineTypeOperation(id, operationsDTO.Operations);
                 return Ok();
             }
             catch (KeyNotFoundException e)
