@@ -1,3 +1,4 @@
+:- dynamic operacao_tempo_atraso/3
 % FÁBRICA
 
 % Linhas
@@ -104,10 +105,12 @@ soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
 	operacao_maquina(Opt,M,Fer1,Tsetup,Texec),
 	soma_tempos(Fer1,M,LOp,Tempo1),
 	((Fer1==Fer,!,Tempo is Texec+Tempo1);
-			Tempo is Tsetup+Texec+Tempo1).
+			Tempo is Tsetup+Texec+Tempo1),
+			write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
+	write(' Operation '),write(Op),
+	write(' TempoAcumu '), write(Tempo),nl.
 
 % melhor escalonamento com findall, gera todas as solucoes e escolhe melhor
-
 melhor_escalonamento(M,Lm,Tm):-
 				get_time(Ti),
 				findall(p(LP,Tempo), 
@@ -122,6 +125,46 @@ melhor_permuta([p(LP,Tempo)|LL],LPm,Tm):- melhor_permuta(LL,LP1,T1),
 		((Tempo<T1,!,Tm is Tempo,LPm=LP);(Tm is T1,LPm=LP1)).
 
 
+%testes
+op_prod_cliente(op1,ma,fa,Prod,Cliente,Qt,100,5,60).
+op_prod_cliente(op2,ma,fb,Prod,Cliente,Qt,50,6,30).
+op_prod_cliente(op3,ma,fa,Prod,Cliente,Qt,50,5,60).
+
+%Soma tempos Atraso
+soma_tempos_atraso(_,_,[],0,0).
+soma_tempos_atraso(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
+	op_prod_cliente(Op,M,Fer1,_,_,_,TConc,Tsetup,Texec),
+	soma_tempos_atraso(Fer1,M,LOp,Tempo1, TempoAtraso1),
+	((Fer1==Fer,!,Tempo is Texec+Tempo1);
+			Tempo is Tsetup+Texec+Tempo1), ((Tempo > TConc,!,TempoAtraso is ((Tempo - TConc) + TempoAtraso1));TempoAtraso is TempoAtraso1),
+	write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
+	write(' Operation '),write(Op),write(' AtrasoAcum '), write(TempoAtraso),
+	write(' TempoAcumu '), write(Tempo),nl.
+
+soma_tempos_atraso_2(_,_,[],Tempo,TempoAtraso).
+soma_tempos_atraso_2(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
+	op_prod_cliente(Op,M,Fer1,_,_,_,TConc,Tsetup,Texec),
+	((var(Tempo),!, Tempo is 0, TempoAtraso is 0);true),
+	((Fer1==Fer, !, Tempo1 is Tempo+Texec);Tempo1 is Tempo+Tsetup+Texec),
+	write(Tempo1),nl,
+	soma_tempos_atraso_2(Fer1,M,LOp,Tempo1,TempoAtraso).
+
+soma_tempos_atraso_3(_,_,[],Tempo,TempoAtraso):-Tempo is 0,TempoAtraso is 0,!.
+soma_tempos_atraso_3(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
+	op_prod_cliente(Op,M,FerAtual,_,_,_,TConc,Tsetup,Texec),
+	((FerAtual==Fer, !, TempoAcumulado is Texec);TempoAcumulado is Tsetup+Texec), 
+	((TempoAcumulado > TConc,!,TempoAtrasoAcumulado is (TempoAcumulado - TConc));TempoAtrasoAcumulado is 0),
+	soma_tempos_atraso_3(FerAtual,M,LOp,TempoTMP,TempoAtrasoTMP),
+	Tempo is TempoTMP + TempoAcumulado,
+	TempoAtraso is TempoAtrasoTMP + TempoAtrasoAcumulado,
+	%assertz
+	assertz(operacao_tempo_atraso(Op,Tempo,TempoAtraso)).
+
+
+	
+
+
+%cria ops
 cria_ops([],_).
 cria_ops([t(Cliente,Prod,Qt,TConc)|LT],N):- operacoes_produto(Prod,LOpt),
 	cria_ops_prod_cliente(LOpt,Prod,Cliente,Qt,TConc,N,Nf),
