@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using MasterDataFactory.DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.PersistenceContext;
 
@@ -37,6 +30,16 @@ namespace MasterDataFactory
             var mappingConfig = new MapperConfiguration(mapperConfig => mapperConfig.AddProfile(new MappingProfile()));
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddCors(o => o.AddPolicy("SPA", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+            /*
+             * services.AddCors(opt => {opt.AddPolicy("IT3Client",b =>b.WithOrigins("http://localhost:4200"));});
+             */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,12 +55,9 @@ namespace MasterDataFactory
                 app.UseHsts();
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000")
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseCors("SPA");
             app.UseHttpsRedirection();
             app.UseMvc();
-            //UpdateDatabase(app);
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)

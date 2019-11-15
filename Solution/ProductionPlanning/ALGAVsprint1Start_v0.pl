@@ -44,7 +44,7 @@ classif_operacoes(op5,opt3).
 % ...
 
 
-% Afetaãoo de tipos de operaçoes a tipos de maquinas
+% Afetação de tipos de operaçoes a tipos de maquinas
 % com ferramentas, tempos de setup e tempos de execucao)
 
 operacao_maquina(opt1,ma,fa,5,60).
@@ -87,6 +87,20 @@ encomenda(clB,[e(pA,1,110),e(pB,1,150),e(pC,1,300)]).
 % Separar posteriormente em varios ficheiros
 
 
+
+% melhor escalonamento com FINDALL, gera todas as solucoes e escolhe melhor
+
+melhor_escalonamento(M,Lm,Tm):-
+	get_time(Ti),
+	findall(p(LP,Tempo), 
+	permuta_tempo(M,LP,Tempo), LL),
+	melhor_permuta(LL,Lm,Tm),
+	get_time(Tf),Tcomp is Tf-Ti,
+	write('GERADO EM '),write(Tcomp),
+	write(' SEGUNDOS'),nl.
+
+% 1- HEURÍSTICA DE MINIMIZAÇÃO DE TEMPO DE OCUPAÇÃO (Visa minimizar tempos de Setup)
+
 % permuta/2 gera permutações de listas
 permuta([ ],[ ]).
 permuta(L,[X|L1]):-apaga1(X,L,Li),permuta(Li,L1).
@@ -94,12 +108,12 @@ permuta(L,[X|L1]):-apaga1(X,L,Li),permuta(Li,L1).
 apaga1(X,[X|L],L).
 apaga1(X,[Y|L],[Y|L1]):-apaga1(X,L,L1).
 
-% permuta_tempo/3 faz uma permutação das operações atribu�das a uma maquina e calcula tempo de ocupação incluindo trocas de ferramentas
-
+% permuta_tempo/3 faz uma permutação das operações atribuídas a uma maquina 
+% e calcula tempo de ocupação incluindo trocas de ferramentas
 permuta_tempo(M,LP,Tempo):- operacoes_atrib_maq(M,L),
 permuta(L,LP),soma_tempos(semfer,M,LP,Tempo).
 
-
+%Calcular o tempo para cada possibilidade de sequenciamento
 soma_tempos(_,_,[],0).
 soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
 	operacao_maquina(Opt,M,Fer1,Tsetup,Texec),
@@ -109,62 +123,27 @@ soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
 			write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
 	write(' Operation '),write(Op),
 	write(' TempoAcumu '), write(Tempo),nl.
-
-% melhor escalonamento com findall, gera todas as solucoes e escolhe melhor
-melhor_escalonamento(M,Lm,Tm):-
-				get_time(Ti),
-				findall(p(LP,Tempo), 
-				permuta_tempo(M,LP,Tempo), LL),
-				melhor_permuta(LL,Lm,Tm),
-				get_time(Tf),Tcomp is Tf-Ti,
-				write('GERADO EM '),write(Tcomp),
-				write(' SEGUNDOS'),nl.
-
+%Seleciona a melhor permuta, considerando o menor somatório dos tAtraso e o menor tOcupacao
 melhor_permuta([p(LP,Tempo)],LP,Tempo):-!.
 melhor_permuta([p(LP,Tempo)|LL],LPm,Tm):- melhor_permuta(LL,LP1,T1),
 		((Tempo<T1,!,Tm is Tempo,LPm=LP);(Tm is T1,LPm=LP1)).
 
 
-%testes
-op_prod_cliente(op1,ma,fa,Prod,Cliente,Qt,100,5,60).
-op_prod_cliente(op2,ma,fb,Prod,Cliente,Qt,50,6,30).
-op_prod_cliente(op3,ma,fa,Prod,Cliente,Qt,50,5,60).
-
-%Soma tempos Atraso
-soma_tempos_atraso(_,_,[],0,0).
-soma_tempos_atraso(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
-	op_prod_cliente(Op,M,Fer1,_,_,_,TConc,Tsetup,Texec),
-	soma_tempos_atraso(Fer1,M,LOp,Tempo1, TempoAtraso1),
-	((Fer1==Fer,!,Tempo is Texec+Tempo1);
-			Tempo is Tsetup+Texec+Tempo1), ((Tempo > TConc,!,TempoAtraso is ((Tempo - TConc) + TempoAtraso1));TempoAtraso is TempoAtraso1),
-	write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
-	write(' Operation '),write(Op),write(' AtrasoAcum '), write(TempoAtraso),
-	write(' TempoAcumu '), write(Tempo),nl.
-
-soma_tempos_atraso_2(_,_,[],Tempo,TempoAtraso).
-soma_tempos_atraso_2(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
-	op_prod_cliente(Op,M,Fer1,_,_,_,TConc,Tsetup,Texec),
-	((var(Tempo),!, Tempo is 0, TempoAtraso is 0);true),
-	((Fer1==Fer, !, Tempo1 is Tempo+Texec);Tempo1 is Tempo+Tsetup+Texec),
-	write(Tempo1),nl,
-	soma_tempos_atraso_2(Fer1,M,LOp,Tempo1,TempoAtraso).
-
-soma_tempos_atraso_3(_,_,[],Tempo,TempoAtraso):-Tempo is 0,TempoAtraso is 0,!.
-soma_tempos_atraso_3(Fer,M,[Op|LOp],Tempo,TempoAtraso):-
-	op_prod_cliente(Op,M,FerAtual,_,_,_,TConc,Tsetup,Texec),
-	((FerAtual==Fer, !, TempoAcumulado is Texec);TempoAcumulado is Tsetup+Texec), 
-	((TempoAcumulado > TConc,!,TempoAtrasoAcumulado is (TempoAcumulado - TConc));TempoAtrasoAcumulado is 0),
-	soma_tempos_atraso_3(FerAtual,M,LOp,TempoTMP,TempoAtrasoTMP),
-	Tempo is TempoTMP + TempoAcumulado,
-	TempoAtraso is TempoAtrasoTMP + TempoAtrasoAcumulado,
-	%assertz
-	assertz(operacao_tempo_atraso(Op,Tempo,TempoAtraso)).
+% ----------------------------------------------------------
 
 
-	
+% 2 -
+
+% 3 -
+
+% 4 - 
+
+% 5 - 
+
+% . . .
 
 
-%cria ops
+/* 
 cria_ops([],_).
 cria_ops([t(Cliente,Prod,Qt,TConc)|LT],N):- operacoes_produto(Prod,LOpt),
 	cria_ops_prod_cliente(LOpt,Prod,Cliente,Qt,TConc,N,Nf),
@@ -177,7 +156,7 @@ cria_ops_prod_cliente([Opt|LOpt],Cliente,Prod,Qt,TConc,N,Nf):-
 	assertz(classif_operacoes(Op,Opt)),
 	operacoes_maquina(Opt,M,F,Tsetup,Texec),
 	assertz(op_prod_cliente(Op,M,F,Prod,Cliente,Qt,TConc,Tsetup,Texec)),
-	cria_ops_prod_cliente(LOpt,Cliente,Prod,Qt,TConc,Ni,Nf).
+	cria_ops_prod_cliente(LOpt,Cliente,Prod,Qt,TConc,Ni,Nf). */
 			
 
 

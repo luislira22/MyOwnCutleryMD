@@ -30,9 +30,7 @@ namespace MasterDataProduct.Controllers
         {
             try
             {
-                //TODO
-                //LISTA DE OPERATIONS NAO ESTA A APARECER NO RESULT DO GET!!!! :(
-                var products = (List<Product>) (await _serviceProduct.GetProducts()).Value; // <-- merdando aqui
+                var products = (List<Product>) (await _serviceProduct.GetProducts()).Value;
                 return products.Select(m => m.ToDto()).ToList();
             }
             catch (NullReferenceException)
