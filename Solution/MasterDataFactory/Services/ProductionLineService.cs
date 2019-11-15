@@ -8,6 +8,7 @@ using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.ProductionLines;
 using MasterDataFactory.Repositories.Impl;
 using MasterDataFactory.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataFactory.Services
 {
@@ -16,16 +17,23 @@ namespace MasterDataFactory.Services
         private readonly IProductionLineRepository _productionLineRepository;
         private readonly MachineService _machineService;
 
-        public ProductionLineService(Context _context){
-           _productionLineRepository = new ProductionLineRepository(_context);
-           _machineService = new MachineService(_context);
+        public ProductionLineService(Context _context)
+        {
+            _productionLineRepository = new ProductionLineRepository(_context);
+            _machineService = new MachineService(_context);
         }
 
-        public async Task<ProductionLine> GetProductionLineById(Guid id){
-            ProductionLine ProductionLine =  await _productionLineRepository.GetById(id);
-            if(ProductionLine == null)
+        public async Task<ProductionLine> GetProductionLineById(Guid id)
+        {
+            ProductionLine ProductionLine = await _productionLineRepository.GetById(id);
+            if (ProductionLine == null)
                 throw new KeyNotFoundException();
             return ProductionLine;
+        }
+
+        public async Task<ActionResult<IEnumerable<ProductionLine>>> GetProductionLines()
+        {
+            return await _productionLineRepository.GetAll();
         }
         public async Task<ProductionLine> PostProductionLine(ProductionLineDTO productionLineDTO)
         {
@@ -37,7 +45,7 @@ namespace MasterDataFactory.Services
 
         public async Task DeleteProductionLineById(Guid id)
         {
-            if(!_productionLineRepository.Exists(id).Result)
+            if (!_productionLineRepository.Exists(id).Result)
                 throw new KeyNotFoundException();
             await _productionLineRepository.Delete(id);
         }
@@ -47,13 +55,13 @@ namespace MasterDataFactory.Services
             List<Machine> Machines = new List<Machine>();
             foreach (string strId in MachinesId)
             {
-                if (!Guid.TryParse(strId,out Guid id))
+                if (!Guid.TryParse(strId, out Guid id))
                     throw new KeyNotFoundException(String.Format("id: {0} is not valid!", id));
-                
+
                 Machine Machine = await _machineService.GetMachineById(id);
-                if(Machine == null)
+                if (Machine == null)
                     throw new KeyNotFoundException(String.Format("The Machine with id: {0} was not found!", id));
-                if(!Machines.Contains(Machine))
+                if (!Machines.Contains(Machine))
                     Machines.Add(Machine);
             }
             return Machines;

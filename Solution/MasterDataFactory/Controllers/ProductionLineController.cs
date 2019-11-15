@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.ProductionLines;
 using MasterDataFactory.Models.PersistenceContext;
@@ -32,6 +33,13 @@ namespace MasterDataFactory.Controllers
             {
                 return NotFound(e.Message);
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductionLineDTO>>> GetProductionLines()
+        {
+            IEnumerable<ProductionLine> productionLines = (await _serviceProductionLine.GetProductionLines()).Value;
+            return productionLines.Select(l => l.toDTO()).ToList();
         }
 
         [HttpPost]

@@ -41,6 +41,9 @@ export default {
             getById: `${ENDPOINTS.masterdatafactory}api/operation/`,
             getAll: `${ENDPOINTS.masterdataproduct}api/operation`,
             createOperation: `${ENDPOINTS.masterdatafactory}api/operation`
+        },
+        productionLine:{
+            getAll: `${ENDPOINTS.masterdataproduct}api/productionline`
         }
     }
 }

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import Loading from './Loading'
-import MachineTable from './tables/Machine/MachineTable'
-import MachineNavBar from './bars/Machine/MachineNavBar'
-import CreateMachineForm from './forms/Machine/CreateMachineForm'
-import UpdateMachineForm from './forms/Machine/UpdateMachineForm'
+import ProductionLineTable from './tables/ProductionLine/ProductionLineTable'
+import ProductionLineNavBar from './bars/ProductionLine/ProductionLineNavBar'
+import CreateProductionLineForm from './forms/ProductionLine/CreateProductionLineForm'
+import UpdateProductionLineForm from './forms/ProductionLine/UpdateProductionLineForm'
 import config from '../Config'
 import Modal from 'react-bootstrap/Modal';
 
 
-const Machine = () => {
+const ProductionLine = () => {
 
-    const [machines, setMachines] = useState([])
-    const [machineTypes, setMachineTypes] = useState([])
+    const [productionLines, setProductionLines] = useState([])
+    const [productionLineTypes, setProductionLineTypes] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     const [showCreate, setShowCreate] = useState(false)
@@ -25,75 +25,75 @@ const Machine = () => {
     const handleUpdateShow = () => setShowUpdate(true)
     const handleUpdateHide = () => setShowUpdate(false)
 
-    const initialFormState = { id: '', machinetype: '', machinebrand: '', machinemodel: '', machinelocation: '' }
-    const [currentMachine, setCurrentMachine] = useState(initialFormState)
+    const initialFormState = { id: '', productionLinetype: '', productionLinebrand: '', productionLinemodel: '', productionLinelocation: '' }
+    const [currentProductionLine, setCurrentProductionLine] = useState(initialFormState)
 
-    const getAllMachines = async () => {
-        const allMachines = await axios(config.routes.machines.getAll);
-        const allMachineTypes = await axios(config.routes.machinetypes.getAll);
-        setMachines(allMachines.data);
-        setMachineTypes(allMachineTypes.data);
+    const getAllProductionLines = async () => {
+        const allProductionLines = await axios(config.routes.productionLines.getAll);
+        const allProductionLineTypes = await axios(config.routes.productionLinetypes.getAll);
+        setProductionLines(allProductionLines.data);
+        setProductionLineTypes(allProductionLineTypes.data);
         setIsLoading(false);
     }
 
-    const getAllMachinesFilterByMachineType = async machineType => {
-        const machineTypeId = machineType.target.value
-        const filterMachines = await axios(config.routes.machines.filterByMachineType + machineTypeId);
-        const allMachineTypes = await axios(config.routes.machinetypes.getAll);
-        setMachines(filterMachines.data);
-        setMachineTypes(allMachineTypes.data);
+    const getAllProductionLinesFilterByProductionLineType = async productionLineType => {
+        const productionLineTypeId = productionLineType.target.value
+        const filterProductionLines = await axios(config.routes.productionLines.filterByProductionLineType + productionLineTypeId);
+        const allProductionLineTypes = await axios(config.routes.productionLinetypes.getAll);
+        setProductionLines(filterProductionLines.data);
+        setProductionLineTypes(allProductionLineTypes.data);
     }
 
-    const createMachine = async machine => {
+    const createProductionLine = async productionLine => {
         await axios({
             method: "post",
-            url: config.routes.machines.create,
-            data: machine,
+            url: config.routes.productionLines.create,
+            data: productionLine,
             headers: { "Content-Type": "application/json;charset=UTF-8" },
         }).catch((error) => {
             console.log(error)
         })
-        getAllMachines()
+        getAllProductionLines()
     }
 
-    const updateMachine = async machine => {
+    const updateProductionLine = async productionLine => {
         await axios({
             method: "put",
-            url: config.routes.machines.updateMachineType + machine.id,
-            data: '"' + machine.machinetype + '"',
+            url: config.routes.productionLines.updateProductionLineType + productionLine.id,
+            data: '"' + productionLine.productionLinetype + '"',
             headers: { "Content-Type": "application/json;charset=UTF-8" },
         }).catch((error) => {
             console.log(error)
         })
-        getAllMachines()
+        getAllProductionLines()
     }
 
-    const editMachineRow = machine => {
-        setCurrentMachine(machine)
+    const editProductionLineRow = productionLine => {
+        setCurrentProductionLine(productionLine)
     }
 
     useEffect(() => {
-        getAllMachines()
+        getAllProductionLines()
     }, []);
 
     return (
         <div className="container">
 
-            <h1>Machine</h1>
+            <h1>ProductionLine</h1>
             {isLoading ?
                 <Loading />
                 : (
                     <>
-                        <MachineNavBar
-                            machineTypes={machineTypes}
-                            reload={getAllMachines}
+                        <ProductionLineNavBar
+                            productionLineTypes={productionLineTypes}
+                            reload={getAllProductionLines}
                             showCreate={handleCreateShow}
-                            filterByMachineType={getAllMachinesFilterByMachineType}
+                            filterByProductionLineType={getAllProductionLinesFilterByProductionLineType}
                         />
-                        <MachineTable
-                            machines={machines}
-                            machineTypes={machineTypes}
-                            editMachineRow={editMachineRow}
+                        <ProductionLineTable
+                            productionLines={productionLines}
+                            productionLineTypes={productionLineTypes}
+                            editProductionLineRow={editProductionLineRow}
                             showUpdate={handleUpdateShow} />
 
                         <Modal
@@ -103,9 +103,9 @@ const Machine = () => {
                             aria-labelledby="contained-modal-title-vcenter"
                             centered>
                             <Modal.Body>
-                                <CreateMachineForm
-                                    machineTypes={machineTypes}
-                                    createMachine={createMachine}
+                                <CreateProductionLineForm
+                                    productionLineTypes={productionLineTypes}
+                                    createProductionLine={createProductionLine}
                                     hideCreate={handleCreateHide} />
                             </Modal.Body>
                         </Modal>
@@ -118,10 +118,10 @@ const Machine = () => {
                             centered>
 
                             <Modal.Body>
-                                <UpdateMachineForm
-                                    currentMachine={currentMachine}
-                                    machineTypes={machineTypes}
-                                    updateMachine={updateMachine}
+                                <UpdateProductionLineForm
+                                    currentProductionLine={currentProductionLine}
+                                    productionLineTypes={productionLineTypes}
+                                    updateProductionLine={updateProductionLine}
                                     hideUpdate={handleUpdateHide} />
                             </Modal.Body>
                         </Modal>
@@ -131,4 +131,4 @@ const Machine = () => {
     )
 }
 
-export default Machine;
+export default ProductionLine;
