@@ -1,12 +1,15 @@
-:- dynamic operacao_tempo_atraso/3
-% FÁBRICA
+:- dynamic operacoes_atrib_maq/2.
+:- dynamic classif_operacoes/2.
+:- dynamic op_prod_client/9.
+:- dynamic operacoes/1.
+
+% FABRICA
 
 % Linhas
-
 linhas([lA]).
 
 
-% Máquinas
+% Maquinas
 
 
 maquinas([ma]).
@@ -191,7 +194,58 @@ mef(M, Lm, Tm) :-
 	Tcomp is Tf-Ti,
 	write('GERADO EM '),write(Tcomp),
 	write(' SEGUNDOS'),nl.
-% 3 -
+
+% 3 - Heurística para Somatório dos Tempos de Atraso
+
+% h_soma_tempos_atraso([t(cla,pA,1,100), t(cla,pB,1,80)], Seq, Tempo).
+
+h_soma_tempos_atraso(LEncomendas,Seq,Tempo) :-retractall(op_prod_cliente(_,_,_,_,_,_,_,_,_)),
+cria_ops(LEncomendas,0),
+heuristica_menor_tatraso(ma,Seq,Tempo),
+retractall(op_prod_cliente(_,_,_,_,_,_,_,_,_)).
+
+
+heuristica_menor_tatraso(M,Finallist,Tempo):-
+	get_time(Ti),
+	operacoes_atrib_maq(M,ListaO),
+	lista_operacoes_tempo(ListaO,_,ListaOpTempoNaoOrdenada),
+	ordenar_tempos_conclusao(ListaOpTempoNaoOrdenada,ListaOpTempo),
+	obter_apenas_Ops(ListaOpTempo,_,Finallist),
+	soma_tempos2(M,Finallist,Tempo),
+	get_time(Tf),Tcomp is Tf-Ti,
+	write('GERADO EM '),write(Tcomp),
+	write(' SEGUNDOS'),nl.!.
+
+compara_dupla('<', [_,A1],[_,A2]):-A1<A2,!.
+compara_dupla('>',_,_).
+
+ordenar_tempos_conclusao(Unsorted, Sorted):-
+	predsort(compara_dupla,Unsorted,Sorted).
+
+lista_operacoes_tempo([],ListaT,ListaTempoOps):- append(ListaT, [],ListaTempoOps).
+lista_operacoes_tempo([HeadOp|List],ListaT,ListaTempoOps):-
+	op_prod_client(HeadOp,_,_,_,_,_,TConc,_,_),
+	lista_operacoes_tempo(List,[[HeadOp,TConc]|ListaT],ListaTempoOps).
+
+obter_apenas_Ops([],ResultTmp,Result):-reverse(ResultTmp,ResultInverted),append(ResultInverted,[],Result),!.
+obter_apenas_Ops([[HeadOp|_]|List],ResultTmp,Result):-obter_apenas_Ops(List,[HeadOp|ResultTmp],Result).
+
+%Soma dos TemosAtraso
+soma_tempos2(Machine,[HeadOp|ListOp],Result):-
+	op_prod_client(HeadOp,Machine,Fer,_,_,_,TConc,Tsetup,Texec),
+	Tempo is Tsetup + Texec,
+	(	(Tempo-TCon)>0,!,TempoTmp is Tempo-TConc;TempoTmp is 0),!,
+	soma_tempos2(Fer,Machine,ListOp,Tempo,TempoTmp,Result).
+
+soma_tempos2(_,_,[],_,Result,Result).
+soma_tempos2(Fer,Machine,[HeadOp|ListOp],Tempo,TempoTmp,Result):-!,
+	op_prod_client(HeadOp,Machine,Fer2,_,_,_,TConc,Tsetup,Texec),
+	(	(Fer==Fer2,!,TempoTmp2 is Texec+Tempo);
+			TempoTmp2 is Tsetup+Texec+Tempo),
+	(	(TempoTmp2-TConc)>0,!,TempoA1 is TempoTmp2-TConc+TempoTmp;
+			TempoA1 is TempoTmp),
+
+	soma_tempos2(Fer2,Machine,ListOp,TempoTmp2,TempoA1,Result).
 
 % 4 - 
 
@@ -200,22 +254,44 @@ mef(M, Lm, Tm) :-
 % . . .
 
 
-/* 
+cria_op_enc:-retractall(operacoes(_)),
+retractall(operacoes_atrib_maq(_,_)),retractall(classif_operacoes(_,_)),
+retractall(op_prod_client(_,_,_,_,_,_,_,_,_)),
+		findall(t(Cliente,Prod,Qt,TConc),
+		(encomenda(Cliente,LE),member(e(Prod,Qt,TConc),LE)),
+		LT),cria_ops(LT,0),
+findall(Op,classif_operacoes(Op,_),LOp),asserta(operacoes(LOp)),
+maquinas(LM),
+ findall(_,
+		(member(M,LM),
+		 findall(Opx,op_prod_client(Opx,M,_,_,_,_,_,_,_),LOpx),
+		 assertz(operacoes_atrib_maq(M,LOpx))),_).
+
 cria_ops([],_).
-cria_ops([t(Cliente,Prod,Qt,TConc)|LT],N):- operacoes_produto(Prod,LOpt),
-	cria_ops_prod_cliente(LOpt,Prod,Cliente,Qt,TConc,N,Nf),
-	cria_ops(LT,N1).		
+cria_ops([t(Cliente,Prod,Qt,TConc)|LT],N):-
+			operacoes_produto(Prod,LOpt),
+	cria_ops_prod_cliente(LOpt,Prod,Cliente,Qt,TConc,N,N1),
+			cria_ops(LT,N1).
+
 
 cria_ops_prod_cliente([],_,_,_,_,Nf,Nf).
-cria_ops_prod_cliente([Opt|LOpt],Cliente,Prod,Qt,TConc,N,Nf):-
-	Ni is N+1,
-	atomic_concat(op,Ni,Op),
-	assertz(classif_operacoes(Op,Opt)),
-	operacoes_maquina(Opt,M,F,Tsetup,Texec),
-	assertz(op_prod_cliente(Op,M,F,Prod,Cliente,Qt,TConc,Tsetup,Texec)),
-	cria_ops_prod_cliente(LOpt,Cliente,Prod,Qt,TConc,Ni,Nf). */
-			
+cria_ops_prod_cliente([Opt|LOpt],Client,Prod,Qt,TConc,N,Nf):-
+		cria_ops_prod_cliente2(Opt,Prod,Client,Qt,TConc,N,Ni),
+	cria_ops_prod_cliente(LOpt,Client,Prod,Qt,TConc,Ni,Nf).
+
+
+cria_ops_prod_cliente2(_,_,_,0,_,Ni,Ni):-!.
+cria_ops_prod_cliente2(Opt,Prod,Client,Qt,TConc,N,Ni2):-
+			Ni is N+1,
+			atomic_concat(op,Ni,Op),
+			assertz(classif_operacoes(Op,Opt)),
+			operacao_maquina(Opt,M,F,Tsetup,Texec),
+	assertz(op_prod_client(Op,M,F,Prod,Client,Qt,TConc,Tsetup,Texec)),
+	Qt2 is Qt -1,
+	cria_ops_prod_cliente2(Opt,Prod,Client,Qt2,TConc,Ni,Ni2).
 
 
 
+
+:-cria_op_enc.
 
