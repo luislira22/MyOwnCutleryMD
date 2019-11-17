@@ -105,12 +105,12 @@ namespace MasterDataFactory.Migrations
                     b.HasOne("MasterDataFactory.Models.MachineTypes.MachineType", "MachineType")
                         .WithMany("MachineTypeOperations")
                         .HasForeignKey("MachineTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MasterDataFactory.Models.Operations.Operation", "Operation")
                         .WithMany("MachineTypeOperations")
                         .HasForeignKey("OperationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("MasterDataFactory.Models.Machines.Machine", b =>
@@ -219,6 +219,25 @@ namespace MasterDataFactory.Migrations
                             b1.HasOne("MasterDataFactory.Models.Operations.Operation")
                                 .WithOne("Tool")
                                 .HasForeignKey("MasterDataFactory.Models.Operations.OperationTool", "OperationId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+                });
+
+            modelBuilder.Entity("MasterDataFactory.Models.ProductionLines.ProductionLine", b =>
+                {
+                    b.OwnsOne("MasterDataFactory.Models.ProductionLines.ProductionLineDescription", "Description", b1 =>
+                        {
+                            b1.Property<Guid>("ProductionLineId");
+
+                            b1.Property<string>("Description");
+
+                            b1.HasKey("ProductionLineId");
+
+                            b1.ToTable("ProductionLines");
+
+                            b1.HasOne("MasterDataFactory.Models.ProductionLines.ProductionLine")
+                                .WithOne("Description")
+                                .HasForeignKey("MasterDataFactory.Models.ProductionLines.ProductionLineDescription", "ProductionLineId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

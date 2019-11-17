@@ -37,7 +37,8 @@ namespace MasterDataFactory.Migrations
                 name: "ProductionLines",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    Description_Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,13 +60,13 @@ namespace MasterDataFactory.Migrations
                         column: x => x.MachineTypeId,
                         principalTable: "MachineTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MachineTypeOperations_operations_OperationId",
                         column: x => x.OperationId,
                         principalTable: "operations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

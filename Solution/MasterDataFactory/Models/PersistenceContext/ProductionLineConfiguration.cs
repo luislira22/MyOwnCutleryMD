@@ -16,7 +16,7 @@ namespace MasterDataFactory.Models.PersistenceContext
         {
             ProductionLineConfiguration.ToTable("ProductionLines", Context.DEFAULT_SCHEMA);
             ProductionLineConfiguration.HasKey(o => o.Id);
-            ProductionLineConfiguration.OwnsOne(d => d.description);
+            ProductionLineConfiguration.OwnsOne(d => d.Description);
             ProductionLineConfiguration.HasMany<Machine>(o => o.Machines);
         }
     }   
