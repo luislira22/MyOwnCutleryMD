@@ -63,9 +63,11 @@ namespace MasterDataFactory.Services
 
         public async Task UpdateMachineTypeOperation(Guid id,IList<string> operationsId)
         {
+            
             MachineType machineType = getMachineType(id).Result;
 
             ICollection<Operation> operations = ValidateOperations(operationsId).Result;
+
             List<MachineTypeOperation> machineTypeOperations = new List<MachineTypeOperation>();
             foreach(Operation op in operations){
                 MachineTypeOperation machineTypeOperation = new MachineTypeOperation(machineType, op);

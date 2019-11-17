@@ -33,5 +33,11 @@ namespace MasterDataFactory.Repositories.Impl
             List<MachineTypeOperation> MachineTypeOperation = await _context.MachineTypeOperations.Where(e => e.Operation.Id == operationId).ToListAsync();
             return MachineTypeOperation.Select(mo => mo.MachineType).ToList();
         }
+
+        public async Task<List<MachineTypeOperation>> GetMachineTypeOperationsByMachineType(Guid machineTypeID)
+        {
+            List<MachineTypeOperation> MachineTypeOperation = await _context.MachineTypeOperations.Where(e => e.MachineType.Id == machineTypeID).ToListAsync();
+            return MachineTypeOperation;
+        }
     }
 }
