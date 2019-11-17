@@ -658,3 +658,5 @@ MigrationBackup/
 \.DS_Store
 
 .vscode/
+
+react-app/

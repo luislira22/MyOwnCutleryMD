@@ -38,7 +38,7 @@ namespace MasterDataFactory.Services
         public async Task<ProductionLine> PostProductionLine(ProductionLineDTO productionLineDTO)
         {
             List<Machine> machines = ValidateMachines(productionLineDTO.Machines).Result;
-            ProductionLine productionLine = new ProductionLine(machines);
+            ProductionLine productionLine = new ProductionLine(new ProductionLineDescription(productionLineDTO.description),machines);
             await _productionLineRepository.Create(productionLine);
             return productionLine;
         }
