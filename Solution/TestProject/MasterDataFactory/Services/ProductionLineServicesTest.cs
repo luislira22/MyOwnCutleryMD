@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using MasterDataFactory.Services;
 using System.Collections.Generic;
+using MasterDataFactory.Models.ProductionLines;
 
 namespace TestProject.MasterDataFactory.Services
 {
@@ -17,11 +18,13 @@ namespace TestProject.MasterDataFactory.Services
 
 
             var ProductionLineId = new Guid("12111111-1111-1111-1111-111111111111");
-            var expectedProductionLineTypeId = new Guid("12111111-1111-1111-1111-111111111111");
+            var expectedProductionLineId = new Guid("12111111-1111-1111-1111-111111111111");
             var expectedMachineId = new Guid("11111111-1111-1111-1111-111111111111");
+            var expectedProductionLineDescription = new ProductionLineDescription("Linha1");
             var result = await ProductionLineService.GetProductionLineById(ProductionLineId);
             
-            Assert.Equal(expectedProductionLineTypeId, result.Id);
+            Assert.Equal(expectedProductionLineId, result.Id);
+            Assert.Equal(expectedProductionLineDescription, result.description);
             Assert.Equal(expectedMachineId, result.Machines[0].Id);
         }
 

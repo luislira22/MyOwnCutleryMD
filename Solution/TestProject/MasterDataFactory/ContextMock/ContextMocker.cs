@@ -72,7 +72,8 @@ namespace TestProject.MasterDataFactory
             Machine machine = dbContext.Machines.FindAsync(new Guid("11111111-1111-1111-1111-111111111111")).Result;
 
             List<Machine> machines = new List<Machine>(){machine};
-            ProductionLine productionLine = new ProductionLine(machines);
+            ProductionLineDescription description = new ProductionLineDescription("Linha1");
+            ProductionLine productionLine = new ProductionLine(description,machines);
             productionLine.Id = new Guid("12111111-1111-1111-1111-111111111111");
 
             dbContext.ProductionLines.Add(productionLine);
