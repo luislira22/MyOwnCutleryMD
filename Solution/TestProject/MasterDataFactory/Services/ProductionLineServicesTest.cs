@@ -24,7 +24,7 @@ namespace TestProject.MasterDataFactory.Services
             var result = await ProductionLineService.GetProductionLineById(ProductionLineId);
             
             Assert.Equal(expectedProductionLineId, result.Id);
-            Assert.Equal(expectedProductionLineDescription, result.description);
+            Assert.Equal(expectedProductionLineDescription, result.Description);
             Assert.Equal(expectedMachineId, result.Machines[0].Id);
         }
 
