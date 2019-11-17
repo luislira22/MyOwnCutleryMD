@@ -11,7 +11,7 @@ namespace MasterDataFactory.Models.ProductionLines
         public Guid Id { get; set; }
 
         public virtual List<Machine> Machines { get; set; }
-        public ProductionLineDescription description {get;set;}
+        public virtual ProductionLineDescription description {get;set;}
         protected ProductionLine(){
             
         }
