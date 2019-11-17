@@ -73,7 +73,7 @@ namespace MasterDataFactory.Services
             }
             machineType.MachineTypeOperations = machineTypeOperations;
 
-            await _machineTypeRepository.Update(id,machineType);
+            await _machineTypeRepository.UpdateWithRelationship(id,machineType);
         }
 
         private async Task<IList<Operation>> ValidateOperations(IList<string> operationsId)
