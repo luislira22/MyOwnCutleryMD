@@ -91,47 +91,6 @@ encomenda(clB,[e(pA,1,110),e(pB,1,150),e(pC,1,300)]).
 
 
 
-% melhor escalonamento com FINDALL, gera todas as solucoes e escolhe melhor
-
-melhor_escalonamento(M,Lm,Tm):-
-	get_time(Ti),
-	findall(p(LP,Tempo), 
-	permuta_tempo(M,LP,Tempo), LL),
-	melhor_permuta(LL,Lm,Tm),
-	get_time(Tf),Tcomp is Tf-Ti,
-	write('GERADO EM '),write(Tcomp),
-	write(' SEGUNDOS'),nl.
-
-% 1- HEURÍSTICA DE MINIMIZAÇÃO DE TEMPO DE OCUPAÇÃO (Visa minimizar tempos de Setup)
-
-% permuta/2 gera permutações de listas
-permuta([ ],[ ]).
-permuta(L,[X|L1]):-apaga1(X,L,Li),permuta(Li,L1).
-
-apaga1(X,[X|L],L).
-apaga1(X,[Y|L],[Y|L1]):-apaga1(X,L,L1).
-
-% permuta_tempo/3 faz uma permutação das operações atribuídas a uma maquina 
-% e calcula tempo de ocupação incluindo trocas de ferramentas
-permuta_tempo(M,LP,Tempo):- operacoes_atrib_maq(M,L),
-permuta(L,LP),soma_tempos(semfer,M,LP,Tempo).
-
-%Calcular o tempo para cada possibilidade de sequenciamento
-soma_tempos(_,_,[],0).
-soma_tempos(Fer,M,[Op|LOp],Tempo):- classif_operacoes(Op,Opt),
-	operacao_maquina(Opt,M,Fer1,Tsetup,Texec),
-	soma_tempos(Fer1,M,LOp,Tempo1),
-	((Fer1==Fer,!,Tempo is Texec+Tempo1);
-			Tempo is Tsetup+Texec+Tempo1),
-			write('FERRAMENTA1 '),write(Fer1), write(' FERRAMENTA '),write(Fer),
-	write(' Operation '),write(Op),
-	write(' TempoAcumu '), write(Tempo),nl.
-%Seleciona a melhor permuta, considerando o menor somatório dos tAtraso e o menor tOcupacao
-melhor_permuta([p(LP,Tempo)],LP,Tempo):-!.
-melhor_permuta([p(LP,Tempo)|LL],LPm,Tm):- melhor_permuta(LL,LP1,T1),
-		((Tempo<T1,!,Tm is Tempo,LPm=LP);(Tm is T1,LPm=LP1)).
-
-
 % ----------------------------------------------------------
 
 % 2 - Melhor Escalonamento por geração de todas as soluções para a minimização do somatório dos tempos de atraso
