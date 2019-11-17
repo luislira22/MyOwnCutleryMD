@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MasterDataFactory.Migrations
 {
-    public partial class MasterDataFactoryMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,8 +24,9 @@ namespace MasterDataFactory.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Duration_Duration = table.Column<TimeSpan>(nullable: false),
-                    Description_Description = table.Column<string>(nullable: true)
+                    Duration_Value = table.Column<TimeSpan>(nullable: false),
+                    Description_Value = table.Column<string>(nullable: true),
+                    Tool_Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

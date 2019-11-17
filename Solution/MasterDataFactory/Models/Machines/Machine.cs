@@ -8,10 +8,10 @@ namespace MasterDataFactory.Models.Machines
     public class Machine : IEntity
     {
         public Guid Id { get; set; }
-        public MachineType MachineType { get; set; }
-        public MachineBrand MachineBrand { get; set; }
-        public MachineModel MachineModel { get; set; }
-        public MachineLocation MachineLocation { get; set; }
+        public virtual MachineType MachineType { get; set; }
+        public virtual MachineBrand MachineBrand { get; set; }
+        public virtual MachineModel MachineModel { get; set; }
+        public virtual MachineLocation MachineLocation { get; set; }
 
         public Machine(MachineType machineType, MachineBrand machineBrand, MachineModel machineModel,
             MachineLocation machineLocation)

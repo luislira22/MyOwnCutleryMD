@@ -10,7 +10,7 @@ namespace MasterDataFactory.Models.ProductionLines
     {
         public Guid Id { get; set; }
 
-        public List<Machine> Machines { get; set; }
+        public virtual List<Machine> Machines { get; set; }
         protected ProductionLine(){
             
         }

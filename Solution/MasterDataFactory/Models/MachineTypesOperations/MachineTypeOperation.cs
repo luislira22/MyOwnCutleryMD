@@ -9,11 +9,11 @@ namespace MasterDataFactory.Models.MachineTypesOperations
     {
         [Key]
         public Guid MachineTypeId { get; set; }
-        public MachineType MachineType { get; set; }
+        public virtual MachineType MachineType { get; set; }
         
         [Key]
         public Guid OperationId { get; set; }
-        public Operation Operation { get; set; }
+        public virtual Operation Operation { get; set; }
 
         public MachineTypeOperation(MachineType MachineType, Operation Operation)
         {

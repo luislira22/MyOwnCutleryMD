@@ -10,13 +10,13 @@ namespace MasterDataFactory.Models.Operations
     {
         public Guid Id { get; set; }
 
-        public OperationDuration Duration { get; set; }
+        public virtual OperationDuration Duration { get; set; }
 
-        public OperationDescription Description { get; set; }
+        public virtual OperationDescription Description { get; set; }
         
-        public OperationTool Tool { get; set; }
+        public virtual OperationTool Tool { get; set; }
 
-        public List<MachineTypeOperation> MachineTypeOperations { get; set; }
+        public virtual List<MachineTypeOperation> MachineTypeOperations { get; set; }
         
         protected Operation()
         {

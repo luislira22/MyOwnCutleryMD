@@ -19,12 +19,12 @@ namespace MasterDataFactory.Models.MachineTypes
         //public MachineTypeID Id {get;set;}
         //public ICollection<Machine> Machines { get; set; }
 
-        public MachineTypeDescription Type { get; set; }
+        public virtual MachineTypeDescription Type { get; set; }
 
         //public ICollection<Operation> Operations {get;set;}
 
         //Many-to-Many
-        public List<MachineTypeOperation> MachineTypeOperations { get; set; }
+        public virtual List<MachineTypeOperation> MachineTypeOperations { get; set; }
 
         protected MachineType()
         {
