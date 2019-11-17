@@ -23,12 +23,13 @@ namespace MasterDataFactory.Models.PersistenceContext
             MachineTypeConfiguration
                 .HasOne(pt => pt.MachineType)
                 .WithMany(p => p.MachineTypeOperations)
-                .HasForeignKey(pt => pt.MachineTypeId);
+                .HasForeignKey(pt => pt.MachineTypeId).OnDelete(DeleteBehavior.Restrict);
 
             MachineTypeConfiguration
                 .HasOne(pt => pt.Operation)
                 .WithMany(t => t.MachineTypeOperations)
-                .HasForeignKey(pt => pt.OperationId);
+                .HasForeignKey(pt => pt.OperationId).OnDelete(DeleteBehavior.Restrict);
+            
         }
     }
 }

@@ -31,7 +31,7 @@ namespace MasterDataFactory.Repositories.Impl
 
         public async Task Delete(Guid id, Guid id2)
         {
-            var entity = await GetById(id,id2);
+            var entity = await GetById(id,id2); 
             _context.Set<TEntity>().Remove(entity);
             await _context.SaveChangesAsync();
         }

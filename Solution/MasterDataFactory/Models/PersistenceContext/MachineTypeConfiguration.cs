@@ -16,8 +16,6 @@ namespace MasterDataFactory.Models.PersistenceContext
             MachineTypeConfiguration.ToTable("MachineTypes");
             MachineTypeConfiguration.HasKey(o => o.Id);
             MachineTypeConfiguration.OwnsOne(o => o.Type).Property(t => t.Type).HasColumnName("Tipo");
-            //MachineTypeConfiguration.HasMany<Operation>(o => o.Operations);//WithOne(m => m.Machine).IsRequired().HasForeignKey(m => m.MachineTypeId);
-            //MachineTypeConfiguration.HasAlternateKey(m => m.Type).HasName("UNIQUE_TYPE_CONSTRAINT");
         }
     }   
 }
