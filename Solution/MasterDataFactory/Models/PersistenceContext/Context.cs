@@ -12,10 +12,12 @@ namespace MasterDataFactory.Models.PersistenceContext
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
+            
         }
 
         protected Context()
         {
+            
         }
 
         public static string DEFAULT_SCHEMA { get; internal set; }

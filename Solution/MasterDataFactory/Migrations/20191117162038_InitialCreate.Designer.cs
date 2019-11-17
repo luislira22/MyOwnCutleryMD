@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MasterDataFactory.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191027202948_MasterDataFactoryMigration")]
-    partial class MasterDataFactoryMigration
+    [Migration("20191117162038_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,7 +180,7 @@ namespace MasterDataFactory.Migrations
                         {
                             b1.Property<Guid>("OperationId");
 
-                            b1.Property<string>("Description");
+                            b1.Property<string>("Value");
 
                             b1.HasKey("OperationId");
 
@@ -196,7 +196,7 @@ namespace MasterDataFactory.Migrations
                         {
                             b1.Property<Guid>("OperationId");
 
-                            b1.Property<TimeSpan>("Duration");
+                            b1.Property<TimeSpan>("Value");
 
                             b1.HasKey("OperationId");
 
@@ -205,6 +205,22 @@ namespace MasterDataFactory.Migrations
                             b1.HasOne("MasterDataFactory.Models.Operations.Operation")
                                 .WithOne("Duration")
                                 .HasForeignKey("MasterDataFactory.Models.Operations.OperationDuration", "OperationId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MasterDataFactory.Models.Operations.OperationTool", "Tool", b1 =>
+                        {
+                            b1.Property<Guid>("OperationId");
+
+                            b1.Property<string>("Value");
+
+                            b1.HasKey("OperationId");
+
+                            b1.ToTable("operations");
+
+                            b1.HasOne("MasterDataFactory.Models.Operations.Operation")
+                                .WithOne("Tool")
+                                .HasForeignKey("MasterDataFactory.Models.Operations.OperationTool", "OperationId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

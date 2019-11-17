@@ -16,7 +16,7 @@ namespace MasterDataFactory.Repositories.Impl
 
         public OperationRepository(Context context) : base(context)
         {
-            context.Operations.Include(m => m.MachineTypeOperations).ToListAsync();
+            //context.Operations.Include(m => m.MachineTypeOperations).ToListAsync();
         }
 
         public async override Task<bool> Exists(Guid id)

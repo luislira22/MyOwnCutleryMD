@@ -131,9 +131,66 @@ melhor_permuta([p(LP,Tempo)|LL],LPm,Tm):- melhor_permuta(LL,LP1,T1),
 
 % ----------------------------------------------------------
 
+% 2 - Melhor Escalonamento por geração de todas as soluções para a minimização do somatório dos tempos de atraso
+permuta_tempo_atraso(M,LP,TAtraso):-  
+	menor_tempo_conclusao(List), 
+	length(List,Length), 
+    soma_tempos_atraso(semfer,M,[], 0, 0, List, 0,Length, T, LA),
+	!,
+	TAtraso is T, LP = LA.
 
-% 2 -
+menor_tempo_conclusao(Lista) :- 
+	findall(E, encomenda(_,E), L),
+	flatten(L,List),
+	qsort(List,Lis),
+	reverse(Lis,Lista).
 
+qsort(Lista, Final):-
+	qsort(Lista,[],Final).
+qsort([],A,A).
+qsort(List,List2,Final):- 
+	menor_tempo_c(List,Menor),[_|T] = List,qsort(T,[Menor|List2],Final).
+
+menor_tempo_c([e(_,_,T1)],T1):- 
+	!.
+menor_tempo_c([e(P1,Q1,T1), e(P2,_,T2)|T],M):- 
+	((T1=T2,P1=P2);T1<T2), 
+	menor_tempo_c([e(P1,Q1,T1)|T], M).
+menor_tempo_c([e(P1,_,T1), e(P2,Q2,T2)|T],M):- 
+	(T1>T2;(T1=T2,P1\=P2)), 
+	menor_tempo_c([e(P2,Q2,T2)|T], M).
+
+soma_tempos_atraso(_,_,L,T,_,_,Length,Length, T,L).
+soma_tempos_atraso(Fer,M,LA,SomatorioTempoAtraso,SomaOcup,Lista, Count,Length, T, L):- 
+	nth0(Count,Lista,e(P,_,TConc)),
+	Count1 is Count+1,
+	operacoes_produto(P, Oper),
+	operacao_maquina(Oper,M,Fer1,Tsetup,Texec),
+	((Fer1\=Fer,SomaOcup1 is SomaOcup+Texec+Tsetup);
+	(SomaOcup1 is Texec+SomaOcup )),
+	((TConc < SomaOcup1,SomaAteAgora is SomatorioTempoAtraso+(SomaOcup1-TConc));
+	(Count == 0, SomaAteAgora is 0);
+	(SomaAteAgora is SomatorioTempoAtraso )),
+	soma_tempos_atraso(Fer1,M,[Oper|LA],SomaAteAgora, SomaOcup1, Lista, Count1,Length, T, L).
+
+melhor_escalonamento_findall(M,La,Ta):-
+	get_time(Ti),
+	%findall(p(LP,Tempo),permuta_tempo_ocup(M,LP,Tempo), LL),
+	findall(p(LP,Tatr),permuta_tempo_atraso(M,LP,Tatr), LA),
+	%melhor_permuta(LL,Lm,Tm),
+	melhor_permuta(LA,La,Ta),
+	get_time(Tf),Tcomp is Tf-Ti,
+	write('GERADO EM '),write(Tcomp),
+	write(' SEGUNDOS'),nl.
+
+mef(M, Lm, Tm) :-
+	get_time(Ti),
+	findall(p(LP, Tempo), permuta_tempo_atraso(M, LP, Tempo), LL),
+	melhor_permuta(LL, Lm, Tm),
+	get_time(Tf),
+	Tcomp is Tf-Ti,
+	write('GERADO EM '),write(Tcomp),
+	write(' SEGUNDOS'),nl.
 % 3 -
 
 % 4 - 
