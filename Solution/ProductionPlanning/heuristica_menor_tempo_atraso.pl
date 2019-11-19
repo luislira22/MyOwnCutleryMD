@@ -25,50 +25,43 @@ write(NOperacoes),
 heuristica_menor_tatraso(ma,Seq,Tempo),
 retractall(op_prod_cliente(_,_,_,_,_,_,_,_,_)).
 
-
-heuristica_menor_tatraso(M,Finallist,Tempo):-
-	get_time(Ti),
-	operacoes_atrib_maq(M,ListaO),
-	lista_operacoes_tempo(ListaO,_,ListaOpTempoNaoOrdenada),
-	ordenar_tempos_conclusao(ListaOpTempoNaoOrdenada,ListaOpTempo),
-	obter_apenas_Ops(ListaOpTempo,_,Finallist),
-	soma_tempos2(M,Finallist,Tempo),
+%Heuristica Somatorio dos Tempos de Atraso
+heuristica_menor_tatraso(M,Resultlist,Tempo):-get_time(Ti),
+	operacoes_atrib_maq(M,ListaOps),
+	list_ops_tmp(ListaOps,_,ListaOpsTmpNOrd),
+	sort_tconc(ListaOpsTmpNOrd,ListaOpsTempo),
+	obter_ops(ListaOpsTempo,_,Resultlist),
+	soma_tempos_atraso(M,Resultlist,Tempo),
 	get_time(Tf),Tcomp is Tf-Ti,
 	write('GERADO EM '),write(Tcomp),
 	write(' SEGUNDOS'),nl,!.
 
-compara_dupla('<', [_,A1],[_,A2]):-A1<A2,!.
-compara_dupla('>',_,_).
+sort_tconc(Unsorted, Sorted):-
+	predsort(compare_tuple,Unsorted,Sorted).
 
-ordenar_tempos_conclusao(Unsorted, Sorted):-
-	predsort(compara_dupla,Unsorted,Sorted).
+compare_tuple('<', [_,A1],[_,A2]):-A1<A2,!.
+compare_tuple('>',_,_).
 
-lista_operacoes_tempo([],ListaT,ListaTempoOps):- append(ListaT, [],ListaTempoOps).
-lista_operacoes_tempo([HeadOp|List],ListaT,ListaTempoOps):-
-	op_prod_client(HeadOp,_,_,_,_,_,TConc,_,_),
-	lista_operacoes_tempo(List,[[HeadOp,TConc]|ListaT],ListaTempoOps).
+obter_ops([],ResultTmp,Result):-reverse(ResultTmp,ResultInverted),append(ResultInverted,[],Result),!.
+obter_ops([[Op|_]|List],ResultTmp,Result):-obter_ops(List,[Op|ResultTmp],Result).
 
-obter_apenas_Ops([],ResultTmp,Result):-reverse(ResultTmp,ResultInverted),append(ResultInverted,[],Result),!.
-obter_apenas_Ops([[HeadOp|_]|List],ResultTmp,Result):-obter_apenas_Ops(List,[HeadOp|ResultTmp],Result).
+list_ops_tmp([],LT,LTmpOps):- append(LT, [],LTmpOps).
+list_ops_tmp([Op|List],LT,LTmpOps):-op_prod_client(Op,_,_,_,_,_,TConc,_,_),
+	list_ops_tmp(List,[[Op,TConc]|LT],LTmpOps).
 
-%Soma dos TemosAtraso
-soma_tempos2(Machine,[HeadOp|ListOp],Result):-
-	op_prod_client(HeadOp,Machine,Fer,_,_,_,TConc,Tsetup,Texec),
+%Soma dos TemosAtraso (adaptacao do soma_tempos)
+soma_tempos_atraso(Machine,[Op|List],Result):-op_prod_client(Op,Machine,Fer,_,_,_,TConc,Tsetup,Texec),
 	Tempo is Tsetup + Texec,
 	((Tempo-TConc)>0,!,TempoTmp is Tempo-TConc;
-	TempoTmp is 0),!,
-	soma_tempos2(Fer,Machine,ListOp,Tempo,TempoTmp,Result).
+	TempoTmp is 0),!, soma_tempos_atraso(Fer,Machine,List,Tempo,TempoTmp,Result).
 
-soma_tempos2(_,_,[],_,Result,Result).
-soma_tempos2(Fer,Machine,[HeadOp|ListOp],Tempo,TempoTmp,Result):-!,
-	op_prod_client(HeadOp,Machine,Fer2,_,_,_,TConc,Tsetup,Texec),
-	(	(Fer==Fer2,!,TempoTmp2 is Texec+Tempo);
-			TempoTmp2 is Tsetup+Texec+Tempo),
-	(	(TempoTmp2-TConc)>0,!,TempoA1 is TempoTmp2-TConc+TempoTmp;
-			TempoA1 is TempoTmp),
+soma_tempos_atraso(_,_,[],_,Result,Result).
+soma_tempos_atraso(Fer,Machine,[Op|List],Tempo,TempoTmp,Result):-!,op_prod_client(Op,Machine,Fer2,_,_,_,TConc,Tsetup,Texec),
+	((Fer==Fer2,!,TempoTmp2 is Texec+Tempo);TempoTmp2 is Tsetup+Texec+Tempo),
+	((TempoTmp2-TConc)>0,!,TempoA1 is TempoTmp2-TConc+TempoTmp;TempoA1 is TempoTmp),
+	soma_tempos_atraso(Fer2,Machine,List,TempoTmp2,TempoA1,Result).
 
-	soma_tempos2(Fer2,Machine,ListOp,TempoTmp2,TempoA1,Result).
-
+%Cria Ops
 cria_ops([],NFO,NFO).
 cria_ops([t(Cliente,Prod,Qt,TConc)|LT],N,NFO):- operacoes_produto(Prod,LOpt),
 	cria_ops_prod_cliente(LOpt,Prod,Cliente,Qt,TConc,N,Nf),
