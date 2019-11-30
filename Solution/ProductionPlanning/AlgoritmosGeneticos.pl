@@ -144,21 +144,22 @@ cria_tarefa(t(Cliente,Prod,Qt,TConc),NTarefa):-
 	calcula_makespan(Cliente,Prod,Qt,MakeSpan),
 	atomic_concat('t',NTarefa,Tarefa),
 	prioridade_cliente(Cliente,Prioridade),
-	assertz(tarefa(Tarefa,MakeSpan,TConc,Prioridade)).
+	write(Tarefa),write(' --> '),write(Cliente),write(','),write(Prod),write(','),write(Qt),write('('),write(TConc),write(')'),write(' : ['),write(MakeSpan),write(']'),nl,
+	assertz(tarefa(Tarefa,MakeSpan,TConcQt,Prioridade)).
 
 calcula_makespan(Cliente,Prod,Qt,MakeSpan):-
-	findall((Op,Texec),op_prod_client(Op,_,_,Prod,Cliente,_,_,_,Texec),LOPT),
-	sort(1, @>, LOPT, LOPTO),
+	findall(Texec,op_prod_client(_,_,_,Prod,Cliente,_,_,_,Texec),LOPT),
+	sort(0, @>, LOPT, LOPTO),
 	soma_valores_makespan(LOPTO,Qt,MakeSpan).
 
-soma_valores_makespan([H|T],Qt,Makespan):-
-	ValorOpCadencia is H * Qt,
+soma_valores_makespan([Texec|T],Qt,Makespan):-
+	ValorOpCadencia is Texec * Qt,
 	soma_lista_valores(T,Soma),
 	Makespan is ValorOpCadencia + Soma.
 
 soma_lista_valores([],0):-!.
 
-soma_lista_valores([H|T],Soma):-soma_lista_valores(T,Valor),Soma is Valor + H.
+soma_lista_valores([Texec|T],Soma):-soma_lista_valores(T,Valor),Soma is Valor + Texec.
 
 
 
