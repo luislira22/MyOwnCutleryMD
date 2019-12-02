@@ -66,9 +66,9 @@ clientes([clA,clB,clC]).
 
 % prioridades dos clientes
 
-prioridade_cliente(clA,2).
+prioridade_cliente(clA,3).
 prioridade_cliente(clB,1).
-prioridade_cliente(clC,3).
+prioridade_cliente(clC,2).
 
 
 % Encomendas do cliente, 
@@ -143,9 +143,9 @@ cria_tarefas([H|T],NTarefas):- cria_tarefa(H,NTarefas),N1 is NTarefas + 1,cria_t
 cria_tarefa(t(Cliente,Prod,Qt,TConc),NTarefa):-
 	calcula_makespan(Cliente,Prod,Qt,MakeSpan),
 	atomic_concat('t',NTarefa,Tarefa),
-	prioridade_cliente(Cliente,Prioridade),
-	write(Tarefa),write(' --> '),write(Cliente),write(','),write(Prod),write(','),write(Qt),write('('),write(TConc),write(')'),write(' : ['),write(MakeSpan),write(']'),nl,
-	assertz(tarefa(Tarefa,MakeSpan,TConcQt,Prioridade)).
+	prioridade_cliente(Cliente,Prioridade),calcula_penalizacao(Prioridade,Penalizacao),
+	write(Tarefa),write(' --> Cliente = '),write(Cliente),write(', Produto = '),write(Prod),write(', Quantidade = '),write(Qt),write(', Penalizacao = '),write(Penalizacao),write(', Tempo de Conlusao = '),write(TConc),write('['),write(MakeSpan),write(']'),nl,
+	assertz(tarefa(Tarefa,MakeSpan,TConc,Penalizacao)).
 
 calcula_makespan(Cliente,Prod,Qt,MakeSpan):-
 	findall(Texec,op_prod_client(_,_,_,Prod,Cliente,_,_,_,Texec),LOPT),
@@ -160,6 +160,71 @@ soma_valores_makespan([Texec|T],Qt,Makespan):-
 soma_lista_valores([],0):-!.
 
 soma_lista_valores([Texec|T],Soma):-soma_lista_valores(T,Valor),Soma is Valor + Texec.
+
+calcula_penalizacao(Prioridade,Penalizacao):-Penalizacao is 0.9 + Prioridade / 10.
+%-------------------------------------Heuristicas adaptadas a Tarefas--------------------------%
+
+% Earliest Due Date
+
+heuristica_MenorTempoAtraso_EDD(Resultlist,Result):-
+	% Encontra todas as tarefas
+	findall(t(T,TP,TCP),(tarefa(T,TP,TC,P),TCP is TC * P),ListaTarefas),
+	sort(3,@<,ListaTarefas,ListaTarefasOrd),
+	to_task_id(ListaTarefasOrd,Resultlist),
+	soma_tempos_atraso(Resultlist,Result),!.                                        
+
+to_task_id([],[]):-!.
+to_task_id([t(ID,_,_)|Rest],ResultList):- to_task_id(Rest,ResultListTMP),append([ID],ResultListTMP,ResultList).
+
+%Critical Ratio
+
+heuristica_MenorTempoAtraso_CR(ResultList,Result):- 
+	findall(t(T,TP,TCP),(tarefa(T,TP,TC,P),TCP is TC * P),ListaTarefas),
+	encontra_sequencia_cr(ListaTarefas,0,ResultList),
+	soma_tempos_atraso(ResultList,Result),!.
+
+encontra_sequencia_cr([],_,[]):-!.
+encontra_sequencia_cr(ListaTarefas,TempoActual,ResultList):-
+	%calcula Critical Ratio para uma determinada lista tendo em conta os tempos de atraso pesados
+	soma_processamento_tarefas(ListaTarefas,TempoTotal),
+	calcula_cr(ListaTarefas,TempoTotal,TempoActual,ListaCr),
+	%organiza lista de critical Ratio de maneira a ter o elemento com melhor critical ratio
+	sort(2,@<,ListaCr,ListaCrOrd),
+	get_head(ListaCrOrd,TarefaEscolhida,NTempoActual),
+	%remove tarefa da proxima lista a ser avaliada
+	remove_tarefa_escolhida(TarefaEscolhida,ListaTarefas,NListaTarefas),
+	encontra_sequencia_cr(NListaTarefas,NTempoActual,ResultListTMP),append([TarefaEscolhida],ResultListTMP,ResultList).
+
+remove_tarefa_escolhida(T,LT,NLT):- 
+	tarefa(T,TP,TC,P),
+	TCP is TC * P,
+	Tarefa = t(T,TP,TCP),
+	delete(LT,Tarefa,NLT).
+
+get_head([cr(Tarefa,_,TempoActual)|_],Tarefa,TempoActual).	
+
+calcula_cr([],_,_,[]):-!.
+calcula_cr([t(T,TP,TCP)|R],TempoTotal,TempoActual,ListaCr):-
+	NTempoActual is TempoActual + TP,
+	CR is (TCP - NTempoActual) / TempoTotal,
+	calcula_cr(R,TempoTotal,TempoActual,ListaCrTmp),append([cr(T,CR,NTempoActual)],ListaCrTmp,ListaCr).
+	
+soma_processamento_tarefas([],0):-!.	
+soma_processamento_tarefas([t(_,TP,_)|T],TempoTotal):- soma_processamento_tarefas(T,Soma),TempoTotal is Soma + TP.
+
+%Soma dos TemosAtraso (adaptacao do soma_tempos)
+soma_tempos_atraso([Id|List],Result):-
+	tarefa(Id,TempoProcessamento,TempoConclusao,_),
+	TempoAtual is TempoProcessamento,
+	((TempoAtual-TempoConclusao)>0,!,TempoAtraso is TempoAtual - TempoConclusao;
+	TempoAtraso is 0),!, soma_tempos_atraso(List,TempoAtual,TempoAtraso,Result),!.
+
+soma_tempos_atraso([],_,Result,Result).
+soma_tempos_atraso([Id|List],TempoAtual,TempoAtraso,Result):-!,
+	tarefa(Id,TempoProcessamento,TempoConclusao,_),
+	NTempoAtual is TempoAtual + TempoProcessamento,
+	((NTempoAtual-TempoConclusao)>0,!,NTempoAtraso is TempoAtraso + NTempoAtual-TempoConclusao;NTempoAtraso is TempoAtraso),
+	soma_tempos_atraso(List,NTempoAtual,NTempoAtraso,Result).
 
 
 
@@ -262,13 +327,23 @@ gera_populacao(Pop):-
 	findall(Tarefa,tarefa(Tarefa,_,_,_),ListaTarefas),
 	gera_populacao(TamPop,ListaTarefas,NumT,Pop).
 
-gera_populacao(0,_,_,[]):-!.
+%gera_populacao(0,_,_,[]):-!.
+
+gera_populacao(2,_,_,[H1,NH2]):-
+	heuristica_MenorTempoAtraso_EDD(H1,_),
+	heuristica_MenorTempoAtraso_CR(H2,_),
+	(
+		(compare_list(H1,H2),!,avalia(H1,V1),avalia(H2,V2),cruzamento([H1*V1,H2*V2],[_,NH2*_]))
+		;
+		(NH2 = H2)
+	),
+	!.
 
 gera_populacao(TamPop,ListaTarefas,NumT,[Ind|Resto]):-
 	TamPop1 is TamPop-1,
 	gera_populacao(TamPop1,ListaTarefas,NumT,Resto),
 	gera_individuo(ListaTarefas,NumT,Ind),
-	not(member(Ind,Resto)).
+	not(member(Ind,Resto)),!.
 gera_populacao(TamPop,ListaTarefas,NumT,L):-
 	gera_populacao(TamPop,ListaTarefas,NumT,L).
 
@@ -573,13 +648,11 @@ mutacao23(G1,P,[G|Ind],G2,[G|NInd]):-
 	P1 is P-1,
 	mutacao23(G1,P1,Ind,G2,NInd).
 
-union([],[],[]):-!.
-union(List1,[],List1).
-union(List1, [Head2|Tail2], [Head2|Output]):-
-    \+(member(Head2,List1)), union(List1,Tail2,Output).
-union(List1, [Head2|Tail2], Output):-
-    member(Head2,List1), union(List1,Tail2,Output). 
-
+compare_list([],[]).
+compare_list([],_).
+compare_list([L1Head|L1Tail], List2):-
+    member(L1Head, List2),
+    compare_list(L1Tail, List2).
 
 
 
