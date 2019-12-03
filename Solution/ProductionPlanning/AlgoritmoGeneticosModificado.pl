@@ -148,14 +148,33 @@ cria_tarefa(t(Cliente,Prod,Qt,TConc),NTarefa):-
 	assertz(tarefa(Tarefa,MakeSpan,TConc,Penalizacao)).
 
 calcula_makespan(Cliente,Prod,Qt,MakeSpan):-
+	findall(s(Texec,Tsetup),op_prod_client(_,_,_,Prod,Cliente,_,_,Tsetup,Texec),LSS),
+	soma_valores_setup(LSS,Setup),
 	findall(Texec,op_prod_client(_,_,_,Prod,Cliente,_,_,_,Texec),LOPT),
 	sort(0, @>, LOPT, LOPTO),
-	soma_valores_makespan(LOPTO,Qt,MakeSpan).
+	soma_valores_makespan(LOPTO,Qt,MakeSpan,Setup).
 
-soma_valores_makespan([Texec|T],Qt,Makespan):-
-	ValorOpCadencia is Texec * Qt,
+
+
+soma_valores_setup([s(Texec,Tsetup)|T],Setup):-
+	soma_valores_setup([s(Texec,Tsetup)|T],-Texec,NegativeSetup),Setup is -NegativeSetup.
+
+soma_valores_setup([],_,0):-!.
+
+soma_valores_setup([s(Texec,Tsetup)|T],TempoActual,Setup):-
+	NTempoActual is TempoActual + Texec,
+	soma_valores_setup(T,NTempoActual,SetupTMP),
+	CalculoSetup is NTempoActual - Tsetup,
+	(
+		(CalculoSetup < SetupTMP,!,Setup is CalculoSetup)
+		;
+		(Setup is SetupTMP)	
+	).
+
+soma_valores_makespan([TSoma|T],Qt,Makespan,Setup):-
+	ValorOpCadencia is TSoma * Qt,
 	soma_lista_valores(T,Soma),
-	Makespan is ValorOpCadencia + Soma.
+	Makespan is ValorOpCadencia + Soma + Setup.
 
 soma_lista_valores([],0):-!.
 
@@ -237,7 +256,7 @@ soma_tempos_atraso([Id|List],TempoAtual,TempoAtraso,Result):-!,
 :-dynamic prob_mutacao/1.
 :-dynamic tempo_geracao/1.
 :-dynamic peso_minimo_solucao/1.
-n_populacoes_estavel(4).
+:-dynamic n_populacoes_estavel/1.
 
 % parameterizacao
 inicializa:-
@@ -279,13 +298,15 @@ inicializa_solucao_pretendida:-
 	(retract(prob_mutacao(_));true), asserta(prob_mutacao(PM)).
 
 inicializa_solucao_populacao_estavel:-
+	write('Numero populacoes para considerar Estabilidade: '),read(E),
+	(retract(n_populacoes_estavel(_));true), asserta(n_populacoes_estavel(E)),
 	write('Numero maximo Geracoes: '),read(NG),
 	(retract(geracoes(_));true), asserta(geracoes(NG)),
 	write('Dimensao da Populacao: '),read(DP),
 	(retract(populacao(_));true), asserta(populacao(DP)),
 	write('Probabilidade de Cruzamento (%):'), read(P1),
 	PC is P1/100, 
-	(retract(prob_cruzamento(_));true), 	asserta(prob_cruzamento(PC)),
+	(retract(prob_cruzamento(_));true), asserta(prob_cruzamento(PC)),
 	write('Probabilidade de Mutacao (%):'), read(P2),
 	PM is P2/100, 
 	(retract(prob_mutacao(_));true), asserta(prob_mutacao(PM)).
