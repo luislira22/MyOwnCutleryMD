@@ -518,6 +518,7 @@ nova_geracao(Pop1,Pop2,PopFinal):-
 	MaxListSize is PopSize * 2,
 	%Junta as duas geracoes sem repeticao
 	append_without_repetition(Pop2,Pop1,PopTotal,PopSize,MaxListSize),
+	nl,write(PopTotal),nl,
 	%tamanho da lista com a soma das duas populacoes sem repeticao
 	length(PopTotal, ListSize),
 	%ordena a populacao por ordem decrescente de peso
@@ -531,7 +532,12 @@ nova_geracao(Pop1,Pop2,PopFinal):-
 	%efectua torneio
 	torneio(PopTorneio,PopVencedora),
 	%Constroi populacao final
-	append(PopVencedora,PopAprovada,PopSemDoisMelhores),ordena_populacao(PopSemDoisMelhores,PopSemDoisMelhoresOrd),
+	append(PopVencedora,PopAprovada,PopSemDoisMelhores),
+	(
+		(not(compare_list(PopSemDoisMelhores,[])),!,ordena_populacao(PopSemDoisMelhores,PopSemDoisMelhoresOrd))
+		;
+		PopFinal = DoisMelhores
+	),
 	append(DoisMelhores,PopSemDoisMelhoresOrd,PopFinal).
 	
 
@@ -540,7 +546,7 @@ remove_dois_primeiros([H1,H2|R],[H1,H2],R):- !.
 seleciona_populacao(Pop,PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
 	Diferenca is TamanhoPop - TamanhoAlvo,Diferenca =:= 0,PopAprovada = Pop,PopTorneio = [].
 
-seleciona_populacao(Pop,PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
+seleciona_populacao([_,_|Pop],PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
 	Diferenca is TamanhoPop - TamanhoAlvo,Diferenca =:= TamanhoAlvo,PopAprovada = [],PopTorneio = Pop.
 
 seleciona_populacao(Pop,PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
@@ -558,7 +564,16 @@ seleciona_populacao([E1,E2|R],PopTorneio,PopAprovada,NDuplas):-
 append_without_repetition(Pop1,[],Pop1,_,_):- !.
 
 append_without_repetition(Pop1,[H|T],PopFinal,PopSize,ListSize):-
-	(( not(member(H,Pop1)),not(member(H,T)) ); (ListSize =:= PopSize)),
+	(
+		(
+			not(member(H,Pop1)),
+			not(member(H,T)),! 
+		)
+		; 
+		(
+			ListSize =:= PopSize
+		)
+	),
 	append_without_repetition(Pop1,T,PopCumulativa,PopSize,ListSize),
 	append([H],PopCumulativa,PopFinal).
 
