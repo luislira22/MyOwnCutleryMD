@@ -61,7 +61,7 @@ operacoes_produto(pF,[opt1,opt2,opt10,opt4,opt5]).
 
 %Clientes
 
-clientes([clA,clB,clC]).
+clientes([clA,clB,clC,clD]).
 
 
 % prioridades dos clientes
@@ -69,15 +69,17 @@ clientes([clA,clB,clC]).
 prioridade_cliente(clA,3).
 prioridade_cliente(clB,1).
 prioridade_cliente(clC,2).
+prioridade_cliente(clD,4).
+
 
 
 % Encomendas do cliente, 
 % termos e(<produto>,<n.unidades>,<tempo_conclusao>)
 
-encomenda(clA,[e(pA,4,50),e(pB,4,70)]).
-encomenda(clB,[e(pC,3,30),e(pD,5,200)]).
-encomenda(clC,[e(pE,4,60),e(pF,6,120)]).
-
+encomenda(clA,[e(pA,4,50),e(pB,4,70),e(pD,6,100)]).
+encomenda(clB,[e(pC,3,30),e(pD,5,200),e(pA,1,198)]).
+encomenda(clC,[e(pE,4,60),e(pF,6,120),e(pF,5,320)]).
+encomenda(clD,[e(pA,2,180)]).
 
 
 % cria_op_enc - fizeram-se correcoes face a versao anterior
@@ -155,20 +157,17 @@ calcula_makespan(Cliente,Prod,Qt,MakeSpan):-
 	soma_valores_makespan(LOPTO,Qt,MakeSpan,Setup).
 
 
-
 soma_valores_setup([s(Texec,Tsetup)|T],Setup):-
-	soma_valores_setup([s(Texec,Tsetup)|T],-Texec,NegativeSetup),Setup is -NegativeSetup.
+	soma_valores_setup([s(Texec,Tsetup)|T],0,0,NegativeSetup),Setup is -NegativeSetup.
 
-soma_valores_setup([],_,0):-!.
-
-soma_valores_setup([s(Texec,Tsetup)|T],TempoActual,Setup):-
+soma_valores_setup([],_,Setup,Setup):-!.
+soma_valores_setup([s(Texec,Tsetup)|T],TempoActual,Setup,Resultado):-
+	NSetup is TempoActual - Tsetup,
 	NTempoActual is TempoActual + Texec,
-	soma_valores_setup(T,NTempoActual,SetupTMP),
-	CalculoSetup is NTempoActual - Tsetup,
 	(
-		(CalculoSetup < SetupTMP,!,Setup is CalculoSetup)
+		(NSetup<Setup,!,soma_valores_setup(T,NTempoActual,NSetup,Resultado))
 		;
-		(Setup is SetupTMP)	
+		soma_valores_setup(T,NTempoActual,Setup,Resultado)
 	).
 
 soma_valores_makespan([TSoma|T],Qt,Makespan,Setup):-
@@ -182,6 +181,38 @@ soma_lista_valores([Texec|T],Soma):-soma_lista_valores(T,Valor),Soma is Valor + 
 
 calcula_penalizacao(Prioridade,Penalizacao):-Penalizacao is 0.9 + Prioridade / 10.
 %-------------------------------------Heuristicas adaptadas a Tarefas--------------------------%
+
+:-dynamic melhor_solucao/1.
+%Calculo da melhor solucao
+
+% permuta/2 gera permutações de listas
+permuta([ ],[ ]).
+permuta(L,[X|L1]):-apaga1(X,L,Li),permuta(Li,L1).
+
+apaga1(X,[X|L],L).
+apaga1(X,[Y|L],[Y|L1]):-apaga1(X,L,L1).
+
+permuta_tempo(LP,Tempo):- findall(T,tarefa(T,_,_,_),LT),
+permuta(LT,LP),soma_tempos_atraso(LP,NTempo),
+melhor_solucao(Tempo),
+(
+	(NTempo<Tempo,retract(melhor_solucao(_)),asserta(melhor_solucao(NTempo)))
+).
+
+
+% melhor escalonamento com findall, gera todas as solucoes e escolhe melhor
+
+melhor_escalonamento():-
+				asserta(melhor_solucao(10000000)),
+				get_time(Ti),
+				findall(_,permuta_tempo(_,_),_),
+				melhor_solucao(Tempo),
+				write('melhor solucao : '),write(Tempo),nl,
+				get_time(Tf),Tcomp is Tf-Ti,
+				retractall(melhor_solucao(_)),
+				write('GERADO EM '),write(Tcomp),
+				write(' SEGUNDOS'),nl.
+
 
 % Earliest Due Date
 
@@ -233,16 +264,16 @@ soma_processamento_tarefas([t(_,TP,_)|T],TempoTotal):- soma_processamento_tarefa
 
 %Soma dos TemosAtraso (adaptacao do soma_tempos)
 soma_tempos_atraso([Id|List],Result):-
-	tarefa(Id,TempoProcessamento,TempoConclusao,_),
+	tarefa(Id,TempoProcessamento,TempoConclusao,Peso),
 	TempoAtual is TempoProcessamento,
-	((TempoAtual-TempoConclusao)>0,!,TempoAtraso is TempoAtual - TempoConclusao;
+	((TempoAtual-TempoConclusao)>0,!,TempoAtraso is (TempoAtual - TempoConclusao)*Peso;
 	TempoAtraso is 0),!, soma_tempos_atraso(List,TempoAtual,TempoAtraso,Result),!.
 
 soma_tempos_atraso([],_,Result,Result).
 soma_tempos_atraso([Id|List],TempoAtual,TempoAtraso,Result):-!,
-	tarefa(Id,TempoProcessamento,TempoConclusao,_),
+	tarefa(Id,TempoProcessamento,TempoConclusao,Peso),
 	NTempoAtual is TempoAtual + TempoProcessamento,
-	((NTempoAtual-TempoConclusao)>0,!,NTempoAtraso is TempoAtraso + NTempoAtual-TempoConclusao;NTempoAtraso is TempoAtraso),
+	((NTempoAtual-TempoConclusao)>0,!,NTempoAtraso is TempoAtraso + (NTempoAtual-TempoConclusao)*Peso;NTempoAtraso is TempoAtraso),
 	soma_tempos_atraso(List,NTempoAtual,NTempoAtraso,Result).
 
 
@@ -446,10 +477,19 @@ gera_geracao_base(Pop,PopFinal):-
 	ordena_populacao(NPopAv,NPopOrd),
 	nova_geracao(Pop,NPopOrd,PopFinal).
 
+escreve_media_populacao(Pop):-escreve_media_populacao(Pop,0,0).
+
+escreve_media_populacao([],N,Soma):-
+	Media is Soma / N,write('Media de valores da populacao final : '),write(Media),nl.
+escreve_media_populacao([_*V|T],N,Soma):-
+	NN is N + 1,
+	NSoma is Soma + V,
+	escreve_media_populacao(T,NN,NSoma).
 
 gera_geracao(G,G,[H|T]):-!,
 	write('Geracao '), write(G), write(':'), nl, write([H|T]), nl,
-	write('Melhor Solucao: '),write(H),nl.
+	write('Melhor Solucao: '),write(H),nl,
+	escreve_media_populacao([H|T]).
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
@@ -518,7 +558,6 @@ nova_geracao(Pop1,Pop2,PopFinal):-
 	MaxListSize is PopSize * 2,
 	%Junta as duas geracoes sem repeticao
 	append_without_repetition(Pop2,Pop1,PopTotal,PopSize,MaxListSize),
-	nl,write(PopTotal),nl,
 	%tamanho da lista com a soma das duas populacoes sem repeticao
 	length(PopTotal, ListSize),
 	%ordena a populacao por ordem decrescente de peso
@@ -528,13 +567,17 @@ nova_geracao(Pop1,Pop2,PopFinal):-
 	%Baralha aleatorimente a populacao que se encontra na lista
 	random_permutation(PopTotalOrdSemDoisMelhores,PermutedPop),
 	%seleciona a populacao que vai e nao vai entrar para o torneio
-	seleciona_populacao(PermutedPop,PopTorneio,PopAprovada,PopSize,ListSize),
+	Diferenca is ListSize - PopSize,TamanhoAlvo is PopSize - 2,
+	seleciona_populacao(PermutedPop,PopTorneio,PopAprovada,TamanhoAlvo,Diferenca),
 	%efectua torneio
 	torneio(PopTorneio,PopVencedora),
 	%Constroi populacao final
 	append(PopVencedora,PopAprovada,PopSemDoisMelhores),
 	(
-		(not(compare_list(PopSemDoisMelhores,[])),!,ordena_populacao(PopSemDoisMelhores,PopSemDoisMelhoresOrd))
+		(
+			not(compare_list(PopSemDoisMelhores,[])),!,
+				ordena_populacao(PopSemDoisMelhores,PopSemDoisMelhoresOrd)
+		)
 		;
 		PopFinal = DoisMelhores
 	),
@@ -543,14 +586,17 @@ nova_geracao(Pop1,Pop2,PopFinal):-
 
 remove_dois_primeiros([H1,H2|R],[H1,H2],R):- !.
 
-seleciona_populacao(Pop,PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
-	Diferenca is TamanhoPop - TamanhoAlvo,Diferenca =:= 0,PopAprovada = Pop,PopTorneio = [].
+seleciona_populacao(Pop,PopTorneio,PopAprovada,_,0):-
+	PopAprovada = Pop,PopTorneio = [].
 
-seleciona_populacao([_,_|Pop],PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
-	Diferenca is TamanhoPop - TamanhoAlvo,Diferenca =:= TamanhoAlvo,PopAprovada = [],PopTorneio = Pop.
+seleciona_populacao([_,_|Pop],PopTorneio,PopAprovada,TamanhoAlvo,Diferenca):-
+	Diferenca =:= TamanhoAlvo + 2,PopAprovada = [],PopTorneio = Pop.
 
-seleciona_populacao(Pop,PopTorneio,PopAprovada,TamanhoAlvo,TamanhoPop):-
-	Diferenca is TamanhoPop - TamanhoAlvo,seleciona_populacao(Pop,PopTorneio,PopAprovada,Diferenca).
+seleciona_populacao([_|Pop],PopTorneio,PopAprovada,TamanhoAlvo,Diferenca):-
+	Diferenca =:= TamanhoAlvo + 1 ,PopAprovada = [],PopTorneio = Pop.
+
+seleciona_populacao(Pop,PopTorneio,PopAprovada,_,Diferenca):-
+	seleciona_populacao(Pop,PopTorneio,PopAprovada,Diferenca).
 
 seleciona_populacao(Pop,PopTorneio,PopAprovada,0):- PopTorneio = [],PopAprovada = Pop,!.
 seleciona_populacao([E1,E2|R],PopTorneio,PopAprovada,NDuplas):-

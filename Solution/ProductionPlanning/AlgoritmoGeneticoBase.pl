@@ -62,7 +62,7 @@ operacoes_produto(pF,[opt1,opt2,opt10,opt4,opt5]).
 
 %Clientes
 
-clientes([clA,clB,clC]).
+clientes([clA,clB,clC,clD]).
 
 
 % prioridades dos clientes
@@ -70,6 +70,8 @@ clientes([clA,clB,clC]).
 prioridade_cliente(clA,3).
 prioridade_cliente(clB,1).
 prioridade_cliente(clC,2).
+prioridade_cliente(clD,4).
+
 
 
 % Encomendas do cliente, 
@@ -78,7 +80,6 @@ prioridade_cliente(clC,2).
 encomenda(clA,[e(pA,4,50),e(pB,4,70)]).
 encomenda(clB,[e(pC,3,30),e(pD,5,200)]).
 encomenda(clC,[e(pE,4,60),e(pF,6,120)]).
-
 
 
 % cria_op_enc - fizeram-se correcoes face a versao anterior
@@ -149,14 +150,30 @@ cria_tarefa(t(Cliente,Prod,Qt,TConc),NTarefa):-
 	assertz(tarefa(Tarefa,MakeSpan,TConc,Penalizacao)).
 
 calcula_makespan(Cliente,Prod,Qt,MakeSpan):-
+	findall(s(Texec,Tsetup),op_prod_client(_,_,_,Prod,Cliente,_,_,Tsetup,Texec),LSS),
+	soma_valores_setup(LSS,Setup),
 	findall(Texec,op_prod_client(_,_,_,Prod,Cliente,_,_,_,Texec),LOPT),
 	sort(0, @>, LOPT, LOPTO),
-	soma_valores_makespan(LOPTO,Qt,MakeSpan).
+	soma_valores_makespan(LOPTO,Qt,MakeSpan,Setup).
 
-soma_valores_makespan([Texec|T],Qt,Makespan):-
-	ValorOpCadencia is Texec * Qt,
+soma_valores_setup([s(Texec,Tsetup)|T],Setup):-
+	soma_valores_setup([s(Texec,Tsetup)|T],0,0,NegativeSetup),Setup is -NegativeSetup.
+
+soma_valores_setup([],_,Setup,Setup):-!.
+soma_valores_setup([s(Texec,Tsetup)|T],TempoActual,Setup,Resultado):-
+	NSetup is TempoActual - Tsetup,
+	NTempoActual is TempoActual + Texec,
+	(
+		(NSetup<Setup,!,soma_valores_setup(T,NTempoActual,NSetup,Resultado))
+		;
+		soma_valores_setup(T,NTempoActual,Setup,Resultado)
+	).
+
+
+soma_valores_makespan([TSoma|T],Qt,Makespan,Setup):-
+	ValorOpCadencia is TSoma * Qt,
 	soma_lista_valores(T,Soma),
-	Makespan is ValorOpCadencia + Soma.
+	Makespan is ValorOpCadencia + Soma + Setup.
 
 soma_lista_valores([],0):-!.
 
@@ -225,6 +242,16 @@ inicializa_solucao_populacao_estavel:-
 	PM is P2/100, 
 	(retract(prob_mutacao(_));true), asserta(prob_mutacao(PM)).
 
+
+gera:-
+	inicializa,
+	gera_populacao(Pop),
+	write('Pop='),write(Pop),nl,
+	avalia_populacao(Pop,PopAv),
+	write('PopAv='),write(PopAv),nl,
+	ordena_populacao(PopAv,PopOrd),
+	geracoes(NG),
+	gera_geracao(0,NG,PopOrd).
 
 gera_tempo:- 
 	inicializa_tempo,
@@ -334,9 +361,19 @@ gera_geracao_base(Pop,PopFinal):-
 	avalia_populacao(NPop,NPopAv),
 	ordena_populacao(NPopAv,PopFinal).
 
+escreve_media_populacao(Pop):-escreve_media_populacao(Pop,0,0).
+
+escreve_media_populacao([],N,Soma):-
+	Media is Soma / N,write('Media de valores da populacao final : '),write(Media),nl.
+escreve_media_populacao([_*V|T],N,Soma):-
+	NN is N + 1,
+	NSoma is Soma + V,
+	escreve_media_populacao(T,NN,NSoma).
+
 gera_geracao(G,G,[H|T]):-!,
 	write('Geracao '), write(G), write(':'), nl, write([H|T]), nl,
-	write('Melhor Solucao: '),write(H),nl.
+	write('Melhor Solucao: '),write(H),nl,
+	escreve_media_populacao([H|T]).
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
