@@ -12,12 +12,12 @@ namespace MasterDataFactory.Models.PersistenceContext
 
         }
 
-        public void Configure(EntityTypeBuilder<ProductionLine> ProductionLineConfiguration)
+        public void Configure(EntityTypeBuilder<ProductionLine> productionLineConfiguration)
         {
-            ProductionLineConfiguration.ToTable("ProductionLines", Context.DEFAULT_SCHEMA);
-            ProductionLineConfiguration.HasKey(o => o.Id);
-            ProductionLineConfiguration.OwnsOne(d => d.Description);
-            ProductionLineConfiguration.HasMany<Machine>(o => o.Machines);
+            productionLineConfiguration.ToTable("ProductionLines", Context.DEFAULT_SCHEMA);
+            productionLineConfiguration.HasKey(o => o.Id);
+            productionLineConfiguration.OwnsOne(d => d.Description);
+            productionLineConfiguration.HasMany<Machine>(o => o.Machines);
         }
     }   
 }

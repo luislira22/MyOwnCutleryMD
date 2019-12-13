@@ -20,7 +20,8 @@ namespace TestProject.MasterDataFactory.Services
             string expectedDescription = "Triturar";
             TimeSpan expectedDuration = new TimeSpan(0, 20, 10);
             string expectedTool = "broca 20mm";
-            Operation expected = new Operation(expectedId, expectedDescription, expectedDuration,expectedTool);
+            TimeSpan expectedSetupTime = new TimeSpan(0,0,20);
+            Operation expected = new Operation(expectedId, expectedDescription, expectedDuration,expectedTool,expectedSetupTime);
 
             OperationService service = new OperationService(context);
             Operation result = await service.GetOperationById(expectedId);

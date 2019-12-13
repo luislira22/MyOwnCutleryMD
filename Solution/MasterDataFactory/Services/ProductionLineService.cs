@@ -31,7 +31,7 @@ namespace MasterDataFactory.Services
             return ProductionLine;
         }
 
-        public async Task<ActionResult<IEnumerable<ProductionLine>>> GetProductionLines()
+        public async Task<IEnumerable<ProductionLine>> GetProductionLines()
         {
             return await _productionLineRepository.GetAll();
         }

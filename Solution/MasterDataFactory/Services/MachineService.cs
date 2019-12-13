@@ -21,7 +21,7 @@ namespace MasterDataFactory.Services
             _machineTypeService = new MachineTypeService(context);
         }
 
-        public async Task<ActionResult<List<Machine>>> GetMachines()
+        public async Task<List<Machine>> GetMachines()
         {
             return await _machineRepository.GetAll();
         }

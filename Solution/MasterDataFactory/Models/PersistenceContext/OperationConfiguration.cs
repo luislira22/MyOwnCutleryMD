@@ -13,6 +13,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             operationConfiguration.OwnsOne(o => o.Description);
             operationConfiguration.OwnsOne(o => o.Duration);
             operationConfiguration.OwnsOne(o => o.Tool);
+            operationConfiguration.OwnsOne(o => o.SetupTime);
         }
     }
 }

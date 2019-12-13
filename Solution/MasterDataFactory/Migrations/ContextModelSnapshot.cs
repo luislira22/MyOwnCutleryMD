@@ -221,6 +221,22 @@ namespace MasterDataFactory.Migrations
                                 .HasForeignKey("MasterDataFactory.Models.Operations.OperationTool", "OperationId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
+
+                    b.OwnsOne("MasterDataFactory.Models.Operations.OperationToolSetupTime", "SetupTime", b1 =>
+                        {
+                            b1.Property<Guid>("OperationId");
+
+                            b1.Property<TimeSpan>("Value");
+
+                            b1.HasKey("OperationId");
+
+                            b1.ToTable("operations");
+
+                            b1.HasOne("MasterDataFactory.Models.Operations.Operation")
+                                .WithOne("SetupTime")
+                                .HasForeignKey("MasterDataFactory.Models.Operations.OperationToolSetupTime", "OperationId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("MasterDataFactory.Models.ProductionLines.ProductionLine", b =>

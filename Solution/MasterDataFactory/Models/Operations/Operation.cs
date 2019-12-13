@@ -16,6 +16,8 @@ namespace MasterDataFactory.Models.Operations
         
         public virtual OperationTool Tool { get; set; }
 
+        public virtual OperationToolSetupTime SetupTime { get; set; }
+
         public virtual List<MachineTypeOperation> MachineTypeOperations { get; set; }
         
         protected Operation()
@@ -23,19 +25,21 @@ namespace MasterDataFactory.Models.Operations
             
         }
 
-        public Operation(string description, TimeSpan duration, string tool)
+        public Operation(string description, TimeSpan duration, string tool,TimeSpan setupTime)
         {
             Tool = new OperationTool(tool);
             Description = new OperationDescription(description);
             Duration = new OperationDuration(duration);
+            SetupTime = new OperationToolSetupTime(setupTime);
         }
 
-        public Operation(Guid id, string description, TimeSpan duration,string tool)
+        public Operation(Guid id, string description, TimeSpan duration,string tool,TimeSpan setupTime)
         {
             Id = id;
             Description = new OperationDescription(description);
             Duration = new OperationDuration(duration);
             Tool = new OperationTool(tool);
+            SetupTime = new OperationToolSetupTime(setupTime);
         }
 
         public Operation(OperationDTO operationDto)
@@ -43,12 +47,13 @@ namespace MasterDataFactory.Models.Operations
             Duration = new OperationDuration(operationDto.Duration);
             Description = new OperationDescription(operationDto.Description);
             Tool = new OperationTool(operationDto.Tool);
+            SetupTime = new OperationToolSetupTime(operationDto.SetupTime);
         }
 
 
         public OperationDTO ToDTO()
         {
-            return new OperationDTO(Id, Description.Value, Duration.Value.ToString(),Tool.Value);
+            return new OperationDTO(Id, Description.Value, Duration.Value.ToString(),Tool.Value,SetupTime.Value.ToString());
         }
         
         public override bool Equals(object obj)

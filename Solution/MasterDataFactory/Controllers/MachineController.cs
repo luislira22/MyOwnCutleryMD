@@ -28,7 +28,7 @@ namespace MasterDataFactory.Controllers
         public async Task<ActionResult<IEnumerable<MachineDTO>>> GetAllMachines()
         {
             var machines = await _serviceMachine.GetMachines();
-            return _mapper.Map<List<Machine>, List<MachineDTO>>(machines.Value);
+            return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
         }
 
         // POST: api/machine

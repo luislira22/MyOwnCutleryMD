@@ -26,7 +26,8 @@ namespace MasterDataFactory.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Duration_Value = table.Column<TimeSpan>(nullable: false),
                     Description_Value = table.Column<string>(nullable: true),
-                    Tool_Value = table.Column<string>(nullable: true)
+                    Tool_Value = table.Column<string>(nullable: true),
+                    SetupTime_Value = table.Column<TimeSpan>(nullable: false)
                 },
                 constraints: table =>
                 {

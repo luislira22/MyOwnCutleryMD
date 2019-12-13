@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MasterDataFactory.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191117213608_InitialCreate")]
+    [Migration("20191212171456_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,22 @@ namespace MasterDataFactory.Migrations
                             b1.HasOne("MasterDataFactory.Models.Operations.Operation")
                                 .WithOne("Tool")
                                 .HasForeignKey("MasterDataFactory.Models.Operations.OperationTool", "OperationId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MasterDataFactory.Models.Operations.OperationToolSetupTime", "SetupTime", b1 =>
+                        {
+                            b1.Property<Guid>("OperationId");
+
+                            b1.Property<TimeSpan>("Value");
+
+                            b1.HasKey("OperationId");
+
+                            b1.ToTable("operations");
+
+                            b1.HasOne("MasterDataFactory.Models.Operations.Operation")
+                                .WithOne("SetupTime")
+                                .HasForeignKey("MasterDataFactory.Models.Operations.OperationToolSetupTime", "OperationId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

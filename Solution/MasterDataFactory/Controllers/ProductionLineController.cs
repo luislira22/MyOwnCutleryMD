@@ -38,7 +38,7 @@ namespace MasterDataFactory.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductionLineDTO>>> GetProductionLines()
         {
-            IEnumerable<ProductionLine> productionLines = (await _serviceProductionLine.GetProductionLines()).Value;
+            IEnumerable<ProductionLine> productionLines = (await _serviceProductionLine.GetProductionLines());
             return productionLines.Select(l => l.toDTO()).ToList();
         }
 
