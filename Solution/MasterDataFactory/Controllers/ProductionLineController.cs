@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.ProductionLines;
+using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.ProductionLines;
 using MasterDataFactory.Services;
@@ -16,7 +17,8 @@ namespace MasterDataFactory.Controllers
     {
         private readonly ProductionLineService _serviceProductionLine;
 
-        public ProductionLineController(Context context){
+        public ProductionLineController(Context context)
+        {
             _serviceProductionLine = new ProductionLineService(context);
         }
 
@@ -43,12 +45,13 @@ namespace MasterDataFactory.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductionLineDTO>> PostProductionLine([FromBody]ProductionLineDTO item)
+        public async Task<ActionResult<ProductionLineDTO>> PostProductionLine([FromBody] ProductionLineDTO item)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 ProductionLine machine = await _serviceProductionLine.PostProductionLine(item);
@@ -73,6 +76,30 @@ namespace MasterDataFactory.Controllers
                 return NotFound(e.Message);
             }
         }
-        
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ProductionLineDTO>> AddMachine(Guid id, [FromBody] string newMachineId)
+        {
+            try
+            {
+                if (newMachineId.Length == 0)
+                {
+                    return BadRequest("Machine Object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                await _serviceProductionLine.AddMachine(id, newMachineId);
+                ProductionLine productionLine = await _serviceProductionLine.GetProductionLineById(id);
+                return productionLine.toDTO();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }
