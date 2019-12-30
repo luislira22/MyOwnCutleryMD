@@ -30,6 +30,12 @@ namespace MasterDataFactory.Controllers
             var machines = await _serviceMachine.GetMachines();
             return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
         }
+        
+        public async Task<ActionResult<IEnumerable<MachineDTO>>> GetAllDeactivatedMachines() {
+        {
+            var machines = await _serviceMachine.GetDeactivatedMachines();
+            return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
+        }}
 
         // POST: api/machine
         [HttpPost]
@@ -61,6 +67,36 @@ namespace MasterDataFactory.Controllers
             {
                 return NotFound("Machine not found");
             }
+        }
+        
+        // POST: api/machine/activate{id}
+        [HttpPost("activate/{id}")]
+        public async Task<IActionResult> ActivateMachine(Guid id)
+        {
+            try
+            {
+                await _serviceMachine.ActivateMachine(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Machine not found");
+            }  
+        }
+        
+        // POST: api/machine/deactivate{id}
+        [HttpPost("deactivate/{id}")]
+        public async Task<IActionResult> DeactivateMachine(Guid id)
+        {
+            try
+            {
+                await _serviceMachine.DeactivateMachine(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Machine not found");
+            }  
         }
 
         [HttpGet("machinetype/{type}")]

@@ -12,6 +12,7 @@ namespace MasterDataFactory.Models.Machines
         public virtual MachineBrand MachineBrand { get; set; }
         public virtual MachineModel MachineModel { get; set; }
         public virtual MachineLocation MachineLocation { get; set; }
+        public virtual MachineState MachineState { get; set; }
 
         public Machine(MachineType machineType, MachineBrand machineBrand, MachineModel machineModel,
             MachineLocation machineLocation)
@@ -20,16 +21,23 @@ namespace MasterDataFactory.Models.Machines
             MachineBrand = machineBrand;
             MachineModel = machineModel;
             MachineLocation = machineLocation;
+            MachineState = new MachineState(State.Activated);
         }
 
         public Machine()
         {
         }
 
-        public MachineDTO toDTO()
+        public bool deactivateMachine()
         {
-            return null; //acho q era fixe fazer isto guilherme
-            //_mapper.Map<Machine, MachineDTO>(this);
+            this.MachineState = new MachineState(State.Deactivated);
+            return true;
+        }
+        
+        public bool activateMachine()
+        {
+            this.MachineState = new MachineState(State.Activated);
+            return true;
         }
     }
 }

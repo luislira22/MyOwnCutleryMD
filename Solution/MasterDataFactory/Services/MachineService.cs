@@ -23,7 +23,7 @@ namespace MasterDataFactory.Services
 
         public async Task<List<Machine>> GetMachines()
         {
-            return await _machineRepository.GetAll();
+            return await _machineRepository.GetAllActivatedMachines();
         }
 
         public async Task<Machine> CreateMachine(MachineDTO machineDTO)
@@ -59,6 +59,25 @@ namespace MasterDataFactory.Services
         public async Task<List<Machine>> GetMachineByType(Guid type)
         {
             return await _machineRepository.GetByType(type);
+        }
+        
+        public async Task<List<Machine>> GetDeactivatedMachines()
+        {
+            return await _machineRepository.GetAllDeactivatedMachines();
+        }
+
+        public async Task ActivateMachine(Guid id)
+        {
+            Machine machine = await GetMachineById(id);
+            machine.activateMachine();
+            await _machineRepository.Update(id, machine);
+        }
+        
+        public async Task DeactivateMachine(Guid id)
+        {
+            Machine machine = await GetMachineById(id);
+            machine.deactivateMachine();
+            await _machineRepository.Update(id, machine);
         }
 
         public async Task UpdateMachineType(Guid machineId, string machineTypeId)
