@@ -67,11 +67,15 @@ namespace MasterDataFactory.Services
             return Machines;
         }
 
-        public async Task AddMachine(Guid Id, string machineId)
+        public async Task AddMachine(Guid Id, string machineId) 
         {
             ProductionLine productionLine = await GetProductionLineById(Id);
             Guid.TryParse(machineId,out Guid machineGuid);
             Machine machine = await _machineService.GetMachineById(machineGuid);
+            if (machine.MachineState.State == State.Deactivated)
+            {
+                throw new Exception("Machine is deactivated");
+            }
             productionLine.Machines.Add(machine);
             await _productionLineRepository.Update(Id, productionLine);
 
