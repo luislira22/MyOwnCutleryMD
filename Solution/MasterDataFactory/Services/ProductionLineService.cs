@@ -67,15 +67,14 @@ namespace MasterDataFactory.Services
             return Machines;
         }
 
-        public async Task AddMachine(Guid Id, string machineId)
+        public async Task UpdateProductionLine(Guid Id, ProductionLineDTO productionLineDTO)
         {
             ProductionLine productionLine = await GetProductionLineById(Id);
-            Guid.TryParse(machineId,out Guid machineGuid);
-            Machine machine = await _machineService.GetMachineById(machineGuid);
-            productionLine.Machines.Add(machine);
+            List<Machine> machines = ValidateMachines(productionLineDTO.Machines).Result;
+            //Machine machine = await _machineService.GetMachineById(machineGuid);
+            productionLine.Description = new ProductionLineDescription(productionLineDTO.description);
+            productionLine.Machines = machines;
             await _productionLineRepository.Update(Id, productionLine);
-
-
         }
 
     }

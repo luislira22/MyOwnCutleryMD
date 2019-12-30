@@ -78,21 +78,15 @@ namespace MasterDataFactory.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductionLineDTO>> AddMachine(Guid id, [FromBody] string newMachineId)
+        public async Task<ActionResult<ProductionLineDTO>> UpdateProductionLine(Guid id,[FromBody] ProductionLineDTO item)
         {
             try
             {
-                if (newMachineId.Length == 0)
-                {
-                    return BadRequest("Machine Object is null");
-                }
-
                 if (!ModelState.IsValid)
                 {
                     return BadRequest("Invalid model object");
                 }
-
-                await _serviceProductionLine.AddMachine(id, newMachineId);
+                await _serviceProductionLine.UpdateProductionLine(id, item);
                 ProductionLine productionLine = await _serviceProductionLine.GetProductionLineById(id);
                 return productionLine.toDTO();
             }
