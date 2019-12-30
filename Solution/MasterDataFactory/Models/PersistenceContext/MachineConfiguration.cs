@@ -15,6 +15,7 @@ namespace MasterDataFactory.Models.PersistenceContext
             machineConfiguration.OwnsOne(o => o.MachineBrand);
             machineConfiguration.OwnsOne(o => o.MachineModel);
             machineConfiguration.OwnsOne(o => o.MachineLocation);
+            machineConfiguration.OwnsOne(o => o.MachineState);
         }
     }
 }

@@ -74,6 +74,10 @@ namespace MasterDataFactory.Services
             //Machine machine = await _machineService.GetMachineById(machineGuid);
             productionLine.Description = new ProductionLineDescription(productionLineDTO.description);
             productionLine.Machines = machines;
+            if (machine.MachineState.State == State.Deactivated)
+            {
+                throw new Exception("Machine is deactivated");
+            }
             await _productionLineRepository.Update(Id, productionLine);
         }
 
