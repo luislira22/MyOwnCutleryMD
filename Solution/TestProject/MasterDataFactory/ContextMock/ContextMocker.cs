@@ -25,9 +25,9 @@ namespace TestProject.MasterDataFactory
         public static void SeedOperations(Context dbContext)
         {
             Operation operation1 = new Operation(new Guid("12345678-1234-1234-1234-123412341234"), "Triturar",
-                new TimeSpan(0, 20, 10),"broca 20mm");
+                new TimeSpan(0, 20, 10),"broca 20mm", new TimeSpan(0, 3, 10));
             Operation operation2 = new Operation(new Guid("12345678-1234-1234-1234-123412341235"), "Martelar",
-                new TimeSpan(0, 30, 10),"Broca 50mm");
+                new TimeSpan(0, 30, 10),"Broca 50mm", new TimeSpan(0, 1, 10));
             dbContext.Operations.Add(operation1);
             dbContext.Operations.Add(operation2);
         }
