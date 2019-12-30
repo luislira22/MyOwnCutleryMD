@@ -38,7 +38,7 @@ namespace MasterDataFactory.Services
         public async Task<ProductionLine> PostProductionLine(ProductionLineDTO productionLineDTO)
         {
             List<Machine> machines = ValidateMachines(productionLineDTO.Machines).Result;
-            ProductionLine productionLine = new ProductionLine(new ProductionLineDescription(productionLineDTO.description),machines);
+            ProductionLine productionLine = new ProductionLine(new ProductionLineDescription(productionLineDTO.description), machines);
             await _productionLineRepository.Create(productionLine);
             return productionLine;
         }
@@ -61,6 +61,11 @@ namespace MasterDataFactory.Services
                 Machine Machine = await _machineService.GetMachineById(id);
                 if (Machine == null)
                     throw new KeyNotFoundException(String.Format("The Machine with id: {0} was not found!", id));
+
+                if (Machine.MachineState.State == State.Deactivated)
+                {
+                    throw new Exception("Machine is deactivated");
+                }
                 if (!Machines.Contains(Machine))
                     Machines.Add(Machine);
             }
@@ -74,10 +79,6 @@ namespace MasterDataFactory.Services
             //Machine machine = await _machineService.GetMachineById(machineGuid);
             productionLine.Description = new ProductionLineDescription(productionLineDTO.description);
             productionLine.Machines = machines;
-            if (machine.MachineState.State == State.Deactivated)
-            {
-                throw new Exception("Machine is deactivated");
-            }
             await _productionLineRepository.Update(Id, productionLine);
         }
 
