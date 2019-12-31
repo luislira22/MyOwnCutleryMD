@@ -170,6 +170,22 @@ namespace MasterDataFactory.Migrations
                                 .HasForeignKey("MasterDataFactory.Models.Machines.MachineModel", "MachineId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
+
+                    b.OwnsOne("MasterDataFactory.Models.Machines.MachineState", "MachineState", b1 =>
+                        {
+                            b1.Property<Guid>("MachineId");
+
+                            b1.Property<int>("State");
+
+                            b1.HasKey("MachineId");
+
+                            b1.ToTable("machine");
+
+                            b1.HasOne("MasterDataFactory.Models.Machines.Machine")
+                                .WithOne("MachineState")
+                                .HasForeignKey("MasterDataFactory.Models.Machines.MachineState", "MachineId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("MasterDataFactory.Models.Operations.Operation", b =>
