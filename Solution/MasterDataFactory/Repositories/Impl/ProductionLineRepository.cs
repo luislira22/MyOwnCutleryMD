@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.ProductionLines;
@@ -17,6 +18,12 @@ namespace MasterDataFactory.Repositories.Impl
         public override async Task<bool> Exists(Guid id)
         {
             return await _context.ProductionLines.AnyAsync(o => o.Id == id);
+        }
+        
+        public async Task<ProductionLine> GetProductionLineByMachine(Guid machineId)
+        {
+            //return await _context.ProductionLines.FirstAsync();
+            return await _context.ProductionLines.FirstAsync(o => o.Machines.Any(m => m.Id == machineId));
         }
     }
 }

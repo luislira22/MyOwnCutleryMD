@@ -31,6 +31,7 @@ namespace MasterDataFactory.Controllers
             return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
         }
         
+        [HttpGet("/deactivated")]
         public async Task<ActionResult<IEnumerable<MachineDTO>>> GetAllDeactivatedMachines() {
         {
             var machines = await _serviceMachine.GetDeactivatedMachines();

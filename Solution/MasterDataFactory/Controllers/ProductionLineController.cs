@@ -86,6 +86,7 @@ namespace MasterDataFactory.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
+
                 await _serviceProductionLine.UpdateProductionLine(id, item);
                 ProductionLine productionLine = await _serviceProductionLine.GetProductionLineById(id);
                 return productionLine.toDTO();
@@ -93,6 +94,10 @@ namespace MasterDataFactory.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
             }
         }
     }

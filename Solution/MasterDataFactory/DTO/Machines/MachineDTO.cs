@@ -9,6 +9,7 @@ namespace MasterDataFactory.DTO.Machines
         public string MachineBrand { get; set; }
         public string MachineModel { get; set; }
         public string MachineLocation { get; set; }
+        public string MachineState { get; set; }
 
         public MachineDTO()
         {

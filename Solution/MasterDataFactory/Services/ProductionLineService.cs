@@ -23,6 +23,12 @@ namespace MasterDataFactory.Services
             _machineService = new MachineService(_context);
         }
 
+        public ProductionLineService(Context _context, MachineService machineService)
+        {
+            _productionLineRepository = new ProductionLineRepository(_context);
+            _machineService = machineService;
+        }
+
         public async Task<ProductionLine> GetProductionLineById(Guid id)
         {
             ProductionLine ProductionLine = await _productionLineRepository.GetById(id);
@@ -80,6 +86,18 @@ namespace MasterDataFactory.Services
             productionLine.Description = new ProductionLineDescription(productionLineDTO.description);
             productionLine.Machines = machines;
             await _productionLineRepository.Update(Id, productionLine);
+        }
+        
+        public async Task RemoveMachineFromProductionLine(Guid machineId)
+        {
+            ProductionLine productionLine = await _productionLineRepository.GetProductionLineByMachine(machineId);
+            List<Machine> newMachinesList = new List<Machine>();
+            foreach (var machine in productionLine.Machines)
+            {
+                if (machine.Id != machineId) newMachinesList.Append(machine);
+            }
+            productionLine.Machines = newMachinesList;
+            await _productionLineRepository.Update(productionLine.Id, productionLine);
         }
 
     }

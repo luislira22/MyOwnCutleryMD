@@ -14,16 +14,19 @@ namespace MasterDataFactory.Services
     {
         private readonly IMachineRepository _machineRepository;
         private readonly MachineTypeService _machineTypeService;
+        private readonly ProductionLineService _productionLineService;
+
 
         public MachineService(Context context)
         {
             _machineRepository = new MachineRepository(context);
             _machineTypeService = new MachineTypeService(context);
+            _productionLineService = new ProductionLineService(context, this);
         }
 
         public async Task<List<Machine>> GetMachines()
         {
-            return await _machineRepository.GetAllActivatedMachines();
+            return await _machineRepository.GetAll();
         }
 
         public async Task<Machine> CreateMachine(MachineDTO machineDTO)
@@ -61,6 +64,11 @@ namespace MasterDataFactory.Services
             return await _machineRepository.GetByType(type);
         }
         
+        public async Task<List<Machine>> GetActivatedMachines()
+        {
+            return await _machineRepository.GetAllActivatedMachines();
+        }
+        
         public async Task<List<Machine>> GetDeactivatedMachines()
         {
             return await _machineRepository.GetAllDeactivatedMachines();
@@ -76,6 +84,7 @@ namespace MasterDataFactory.Services
         public async Task DeactivateMachine(Guid id)
         {
             Machine machine = await GetMachineById(id);
+            await _productionLineService.RemoveMachineFromProductionLine(id);
             machine.deactivateMachine();
             await _machineRepository.Update(id, machine);
         }
