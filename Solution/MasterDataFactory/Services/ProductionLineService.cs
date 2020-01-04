@@ -90,14 +90,17 @@ namespace MasterDataFactory.Services
         
         public async Task RemoveMachineFromProductionLine(Guid machineId)
         {
-            ProductionLine productionLine = await _productionLineRepository.GetProductionLineByMachine(machineId);
-            List<Machine> newMachinesList = new List<Machine>();
-            foreach (var machine in productionLine.Machines)
+            List<ProductionLine> productionLine = await _productionLineRepository.GetProductionLineByMachine(machineId);
+            if (productionLine.Count > 0)
             {
-                if (machine.Id != machineId) newMachinesList.Append(machine);
+                List<Machine> newMachinesList = new List<Machine>();
+                foreach (var machine in productionLine[0].Machines)
+                {
+                    if (machine.Id != machineId) newMachinesList.Append(machine);
+                }
+                productionLine[0].Machines = newMachinesList;
+                await _productionLineRepository.Update(productionLine[0].Id, productionLine[0]);
             }
-            productionLine.Machines = newMachinesList;
-            await _productionLineRepository.Update(productionLine.Id, productionLine);
         }
 
     }

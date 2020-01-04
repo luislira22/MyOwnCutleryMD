@@ -3,10 +3,12 @@ using MasterDataFactory.DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.PersistenceContext;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace MasterDataFactory
 {
@@ -22,6 +24,22 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                    builder => builder.AllowAnyOrigin());
+            });
+            
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
+            });
+            /*services.AddCors(o => o.AddPolicy("SPA", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader().WithHeaders().AllowCredentials();
+            }));*/
             
             services.AddDbContext<Context>(opt =>
                 {
@@ -36,12 +54,7 @@ namespace MasterDataFactory
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddCors(o => o.AddPolicy("SPA", builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
+            
             /*
              * services.AddCors(opt => {opt.AddPolicy("IT3Client",b =>b.WithOrigins("http://localhost:4200"));});
              */
@@ -59,8 +72,10 @@ namespace MasterDataFactory
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseCors("SPA");
+            
+            //app.UseCors("AllowMyOrigin");
+            app.UseCors(policy => policy.SetIsOriginAllowed(h => true)
+                .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

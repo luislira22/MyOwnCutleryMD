@@ -13,7 +13,7 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public MachineRepository(Context context) : base(context)
         {
-            context.Machines.Include(m => m.MachineType).ToListAsync();
+            //context.Machines.Include(m => m.MachineType).ToListAsync();
         }
 
         public override async Task<bool> Exists(Guid id)
