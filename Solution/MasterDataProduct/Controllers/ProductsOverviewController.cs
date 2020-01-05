@@ -2,10 +2,12 @@ using System.Threading.Tasks;
 using MasterDataProduct.DTO.ProductionPlanning;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataProduct.Controllers
-{
+{    
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsOverviewController : ControllerBase
