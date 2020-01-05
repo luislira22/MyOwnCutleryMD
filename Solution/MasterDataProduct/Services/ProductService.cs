@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
 using MasterDataProduct.DTO.ProductionPlanning;
@@ -63,8 +64,10 @@ namespace MasterDataProduct.Services
                 if (!Guid.TryParse(opIdDTO.Id, out guid))
                     throw new FormatException("Invalid Guid format.");
 
-                WebRequest request = WebRequest.Create("https://localhost:5001/api/operation/exists/" + opIdDTO.Id);
+                WebRequest request = WebRequest.Create("https://masterdatafactory.azurewebsites.net/api/operation/exists/" + opIdDTO.Id);
                 HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                
+                StreamReader readStream = new StreamReader (response.GetResponseStream(), Encoding.UTF8);
 
                 if (response.StatusDescription != "OK")
                     throw new WebException("Can't find api request URL");
@@ -75,9 +78,10 @@ namespace MasterDataProduct.Services
                 {
                     exists = Boolean.Parse(reader.ReadToEnd());
                 }
-
                 response.Close();
-
+                
+                if(!exists) throw new KeyNotFoundException("Operation does not exists"); 
+                
                 if(!manufacturingPlan.Ids.Contains(new OperationId(opIdDTO.Id))) 
                     manufacturingPlan.AddOperationId(opIdDTO.Id);
             }

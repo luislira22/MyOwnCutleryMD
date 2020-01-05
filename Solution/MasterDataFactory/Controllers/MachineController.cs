@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MasterDataFactory.DTO.Machines;
+using MasterDataFactory.Helpers;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MasterDataFactory.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class MachineController : ControllerBase
@@ -30,6 +33,13 @@ namespace MasterDataFactory.Controllers
             var machines = await _serviceMachine.GetMachines();
             return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
         }
+        
+        [HttpGet("/deactivated")]
+        public async Task<ActionResult<IEnumerable<MachineDTO>>> GetAllDeactivatedMachines() {
+        {
+            var machines = await _serviceMachine.GetDeactivatedMachines();
+            return _mapper.Map<List<Machine>, List<MachineDTO>>(machines);
+        }}
 
         // POST: api/machine
         [HttpPost]
@@ -61,6 +71,36 @@ namespace MasterDataFactory.Controllers
             {
                 return NotFound("Machine not found");
             }
+        }
+        
+        // POST: api/machine/activate{id}
+        [HttpPost("activate/{id}")]
+        public async Task<IActionResult> ActivateMachine(Guid id)
+        {
+            try
+            {
+                await _serviceMachine.ActivateMachine(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Machine not found");
+            }  
+        }
+        
+        // POST: api/machine/deactivate{id}
+        [HttpPost("deactivate/{id}")]
+        public async Task<IActionResult> DeactivateMachine(Guid id)
+        {
+            try
+            {
+                await _serviceMachine.DeactivateMachine(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Machine not found");
+            }  
         }
 
         [HttpGet("machinetype/{type}")]

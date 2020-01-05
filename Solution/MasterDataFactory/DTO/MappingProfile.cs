@@ -18,7 +18,8 @@ namespace MasterDataFactory.DTO
                 })
                 .ForMember(dest => dest.MachineBrand, act => act.MapFrom(src => src.MachineBrand.Brand))
                 .ForMember(dest => dest.MachineModel, act => act.MapFrom(src => src.MachineModel.Model))
-                .ForMember(dest => dest.MachineLocation, act => act.MapFrom(src => src.MachineLocation.Location));
+                .ForMember(dest => dest.MachineLocation, act => act.MapFrom(src => src.MachineLocation.Location))
+                .ForMember(dest => dest.MachineState, act => act.MapFrom(src => src.MachineState.State));
         }
     }
 }

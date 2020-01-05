@@ -13,7 +13,7 @@ namespace MasterDataFactory.Repositories.Impl
     {
         public MachineRepository(Context context) : base(context)
         {
-            context.Machines.Include(m => m.MachineType).ToListAsync();
+            //context.Machines.Include(m => m.MachineType).ToListAsync();
         }
 
         public override async Task<bool> Exists(Guid id)
@@ -25,6 +25,20 @@ namespace MasterDataFactory.Repositories.Impl
         {
             List<Machine> machines = await _context.Machines.Where(e => e.MachineType.Id == idType).ToListAsync();
            return machines;
+        }
+        
+        public async Task<List<Machine>> GetAllActivatedMachines()
+        {
+            List<Machine> machines = 
+                await _context.Machines.Where(e => e.MachineState.State == State.Activated).ToListAsync();
+            return machines;
+        }
+
+        public async Task<List<Machine>> GetAllDeactivatedMachines()
+        {
+            List<Machine> machines =
+                await _context.Machines.Where(e => e.MachineState.State == State.Deactivated).ToListAsync();
+            return machines;
         }
     }
 }

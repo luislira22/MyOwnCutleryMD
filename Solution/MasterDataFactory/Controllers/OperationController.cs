@@ -4,12 +4,15 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.Operations;
+using MasterDataFactory.Helpers;
 using MasterDataFactory.Models.Operations;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MasterDataFactory.Controllers
-{
+{    
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class OperationController : ControllerBase

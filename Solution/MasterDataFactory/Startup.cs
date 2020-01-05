@@ -1,12 +1,18 @@
+using System.Text;
 using AutoMapper;
 using MasterDataFactory.DTO;
+using MasterDataFactory.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MasterDataFactory.Models.PersistenceContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MasterDataFactory
 {
@@ -22,6 +28,47 @@ namespace MasterDataFactory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                    builder => builder.AllowAnyOrigin());
+            });
+            
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
+            });
+            /*services.AddCors(o => o.AddPolicy("SPA", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader().WithHeaders().AllowCredentials();
+            }));*/
+            
             services.AddDbContext<Context>(opt =>
                 {
                     opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("AzureDB"));
@@ -35,12 +82,7 @@ namespace MasterDataFactory
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddCors(o => o.AddPolicy("SPA", builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
+            
             /*
              * services.AddCors(opt => {opt.AddPolicy("IT3Client",b =>b.WithOrigins("http://localhost:4200"));});
              */
@@ -58,8 +100,10 @@ namespace MasterDataFactory
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseCors("SPA");
+            
+            //app.UseCors("AllowMyOrigin");
+            app.UseCors(policy => policy.SetIsOriginAllowed(h => true)
+                .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

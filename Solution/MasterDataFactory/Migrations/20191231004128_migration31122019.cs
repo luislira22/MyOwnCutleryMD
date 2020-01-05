@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MasterDataFactory.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class migration31122019 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,6 +79,7 @@ namespace MasterDataFactory.Migrations
                     MachineBrand_Brand = table.Column<string>(nullable: true),
                     MachineModel_Model = table.Column<string>(nullable: true),
                     MachineLocation_Location = table.Column<string>(nullable: true),
+                    MachineState_State = table.Column<int>(nullable: false),
                     ProductionLineId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>

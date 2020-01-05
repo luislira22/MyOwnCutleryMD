@@ -23,6 +23,12 @@ namespace MasterDataFactory.Services
             _machineService = new MachineService(_context);
         }
 
+        public ProductionLineService(Context _context, MachineService machineService)
+        {
+            _productionLineRepository = new ProductionLineRepository(_context);
+            _machineService = machineService;
+        }
+
         public async Task<ProductionLine> GetProductionLineById(Guid id)
         {
             ProductionLine ProductionLine = await _productionLineRepository.GetById(id);
@@ -38,7 +44,7 @@ namespace MasterDataFactory.Services
         public async Task<ProductionLine> PostProductionLine(ProductionLineDTO productionLineDTO)
         {
             List<Machine> machines = ValidateMachines(productionLineDTO.Machines).Result;
-            ProductionLine productionLine = new ProductionLine(new ProductionLineDescription(productionLineDTO.description),machines);
+            ProductionLine productionLine = new ProductionLine(new ProductionLineDescription(productionLineDTO.description), machines);
             await _productionLineRepository.Create(productionLine);
             return productionLine;
         }
@@ -61,10 +67,40 @@ namespace MasterDataFactory.Services
                 Machine Machine = await _machineService.GetMachineById(id);
                 if (Machine == null)
                     throw new KeyNotFoundException(String.Format("The Machine with id: {0} was not found!", id));
+
+                if (Machine.MachineState.State == State.Deactivated)
+                {
+                    throw new Exception("Machine is deactivated");
+                }
                 if (!Machines.Contains(Machine))
                     Machines.Add(Machine);
             }
             return Machines;
+        }
+
+        public async Task UpdateProductionLine(Guid Id, ProductionLineDTO productionLineDTO)
+        {
+            ProductionLine productionLine = await GetProductionLineById(Id);
+            List<Machine> machines = ValidateMachines(productionLineDTO.Machines).Result;
+            //Machine machine = await _machineService.GetMachineById(machineGuid);
+            productionLine.Description = new ProductionLineDescription(productionLineDTO.description);
+            productionLine.Machines = machines;
+            await _productionLineRepository.Update(Id, productionLine);
+        }
+        
+        public async Task RemoveMachineFromProductionLine(Guid machineId)
+        {
+            List<ProductionLine> productionLine = await _productionLineRepository.GetProductionLineByMachine(machineId);
+            if (productionLine.Count > 0)
+            {
+                List<Machine> newMachinesList = new List<Machine>();
+                foreach (var machine in productionLine[0].Machines)
+                {
+                    if (machine.Id != machineId) newMachinesList.Append(machine);
+                }
+                productionLine[0].Machines = newMachinesList;
+                await _productionLineRepository.Update(productionLine[0].Id, productionLine[0]);
+            }
         }
 
     }

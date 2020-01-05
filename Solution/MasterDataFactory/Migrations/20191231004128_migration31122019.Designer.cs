@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MasterDataFactory.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191212171456_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20191231004128_migration31122019")]
+    partial class migration31122019
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,22 @@ namespace MasterDataFactory.Migrations
                             b1.HasOne("MasterDataFactory.Models.Machines.Machine")
                                 .WithOne("MachineModel")
                                 .HasForeignKey("MasterDataFactory.Models.Machines.MachineModel", "MachineId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MasterDataFactory.Models.Machines.MachineState", "MachineState", b1 =>
+                        {
+                            b1.Property<Guid>("MachineId");
+
+                            b1.Property<int>("State");
+
+                            b1.HasKey("MachineId");
+
+                            b1.ToTable("machine");
+
+                            b1.HasOne("MasterDataFactory.Models.Machines.Machine")
+                                .WithOne("MachineState")
+                                .HasForeignKey("MasterDataFactory.Models.Machines.MachineState", "MachineId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
