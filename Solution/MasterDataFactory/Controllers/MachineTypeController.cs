@@ -5,13 +5,16 @@ using System.Threading.Tasks;
 using MasterDataFactory.DTO;
 using MasterDataFactory.DTO.MachineType;
 using MasterDataFactory.DTO.Operations;
+using MasterDataFactory.Helpers;
 using MasterDataFactory.Models.MachineTypes;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataFactory.Controllers
-{
+{    
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class MachineTypeController : ControllerBase

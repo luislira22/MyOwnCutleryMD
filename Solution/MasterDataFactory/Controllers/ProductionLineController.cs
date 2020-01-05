@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasterDataFactory.DTO.ProductionLines;
+using MasterDataFactory.Helpers;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.ProductionLines;
 using MasterDataFactory.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataFactory.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductionLineController : ControllerBase

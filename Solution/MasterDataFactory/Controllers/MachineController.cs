@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MasterDataFactory.DTO.Machines;
+using MasterDataFactory.Helpers;
 using MasterDataFactory.Models.PersistenceContext;
 using MasterDataFactory.Models.Machines;
 using MasterDataFactory.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MasterDataFactory.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class MachineController : ControllerBase

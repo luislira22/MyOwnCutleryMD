@@ -53,8 +53,6 @@ namespace MasterDataProduct
                 })
                 .AddJwtBearer(x =>
                 {
-                    Console.WriteLine("############################");
-              
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
                     x.TokenValidationParameters = new TokenValidationParameters
