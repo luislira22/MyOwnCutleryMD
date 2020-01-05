@@ -18,7 +18,12 @@ namespace MasterDataProduct.Models.Products
             Ref refTmp = (Ref)obj;
             return Value.Equals(refTmp.Value);
         }
-        
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return Value;

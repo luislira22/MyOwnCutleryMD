@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
+using MasterDataProduct.DTO.ProductionPlanning;
 using MasterDataProduct.DTO.Products;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
@@ -32,7 +34,7 @@ namespace MasterDataProduct.Services
         }
 
 
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _productRepository.GetAll();
         }
@@ -81,6 +83,44 @@ namespace MasterDataProduct.Services
             }
 
             return manufacturingPlan;
+        }
+        public async Task<ProductsOverviewDTO> GetProductsOverview()
+        {
+            //get all products
+            IEnumerable allProducts = await this.GetProducts();
+            
+            //create DTO
+            ProductsOverviewDTO povDto = new ProductsOverviewDTO();
+            
+            
+            //create list of products with operations sequence
+            List<ProductOperationsDTO> poDtoL = new List<ProductOperationsDTO>();
+
+            foreach (Product product in allProducts)
+            {
+                string productReference = product.Id.ToString();
+
+                //Product operations DTO
+                ProductOperationsDTO poDto = new ProductOperationsDTO();
+                poDto.Product = productReference;
+
+                //product Operations list
+                List<string> operationsSequence = new List<string>();
+                foreach (OperationId operationId in product.Plan.Ids)
+                {
+                    operationsSequence.Add(operationId.Value);
+                }
+
+                //set sequence in dto
+                poDto.Operations = operationsSequence;
+
+                //add product operations to temporary list
+                poDtoL.Add(poDto);
+            }
+            //set all products with operation sequence
+            povDto.ProductOperations = poDtoL;
+
+            return povDto;
         }
     }
 }

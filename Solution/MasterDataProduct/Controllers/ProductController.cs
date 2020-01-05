@@ -8,6 +8,7 @@ using MasterDataProduct.DTO.Products;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch.Internal;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,12 +26,13 @@ namespace MasterDataProduct.Controllers
             _serviceProduct = new ProductService(context);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
         {
             try
             {
-                var products = (List<Product>) (await _serviceProduct.GetProducts()).Value;
+                var products = (List<Product>) (await _serviceProduct.GetProducts());
                 return products.Select(m => m.ToDto()).ToList();
             }
             catch (NullReferenceException)
@@ -78,6 +80,7 @@ namespace MasterDataProduct.Controllers
             }
             catch (WebException e)
             {
+                Console.Write(e.StackTrace);
                 return BadRequest(e.Message);
             }
             catch (ArgumentException e)

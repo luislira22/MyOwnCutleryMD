@@ -23,12 +23,16 @@ namespace MasterDataFactory.Services
         }
         public async Task<FactoryOverviewDTO> GetFactoryOverview()
         {
-            FactoryOverviewDTO factoryOverviewDto = new FactoryOverviewDTO();
-            
-            //IEnumerable machines = await _machineService.GetMachines();
-            //IEnumerable operations = await _operationService.GetOperations();
-            IEnumerable productionLines = await _productionLineService.GetProductionLines();
 
+            int productionLineCounter = 0;
+            int machineCounter = 0;
+            
+            FactoryOverviewDTO factoryOverviewDto = new FactoryOverviewDTO();
+           
+            IEnumerable productionLines = await _productionLineService.GetProductionLines();
+            
+            //DTO belongings
+            List<string> lines = new List<string>();
             List<ProductionLineMachinesDTO> plmDtoL = new List<ProductionLineMachinesDTO>();
             List<MachineOperationDTO> moDtoL = new List<MachineOperationDTO>();
             
@@ -36,28 +40,31 @@ namespace MasterDataFactory.Services
             {
                 List<string> machines = new List<string>();
                 ProductionLineMachinesDTO plmDTO = new ProductionLineMachinesDTO();
-                plmDTO.ProductionLine = productionLine.Id.ToString();
+                lines.Add($"l{productionLineCounter}");
+                plmDTO.ProductionLine = $"l{productionLineCounter}";
+                productionLineCounter++;
                 foreach (Machine machine in productionLine.Machines)
                 {
-                    machines.Add(machine.Id.ToString());
+                    machines.Add($"m{machineCounter}");
                     foreach ( MachineTypeOperation machineTypeOperation in machine.MachineType.MachineTypeOperations)
                     {
                         MachineOperationDTO moDTO = new MachineOperationDTO();
                         Operation operation = machineTypeOperation.Operation;
                         
-                        moDTO.OperationType = operation.Description.Value;
-                        moDTO.Machine = machine.Id.ToString();
+                        moDTO.OperationType = operation.Id.ToString();
+                        moDTO.Machine = $"m{machineCounter}";
                         moDTO.Tool = operation.Tool.Value;
                         moDTO.ExecutionTime= operation.Duration.Value.TotalSeconds;
                         moDTO.SetupTime = operation.SetupTime.Value.TotalSeconds;
 
                         moDtoL.Add(moDTO);
                     }
+                    machineCounter++;
                 }
                 plmDTO.Machines = machines;
                 plmDtoL.Add(plmDTO);
             }
-
+            factoryOverviewDto.ProductionLines = lines;
             factoryOverviewDto.OperationMachines = moDtoL;
             factoryOverviewDto.ProductionLineMachines = plmDtoL;
             return factoryOverviewDto;
