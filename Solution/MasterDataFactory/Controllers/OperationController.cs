@@ -23,7 +23,8 @@ namespace MasterDataFactory.Controllers
         {
             _service = new OperationService(_context);
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("exists/{id}")]
         public async Task<ActionResult<bool>> OperationExists(Guid id)
         {

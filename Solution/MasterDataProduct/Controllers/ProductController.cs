@@ -28,7 +28,7 @@ namespace MasterDataProduct.Controllers
             _serviceProduct = new ProductService(context);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
         {
@@ -42,7 +42,8 @@ namespace MasterDataProduct.Controllers
                 return NoContent();
             }
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct(Guid id)
         {
