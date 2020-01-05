@@ -104,6 +104,7 @@ namespace MasterDataFactory
             //app.UseCors("AllowMyOrigin");
             app.UseCors(policy => policy.SetIsOriginAllowed(h => true)
                 .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
