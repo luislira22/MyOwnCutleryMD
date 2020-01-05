@@ -5,14 +5,17 @@ using System.Net;
 using System.Threading.Tasks;
 using MasterDataProduct.DTO;
 using MasterDataProduct.DTO.Products;
+using MasterDataProduct.Helpers;
 using MasterDataProduct.Models.Products;
 using MasterDataProduct.PersistenceContext;
 using MasterDataProduct.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterDataProduct.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
